@@ -1,0 +1,197 @@
+<template>
+  <ValidObs ref="form" v-slot="{ handleSubmit }">
+    <div class="mt-4">
+      <div class="px-3">
+        <div class="grid gap-6 mb-2 grid-cols-2">
+          <ValidPro v-slot="{ errors }" rules="required" name="วันที่จัดงาน">
+            <base-input v-model="quotation.date" type="date" placeholder="วันที่จัดงาน *" label="วันที่จัดงาน *" />
+            <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+          </ValidPro>
+          <div class="mt-4">
+            <ValidPro v-slot="{ errors }" rules="required" name="เวลาพร้อมทาน">
+              <label for="เวลาพร้อมทาน" class="label_base">เวลาพร้อมทาน ({{ quotation.time }})</label>
+
+              <input
+                v-model="quotation.time"
+                class="input_base"
+                type="time"
+                name="เวลาพร้อมทาน"
+              >
+
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <label for="last_name" class="label_base">รายละเอียดที่อยู่</label>
+          <ValidPro v-slot="{ errors }" rules="required" name="รายละเอียดที่อยู่">
+            <textarea v-model="quotation.address" rows="4" type="text" class="input_base_textarea" />
+            <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+          </ValidPro>
+        </div>
+        <div class="grid gap-6 mb-2 grid-cols-2">
+          <div>
+            <label class="label_base ">จังหวัด</label>
+            <ValidPro v-slot="{ errors }" rules="required" name="จังหวัด">
+              <select
+                v-model="quotation.province"
+                class="w-full input_base"
+
+                @change="
+                  quotation.district = ''
+                  quotation.subdistrict = ''
+                  quotation.post_code = '' "
+              >
+                <option v-for="(province, i) in optionsProvince" :key="i" :value="province">
+                  {{ province }}
+                </option>
+              </select>
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
+
+          <div>
+            <label for="last_name" class="label_base">เขต/อำเภอ *</label>
+            <ValidPro v-slot="{ errors }" rules="required" name="เขต/อำเภอ">
+              <select
+                v-model="quotation.district"
+                class="w-full input_base"
+                @change=" quotation.subdistrict = ''
+                          quotation.post_code = ''"
+              >
+                <option v-for="(city, key) in optionsCity" :key="key" :value="key">
+                  {{ key }}
+                </option>
+              </select>
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
+
+          <div class="mb-2">
+            <label for="last_name" class="label_base">แขวง/ตำบล *</label>
+            <ValidPro v-slot="{ errors }" rules="required" name="แขวง/ตำบล">
+              <select
+                v-model="quotation.subdistrict"
+                class="w-full input_base"
+              >
+                <option v-for="(district, i) in optionsDistrict" :key="i" :value="district">
+                  {{ district }}
+                </option>
+              </select>
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
+
+          <div class="mb-2">
+            <label for="last_name" class="label_base">รหัสไปรษีย์ *</label>
+            <ValidPro v-slot="{ errors }" rules="required" name="รหัสไปรษีย์">
+              <select
+                v-model="quotation.post_code"
+                class="w-full input_base"
+              >
+                <option v-for="zipcode in optionsZipcode" :key="zipcode" :value="zipcode.toString()">
+                  {{ zipcode }}
+                </option>
+              </select>
+
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label for="last_name" class="label_base">ลิฟท์ขนของ *</label>
+          <ValidPro v-slot="{ errors }" rules="required" name="ลิฟท์ขนของ">
+            <select
+              v-model="quotation.cargo_lift"
+              class="w-full input_base"
+            >
+              <option :value="true">
+                มี
+              </option>
+              <option :value="false">
+                ไม่มี
+              </option>
+            </select>
+
+            <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+          </ValidPro>
+        </div>
+
+        <div class="mb-2">
+          <label for="last_name" class="label_base">เบอร์โทรสำรอง *</label>
+          <ValidPro v-slot="{ errors }" rules="required|phone_th" name="เบอร์โทรสำรอง">
+            <input v-model="quotation.phone_backup" type="number" class="input_base">
+            <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+          </ValidPro>
+        </div>
+      </div>
+      <the-footer-button>
+        <template #button>
+          <button type="button" class="button_base" @click="handleSubmit(submit)">
+            รับใบเสนอราคา
+          </button>
+          <button type="button" class="text-main bg-white border-2 border-main  focus:outline-none  font-medium rounded-full title_label px-10 py-2.5 w-full text-center  mt-4">
+            ติดต่อเจ้าหน้าที่
+          </button>
+        </template>
+      </the-footer-button>
+    </div>
+  </ValidObs>
+</template>
+
+<script>
+import dbAddress from '@/static/json/address.json'
+import dbZipcode from '@/static/json/zipcode.json'
+import dbDistrict from '@/static/json/district.json'
+export default {
+  data () {
+    return {
+      yourValue: null,
+      dbAddress,
+      dbZipcode,
+      dbDistrict,
+      quotation: {
+        date: null,
+        time: null,
+        address: '',
+        province: '',
+        subdistrict: '',
+        district: '',
+        post_code: '',
+        cargo_lift: false,
+        phone_backup: ''
+      }
+    }
+  },
+  computed: {
+    optionsProvince () {
+      return Object.keys(dbZipcode)
+    },
+    optionsCity () {
+      return dbZipcode[this.quotation.province]
+    },
+    optionsDistrict () {
+      if (this.quotation.province && this.quotation.district) {
+        return dbDistrict[this.quotation.province][this.quotation.district]
+      }
+      return false
+    },
+    optionsZipcode () {
+      if (this.quotation.province && this.quotation.district) {
+        return dbZipcode[this.quotation.province][this.quotation.district]
+      }
+      return false
+    }
+  },
+  methods: {
+    submit () {
+      this.$emit('handleSubmitInformation', this.quotation)
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

@@ -1,0 +1,20 @@
+[
+    {
+    "name" : "DUO SET (2 เมนู)",
+    "price" : 69,
+    "maxmenu" : 2,
+    "value" : 1
+    },
+    {
+    "name" : "TRIO SET (3 เมนู)",
+    "price" : 109,
+    "maxmenu" : 3,
+    "value" : 2
+        },
+    {
+    "name" : "ข้าวกล่อง ราคาพิเศษ",
+    "price" : 49,
+    "maxmenu" : 5,
+    "value" : 3
+    }
+]

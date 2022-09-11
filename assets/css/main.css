@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    background-color: #1C3E23;
+    color: #383634;
+  }
+  
+* {
+    scroll-behavior: smooth;
+    font-family: 'Prompt', sans-serif;
+  }
+
+.title_label {
+  @apply text-[12pt]
+}
+
+.input_base {
+  @apply block py-2.5 px-4 w-full text-[#142917] bg-gray-50 rounded-full border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
+}
+
+.input_base_textarea {
+  @apply block py-2.5 px-4 w-full text-[#142917] bg-gray-50 rounded-md border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
+}
+
+.label_base {
+  @apply ml-2 text-[12pt] font-medium text-white
+}
+
+.label_error {
+  @apply text-red-500 text-sm mt-2 ml-2
+}
+
+.button_base {
+  @apply text-white w-full bg-gradient-to-b from-[#EEDAB9] via-[#C68B67] to-[#875D51] hover:bg-gradient-to-bl  focus:outline-none    rounded-full text-[12pt] px-5 py-2.5 text-center 
+}
+
+button {
+    @apply cursor-pointer
+}
+  
+
+.border-card {
+  @apply rounded bg-white p-5 mb-3 w-1/3 text-center
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #C68B67 transparent #C68B67 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.shadow-main {
+  box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
+}
+
+:disabled {
+  @apply cursor-not-allowed bg-gray-200 border-gray-300 text-gray-900
+}
+
+.footer-layout {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  padding: 10px 10px 10px 10px;
+}
