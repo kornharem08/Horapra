@@ -178,21 +178,50 @@
       </div>
     </section>
 
-    <section v-if="step === 3">
-      <!-- <div class="px-3 ">
-        <div class="flex justify-center items-center border rounded my-4 h-40 text-white">
-          รูปภาพ
+    <section v-if="step === 4" class="step4">
+      <div class="mt-6 px-3">
+        <div class="flex flex-row justify-between mb-2 label_base">
+          <p class="font-medium   ">
+            ชื่อ-นามสกุล
+          </p>
+          <p class=" ">
+            {{ $store.state.users.name }}
+          </p>
         </div>
-      </div> -->
+        <div class="flex flex-row justify-between mb-2 label_base">
+          <p class="font-medium    ">
+            เบอร์โทร
+          </p>
+          <p class="">
+            {{ $store.state.users.phone }}
+          </p>
+        </div>
+        <div class="flex flex-row justify-between mb-2 label_base">
+          <p class="font-medium  leading-4  ">
+            อีเมล์
+          </p>
+          <p class="">
+            {{ $store.state.users.email }}
+          </p>
+        </div>
+        <div class="flex flex-row justify-between mb-2 label_base">
+          <p class="font-medium  w-1/2">
+            เมนูที่เลือก
+          </p>
+          <p class="w-1/2 text-right">
+            {{ listMenu.join(', ') }}
+          </p>
+        </div>
+      </div>
     </section>
 
-    <section v-if="step === 4" class="step4">
+    <section v-if="step === 5" class="step5">
       <the-quotation @handleSubmitInformation="submit" />
     </section>
 
     <the-footer-button>
       <template #button>
-        <button v-if="step === 1 && setNumber !== 1" type="button" class="button_base " @click="step++">
+        <button v-if="(step === 1 && setNumber !== 1 ) || step === 4" type="button" class="button_base " @click="step++">
           ถัดไป
         </button>
         <button v-if="step === 2" type="button" class="button_base " @click="handleresulte">
@@ -216,6 +245,7 @@
       </button>
     </div> -->
     <modalfinish v-if="isFinish" @close="handelfinish" />
+    <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
   </div>
 </template>
 
@@ -223,6 +253,7 @@
 
 import BaseButtonBack from '../../components/Base/BaseButtonBack.vue'
 import modalfinish from '../../components/Modal/finish.vue'
+import ModalguestInformation from '../../components/Modal/modalguestInformation.vue'
 import boxset from '@/static/json/boxset.json'
 import boxsetmenu from '@/static/json/boxset/menu.json'
 import lunchset from '@/static/json/lunchset.json'
@@ -232,7 +263,8 @@ import luchTriomenu from '@/static/json/lunchmenu/lunchboxtrioset.json'
 export default {
   components: {
     BaseButtonBack,
-    modalfinish
+    modalfinish,
+    ModalguestInformation
   },
   data () {
     return {
@@ -255,7 +287,8 @@ export default {
       },
       menu: [],
       fields: {},
-      set: this.$route.query.set ? this.$route.query.set : 1
+      set: this.$route.query.set ? this.$route.query.set : 1,
+      isModalinfo: false
     }
   },
   computed: {
@@ -282,6 +315,10 @@ export default {
       } else {
         return this.selectBox.name ? this.selectBox.name : 'ย้อนกลับ'
       }
+    },
+    listMenu () {
+      return this.menu.reduce((a, currentValue) =>
+        [...a, Number(this.setNumber) !== 2 ? `(${currentValue.name})${currentValue.menu} x ${currentValue.count}` : `${currentValue.menu} x ${currentValue.count}`], [])
     }
   },
   mounted () {
@@ -347,6 +384,9 @@ export default {
       if (this.menu.length > 0) {
         this.$refs.validator3.validate().then((res) => {
           if (res) {
+            if ((!this.$store.state.users.name || !this.$store.state.users.phone || !this.$store.state.users.email)) {
+              this.isModalinfo = true
+            }
             this.step++
           }
         })
@@ -429,8 +469,6 @@ export default {
           this.menu.push(element)
         }
       })
-
-      console.log(this.menu)
 
       this.step++
     },

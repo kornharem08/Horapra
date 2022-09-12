@@ -181,6 +181,7 @@
       <the-quotation @handleSubmitInformation="submit" />
     </section>
     <modalfinish v-if="isFinish" @close="handelfinish" />
+    <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
   </div>
 </template>
 
@@ -190,13 +191,14 @@ import Card from '../../components/Card.vue'
 import TheQuotation from '../../components/TheQuotation.vue'
 import BaseButtonBack from '../../components/Base/BaseButtonBack.vue'
 import modalfinish from '../../components/Modal/finish.vue'
+import ModalguestInformation from '../../components/Modal/modalguestInformation'
 import priceBuffet from '@/static/json/priceBuffet.json'
 import guestBuffet from '@/static/json/guestBuffet.json'
 import monkBuffet from '@/static/json/monkBuffet.json'
 import accessories from '@/static/json/accessories.json'
 
 export default {
-  components: { BaseInput, Card, TheQuotation, BaseButtonBack, modalfinish },
+  components: { BaseInput, Card, TheQuotation, BaseButtonBack, modalfinish, ModalguestInformation },
   data () {
     return {
       step: 1,
@@ -208,6 +210,7 @@ export default {
       setbuffet: 1,
       setStyle: 1,
       isFinish: false,
+      isModalinfo: false,
       monk: 1,
       guests: 1,
       setPrice: 1,
@@ -290,6 +293,9 @@ export default {
       }
     },
     next () {
+      if (this.step === 2 && (!this.$store.state.users.name || !this.$store.state.users.phone || !this.$store.state.users.email)) {
+        this.isModalinfo = true
+      }
       this.step++
     },
     submit (data) {

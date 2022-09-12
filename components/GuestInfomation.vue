@@ -2,7 +2,7 @@
   <ValidObs ref="form" v-slot="{ handleSubmit }">
     <div class=" px-3 flex flex-col items-center justify-center py-5">
       <div class="text-xl text-center mb-5 font-bold text-[#C68B67]">
-        ขอทำความรู้จักคุณลูกค้าหน่อยนะคะ
+        {{ title }}
       </div>
       <form class="w-full">
         <ValidPro v-slot="{ errors }" rules="required" name="ชื่อ-นามสกุล">
@@ -29,19 +29,26 @@
 
 <script>
 export default {
+  props: {
+    title: {
+      type: String,
+      default: 'ขอทำความรู้จักคุณลูกค้าหน่อยนะคะ'
+    }
+  },
   data () {
     return {
       users: {
-        name: 'ธนกร พิทักษ์ชัยชาญ',
-        phone: '0805122424',
-        email: 'tana_korn01@hotmail.com'
+        name: '',
+        phone: '',
+        email: ''
       }
     }
   },
   methods: {
     submit () {
       this.$store.dispatch('setUsers', this.users)
-      this.$router.push('/menu')
+      this.$emit('submit')
+      // this.$router.push('/menu')
     }
   }
 }

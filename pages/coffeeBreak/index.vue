@@ -192,11 +192,13 @@
       <the-quotation @handleSubmitInformation="submit" />
     </section>
     <modalfinish v-if="isFinish" @close="handelfinish" />
+    <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
   </div>
 </template>
 
 <script>
 import modalfinish from '../../components/Modal/finish.vue'
+import ModalguestInformation from '../../components/Modal/modalguestInformation'
 import coffeebreak from '@/static/json/coffeebreak.json'
 const coffeeSet = [
   {
@@ -238,8 +240,10 @@ const boiledRice = [
 ]
 export default {
   components: {
-    modalfinish
+    modalfinish,
+    ModalguestInformation
   },
+
   data () {
     return {
       coffeebreak,
@@ -259,7 +263,8 @@ export default {
       orders: [],
       resultOrder: '',
       isFinish: false,
-      fields: {}
+      fields: {},
+      isModalinfo: false
     }
   },
   computed: {
@@ -422,6 +427,9 @@ export default {
       this.step = 1
     },
     handleListOrder () {
+      if (this.step === 3 && (!this.$store.state.users.name || !this.$store.state.users.phone || !this.$store.state.users.email)) {
+        this.isModalinfo = true
+      }
       this.resultOrder = this.orders.map((el) => { return `${el.name} ${el.price} บาท x ${el.count} ` })
       this.step++
     },
