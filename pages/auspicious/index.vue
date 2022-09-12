@@ -1,5 +1,5 @@
 <template>
-  <div class=" ">
+  <div class=" pb-10">
     <base-button-back :title="step === 1 ? 'กลับหน้าหลัก' : 'สิริมงคล'" @back="back" />
     <section v-if="step === 1 " class="p-3">
       <div>
