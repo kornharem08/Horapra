@@ -24,7 +24,7 @@
       </div>
     </section>
     <ValidObs ref="validator4">
-      <section v-if="step === 2 && $route.query.set !== 2" class="p-3 pb-12">
+      <section v-if="step === 2 && Number($route.query.set) !== 2" class="p-3 pb-12">
         <div>
           <span v-if="setName" class="text-white"> {{ setName }}</span>
           <div class="h-32 w-full text-center border text-white rounded flex itmes-center justify-center">
@@ -78,7 +78,6 @@
               @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
               @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
             >
-            <!-- <base-input v-model="packages.monk" type="text" placeholder="จำนวนพระสงฆ์ *" label="ระบุจำนวนพระสงฆ์*" /> -->
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
         </div>
@@ -118,7 +117,7 @@
         </div>
       </section>
     </ValidObs>
-    <ValidObs v-if="step === 2 && $route.query.set === 2" ref="validator3">
+    <ValidObs ref="validator3">
       <section v-if="step === 2 && $route.query.set === 2" class="px-3 pt-3 pb-6">
         <div>
           <span v-if="setName" class="text-white"> {{ setName }}</span>
@@ -208,13 +207,10 @@
           </div>
         </div>
       </div>
-      <the-footer-button>
-        <template #button>
-          <button type="button" class="button_base" @click="next">
-            ถัดไป
-          </button>
-        </template>
-      </the-footer-button>
+
+      <button type="button" class="button_base" @click="next">
+        ถัดไป
+      </button>
     </section>
 
     <section v-if="step === 5" class="">
@@ -274,28 +270,22 @@
             ถัดไป
           </button> -->
       </div>
-      <the-footer-button>
-        <template #button>
-          <button type="button" class="button_base" @click="next">
-            ถัดไป
-          </button>
-        </template>
-      </the-footer-button>
+
+      <button type="button" class="button_base" @click="next">
+        ถัดไป
+      </button>
     </section>
 
     <section v-show="step === 6" class="step4 ">
       <the-quotation @handleSubmitInformation="submit" />
     </section>
-    <the-footer-button>
-      <template #button>
-        <button v-show=" step === 2" type="button" class="button_base " @click="next(1)">
-          ถัดไป
-        </button>
-        <button v-show=" step === 2" type="button" class="button_base mt-4" @click="next(2)">
-          เลือกแพ็คเกจอาหาร
-        </button>
-      </template>
-    </the-footer-button>
+
+    <button v-show=" step === 2" type="button" class="button_base " @click="next(1)">
+      ถัดไป
+    </button>
+    <button v-show=" step === 2" type="button" class="button_base mt-4" @click="next(2)">
+      เลือกแพ็คเกจอาหาร
+    </button>
 
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
