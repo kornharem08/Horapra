@@ -24,154 +24,151 @@
           </div>
         </div>
       </section>
-      <client-only>
+
+      <section v-if="step === 2 && $route.query.set !== 2" class="p-3">
         <ValidObs ref="validator4">
-          <section v-if="step === 2 && $route.query.set !== 2" class="p-3">
-            <div>
-              <span v-if="setName" class="text-white"> {{ setName }}</span>
-              <div class="h-32 w-full text-center border text-white rounded flex itmes-center justify-center">
-                รูปภาพ
-              </div>
+          <div>
+            <span v-if="setName" class="text-white"> {{ setName }}</span>
+            <div class="h-32 w-full text-center border text-white rounded flex itmes-center justify-center">
+              รูปภาพ
             </div>
-            <div>
-              <p class=" mt-4 text-white">
-                ชื่อแพ็คเกจ {{ packages.package }}
-              </p>
-              <p class="text-sm mt-2 text-white">
-                รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
-              </p>
-            </div>
-            <div class="mt-4 text-white">
-              บริการนิมนต์พระสงฆ์*
-              <div class="flex">
-                <div class="flex items-center">
-                  <input
-                    id="bordered-checkbox-1"
-                    v-model="packages.is_monk"
-                    type="radio"
-                    :value="true"
-                    name="bordered-checkbox"
-                    class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  >
-                  <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ต้องการ</label>
-                </div>
-                <div class="flex items-center pl-4 ">
-                  <input
-                    id="bordered-checkbox-2"
-                    v-model="packages.is_monk"
-                    type="radio"
-                    :value="false"
-                    name="bordered-checkbox"
-                    class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  >
-                  <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ไม่ต้องการ</label>
-                </div>
-              </div>
-            </div>
-            <div v-if="packages.is_monk" class="grid gap-6 mb-6 grid-cols-2">
-              <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
-                <label for="จำนวนพระสงฆ์" class="label_base">จำนวนพระสงฆ์</label>
+          </div>
+          <div>
+            <p class=" mt-4 text-white">
+              ชื่อแพ็คเกจ {{ packages.package }}
+            </p>
+            <p class="text-sm mt-2 text-white">
+              รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
+            </p>
+          </div>
+          <div class="mt-4 text-white">
+            บริการนิมนต์พระสงฆ์*
+            <div class="flex">
+              <div class="flex items-center">
                 <input
-                  v-model="packages.monk"
-                  class="input_base w-24"
-                  type="number"
-                  name="จำนวนพระสงฆ์"
-                  placeholder="จำนวนพระสงฆ์"
-                  @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
-                  @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
+                  id="bordered-checkbox-1"
+                  v-model="packages.is_monk"
+                  type="radio"
+                  :value="true"
+                  name="bordered-checkbox"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 >
-                <!-- <base-input v-model="packages.monk" type="text" placeholder="จำนวนพระสงฆ์ *" label="ระบุจำนวนพระสงฆ์*" /> -->
-                <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-              </ValidPro>
+                <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ต้องการ</label>
+              </div>
+              <div class="flex items-center pl-4 ">
+                <input
+                  id="bordered-checkbox-2"
+                  v-model="packages.is_monk"
+                  type="radio"
+                  :value="false"
+                  name="bordered-checkbox"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ไม่ต้องการ</label>
+              </div>
             </div>
+          </div>
+          <div v-if="packages.is_monk" class="grid gap-6 mb-6 grid-cols-2">
+            <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
+              <label for="จำนวนพระสงฆ์" class="label_base">จำนวนพระสงฆ์</label>
+              <input
+                v-model="packages.monk"
+                class="input_base w-24"
+                type="number"
+                name="จำนวนพระสงฆ์"
+                placeholder="จำนวนพระสงฆ์"
+                @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
+                @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
+              >
+              <!-- <base-input v-model="packages.monk" type="text" placeholder="จำนวนพระสงฆ์ *" label="ระบุจำนวนพระสงฆ์*" /> -->
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
 
-            <div class="text-xs text-center text-white">
-              *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
-            </div>
-            <div class="mt-4  text-white">
-              บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
-              <div class="flex  text-white">
-                <div class="flex items-center">
-                  <input
-                    id="bordered-checkbox-4"
-                    v-model="packages.is_churchwarden"
-                    type="radio"
-                    :value="true"
-                    name="bordered-checkbox-4"
-                    class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  >
-                  <label for="bordered-checkbox-4" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ต้องการ</label>
-                </div>
-                <div class="flex items-center pl-4 ">
-                  <input
-                    id="bordered-checkbox-3"
-                    v-model="packages.is_churchwarden"
-                    type="radio"
-                    :value="false"
-                    name="bordered-checkbox-3"
-                    class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  >
-                  <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ไม่ต้องการ</label>
-                </div>
+          <div class="text-xs text-center text-white">
+            *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
+          </div>
+          <div class="mt-4  text-white">
+            บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
+            <div class="flex  text-white">
+              <div class="flex items-center">
+                <input
+                  id="bordered-checkbox-4"
+                  v-model="packages.is_churchwarden"
+                  type="radio"
+                  :value="true"
+                  name="bordered-checkbox-4"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-4" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ต้องการ</label>
               </div>
-              <div class="text-xs text-center">
-                *หมายเหตุ: ลูกค้าจะได้รับส่วนลดในกรณีที่ไม่ต้องการบริการมัคนายก/มัคนายิกา
+              <div class="flex items-center pl-4 ">
+                <input
+                  id="bordered-checkbox-3"
+                  v-model="packages.is_churchwarden"
+                  type="radio"
+                  :value="false"
+                  name="bordered-checkbox-3"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ไม่ต้องการ</label>
               </div>
             </div>
-          </section>
+            <div class="text-xs text-center">
+              *หมายเหตุ: ลูกค้าจะได้รับส่วนลดในกรณีที่ไม่ต้องการบริการมัคนายก/มัคนายิกา
+            </div>
+          </div>
         </ValidObs>
-      </client-only>
+      </section>
 
-      <client-only>
+      <section v-if="step === 2 && $route.query.set === 2" class="px-3 pt-3 pb-6">
+        <div>
+          <span v-if="setName" class="text-white"> {{ setName }}</span>
+          <div class="h-32 w-full text-center border text-white ">
+            รูปภาพ
+          </div>
+        </div>
+        <div>
+          <p class=" mt-4 text-white">
+            ชื่อแพ็คเกจ
+          </p>
+          <p class="text-sm mt-2 text-white">
+            รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
+          </p>
+        </div>
         <ValidObs v-if="step === 2 && $route.query.set === 2" ref="validator3">
-          <section v-if="step === 2 && $route.query.set === 2" class="px-3 pt-3 pb-6">
-            <div>
-              <span v-if="setName" class="text-white"> {{ setName }}</span>
-              <div class="h-32 w-full text-center border text-white ">
-                รูปภาพ
-              </div>
-            </div>
-            <div>
-              <p class=" mt-4 text-white">
-                ชื่อแพ็คเกจ
-              </p>
-              <p class="text-sm mt-2 text-white">
-                รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
-              </p>
-            </div>
-            <div vclass="grid gap-6 mb-6 grid-cols-2">
-              <ValidPro v-slot="{ errors }" rules="required|minquantity:1" name="จำนวนพระสงฆ์">
-                <label for="จำนวนพระสงฆ์" class="label_base">จำนวนพระสงฆ์</label>
-                <input
-                  v-model="packages.monk"
-                  class="input_base w-24"
-                  type="number"
-                  name="จำนวนพระสงฆ์"
-                  placeholder="จำนวนพระสงฆ์"
-                  @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
-                  @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
-                >
-                <!-- <base-input v-model="packages.monk" type="number" placeholder="จำนวนพระสงฆ์ *" label="ระบุจำนวนพระสงฆ์*" /> -->
-                <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-              </ValidPro>
-            </div>
-            <div class="text-xs text-center text-white">
-              *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
-            </div>
-            <div class="mt-4">
-              <label class="label_base">เลือกเซ็ทราคา</label>
-              <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
-                <select v-model="setStyle" class=" w-full input_base">
-                  <option v-for="set in monkBuffet" :key="set.value" :value="set.value">
-                    {{ set.name }} ({{ set.price }} บาท)
-                  </option>
-                </select>
-                <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-              </ValidPro>
-            </div>
-          </section>
+          <div vclass="grid gap-6 mb-6 grid-cols-2">
+            <ValidPro v-slot="{ errors }" rules="required|minquantity:1" name="จำนวนพระสงฆ์">
+              <label for="จำนวนพระสงฆ์" class="label_base">จำนวนพระสงฆ์</label>
+              <input
+                v-model="packages.monk"
+                class="input_base w-24"
+                type="number"
+                name="จำนวนพระสงฆ์"
+                placeholder="จำนวนพระสงฆ์"
+                @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
+                @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
+              >
+              <!-- <base-input v-model="packages.monk" type="number" placeholder="จำนวนพระสงฆ์ *" label="ระบุจำนวนพระสงฆ์*" /> -->
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
+          <div class="text-xs text-center text-white">
+            *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
+          </div>
+          <div class="mt-4">
+            <label class="label_base">เลือกเซ็ทราคา</label>
+            <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
+              <select v-model="setStyle" class=" w-full input_base">
+                <option v-for="set in monkBuffet" :key="set.value" :value="set.value">
+                  {{ set.name }} ({{ set.price }} บาท)
+                </option>
+              </select>
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
         </ValidObs>
-      </client-only>
+      </section>
 
       <section v-if="step === 3" class="p-3">
         <div class=" text-white">
