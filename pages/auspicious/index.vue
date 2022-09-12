@@ -24,7 +24,7 @@
       </div>
     </section>
     <ValidObs ref="validator4">
-      <section v-if="step === 2 && $route.query.set !== 2" class="p-3">
+      <section v-if="step === 2 && $route.query.set !== 2" class="p-3 pb-12">
         <div>
           <span v-if="setName" class="text-white"> {{ setName }}</span>
           <div class="h-32 w-full text-center border text-white rounded flex itmes-center justify-center">
@@ -283,15 +283,15 @@
       </the-footer-button>
     </section>
 
-    <section v-if="step === 6" class="step4 ">
+    <section v-show="step === 6" class="step4 ">
       <the-quotation @handleSubmitInformation="submit" />
     </section>
     <the-footer-button>
       <template #button>
-        <button v-if=" step === 2" type="button" class="button_base " @click="next(1)">
+        <button v-show=" step === 2" type="button" class="button_base " @click="next(1)">
           ถัดไป
         </button>
-        <button v-if=" step === 2" type="button" class="button_base mt-4" @click="next(2)">
+        <button v-show=" step === 2" type="button" class="button_base mt-4" @click="next(2)">
           เลือกแพ็คเกจอาหาร
         </button>
       </template>
