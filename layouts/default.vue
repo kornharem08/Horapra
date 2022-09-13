@@ -1,7 +1,11 @@
 <template>
   <div class="container mx-auto min-h-screen max-w-3xl pb-32">
     <thenav />
-    <Nuxt />
+    <base-name-customer />
+    <div class="">
+      <Nuxt />
+    </div>
+
     <base-loading v-if="loading" />
     <client-only>
       <notifications :duration="6000" group="auth" position="top center" width="360px">
@@ -15,9 +19,10 @@
 
 <script>
 import BaseLoading from '../components/Base/BaseLoading'
+import BaseNameCustomer from '../components/Base/BaseNameCustomer.vue'
 
 export default {
-  components: { BaseLoading },
+  components: { BaseLoading, BaseNameCustomer },
   computed: {
     loading () {
       return this.$store.getters.loading

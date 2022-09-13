@@ -1,5 +1,5 @@
 <template>
-  <div id="modal" style="background-color:rgba(0, 0, 0, 0.5);" class="py-12 h-full dark:bg-black  transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0">
+  <div style="background-color:rgba(0, 0, 0, 0.5);" class="py-12 h-full dark:bg-black flex items-center justify-center  transition duration-150 ease-in-out z-10 fixed top-0 right-0 bottom-0 left-0">
     <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg flex justify-center  ">
       <div class="relative w-11/12 sm:w-8/12 md:w-9/12 bg-white dark:bg-gray-800 shadow pt-10 pb-8 rounded-lg">
         <div class="flex flex-col items-center px-4 md:px-12">

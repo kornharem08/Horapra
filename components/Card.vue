@@ -1,13 +1,13 @@
 <template>
-  <div class="bg-gray-50  border-2 border-gray-300 h-40 w-40 flex justify-center text-[12px] items-center col-span-1 mt-2 mx-auto rounded relative">
-    รูปภาพ
+  <div class="bg-gray-50  border-2 border-gray-300 h-40 w-40 flex justify-center text-[12px] items-center text-center col-span-1 mt-2 mx-auto rounded-[10pt] relative">
+    {{ name }}
     <div v-if="showDetail" class="absolute right-0 bottom-0 left-0 text-center ">
-      <div class="bg-[#1C3E23] py-1 text-white">
+      <div class="bg-[#1C3E23] py-1 text-white rounded-b-[10pt]">
         {{ price }} บาท
       </div>
-      <div class="text-[10px] bg-[#C68B67] py-1 text-white">
+      <!-- <div class="text-[10px] bg-[#C68B67] py-1 text-white">
         {{ name }}
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

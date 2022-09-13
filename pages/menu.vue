@@ -1,5 +1,18 @@
 <template>
-  <div class="px-3">
+  <div class="">
+    <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt] mt-[76px]">
+      <div v-for="(item,index) in list" :key="index" class="flex items-center flex-col justify-start" @click="selectMenu(item.value)">
+        <div class="w-full h-[126pt]  rounded-[10pt] flex items-center justify-center border bg-white">
+          รูปภาพ
+        </div>
+        <div class="text-center text-[14pt] mt-[10pt]">
+          {{ item.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="px-3">
     <div class="mb-3">
       <span class="text-main">
         จัดเลี้ยงบุฟเฟ่ต์
@@ -71,7 +84,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -80,9 +93,32 @@ import guestBuffet from '@/static/json/guestBuffet.json'
 import lunchset from '@/static/json/lunchset.json'
 import auspiciouset from '@/static/json/auspiciouset.json'
 import coffeebreak from '@/static/json/coffeebreak.json'
+const list = [
+  {
+    name: 'บุฟเฟ่ต์',
+    value: 1
+  },
+  {
+    name: 'ข้าวกล่อง/รักษ์โลก/ปิ่นโตอิ่มบุญ',
+    value: 2
+  },
+  {
+    name: 'สิริมงคล',
+    value: 3
+  },
+  {
+    name: 'คอฟฟี่เบรค/สแน็คบ็อกซ์/ข้าวต้ม',
+    value: 4
+  },
+  {
+    name: 'Wedding@Home',
+    value: 5
+  }
+]
 export default {
   data () {
     return {
+      list,
       guestBuffet,
       lunchset,
       coffeebreak,
@@ -120,8 +156,16 @@ export default {
         query: { set: value }
       })
     },
-    selectMenu (name) {
-      this.$router.push(`/${name}`)
+    selectMenu (value) {
+      const menu = {
+        1: 'buffet',
+        2: 'lunchbox',
+        3: 'auspicious',
+        4: 'coffeeBreak',
+        5: 'wedding'
+      }
+
+      this.$router.push(`/${menu[value]}`)
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4">
+  <div class="mt-[21px]">
     <label :for="label" class="label_base">{{ label }}</label>
     <input
       class="input_base"

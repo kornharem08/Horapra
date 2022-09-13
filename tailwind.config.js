@@ -13,6 +13,10 @@ module.exports = {
       colors: {
         main: '#BE9365',
         submain: '#D6C1A7'
+      },
+      fontFamily: {
+        OpunMai: ['OpunMai', 'sans-serif'],
+        Opun: ['Opun', 'sans-serif']
       }
     }
   },

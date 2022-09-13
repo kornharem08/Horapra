@@ -8,13 +8,14 @@ html {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     box-sizing: border-box;
-    background-color: #1C3E23;
-    color: #383634;
+    background-color: #EDEAE7;
+    color: #142917;
   }
   
 * {
     scroll-behavior: smooth;
-    font-family: 'Prompt', sans-serif;
+    @apply font-OpunMai
+    /* font-family: 'OpunMai', sans-serif; */
   }
 
 .title_label {
@@ -30,11 +31,15 @@ html {
 }
 
 .label_base {
-  @apply ml-2 text-[12pt] font-medium text-white
+  @apply ml-2 text-[12pt] font-medium text-[#142917]
 }
 
 .label_error {
   @apply text-red-500 text-sm mt-2 ml-2
+}
+
+.button_optional {
+  @apply text-[#C68B67] border border-[#C68B67] mt-2  text-[12pt] block py-2.5 px-4 w-full outline-none bg-white rounded-full
 }
 
 .button_base {

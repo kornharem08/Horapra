@@ -1,7 +1,7 @@
 <template>
-  <div class="flex itmes-center text-[#C68B67] mt-2 px-3" @click="back">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-    {{ title }}
+  <div class="flex itmes-center text-[#142917] font-medium text-[20pt] relative" @click="back">
+    <svg class="w-8 h-8 absolute left-4 top-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+    <span class="pl-12">{{ title }}</span>
   </div>
 </template>
 

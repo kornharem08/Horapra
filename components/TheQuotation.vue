@@ -1,15 +1,15 @@
 <template>
   <ValidObs ref="form" v-slot="{ handleSubmit }">
     <div class="mt-4">
-      <div class="px-3">
+      <div class="px-[24pt]">
         <div class="grid gap-6 mb-2 grid-cols-2">
           <ValidPro v-slot="{ errors }" rules="required" name="วันที่จัดงาน">
             <base-input v-model="quotation.date" type="date" placeholder="วันที่จัดงาน *" label="วันที่จัดงาน *" />
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
-          <div class="mt-4">
+          <div class="mt-[21px]">
             <ValidPro v-slot="{ errors }" rules="required" name="เวลาพร้อมทาน">
-              <label for="เวลาพร้อมทาน" class="label_base">เวลาพร้อมทาน ({{ quotation.time }})</label>
+              <label for="เวลาพร้อมทาน" class="label_base">เวลาพร้อมทาน</label>
 
               <input
                 v-model="quotation.time"
@@ -30,8 +30,8 @@
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
         </div>
-        <div class="grid gap-6 mb-2 grid-cols-2">
-          <div>
+        <div class="grid gap-6 mb-2 grid-cols-2 mt-[21px]">
+          <div class="">
             <label class="label_base ">จังหวัด</label>
             <ValidPro v-slot="{ errors }" rules="required" name="จังหวัด">
               <select
@@ -51,7 +51,7 @@
             </ValidPro>
           </div>
 
-          <div>
+          <div class="">
             <label for="last_name" class="label_base">เขต/อำเภอ *</label>
             <ValidPro v-slot="{ errors }" rules="required" name="เขต/อำเภอ">
               <select
@@ -68,7 +68,7 @@
             </ValidPro>
           </div>
 
-          <div class="mb-2">
+          <div class="mt-[21px]">
             <label for="last_name" class="label_base">แขวง/ตำบล *</label>
             <ValidPro v-slot="{ errors }" rules="required" name="แขวง/ตำบล">
               <select
@@ -83,7 +83,7 @@
             </ValidPro>
           </div>
 
-          <div class="mb-2">
+          <div class="mt-[21px]">
             <label for="last_name" class="label_base">รหัสไปรษีย์ *</label>
             <ValidPro v-slot="{ errors }" rules="required" name="รหัสไปรษีย์">
               <select
@@ -99,7 +99,7 @@
             </ValidPro>
           </div>
         </div>
-        <div class="mb-2">
+        <div class="mt-[21px]">
           <label for="last_name" class="label_base">ลิฟท์ขนของ *</label>
           <ValidPro v-slot="{ errors }" rules="required" name="ลิฟท์ขนของ">
             <select
@@ -118,7 +118,7 @@
           </ValidPro>
         </div>
 
-        <div class="mb-2">
+        <div class="mt-[21px]">
           <label for="last_name" class="label_base">เบอร์โทรสำรอง *</label>
           <ValidPro v-slot="{ errors }" rules="required|phone_th" name="เบอร์โทรสำรอง">
             <input v-model="quotation.phone_backup" type="number" class="input_base">
@@ -131,7 +131,7 @@
           <button type="button" class="button_base" @click="handleSubmit(submit)">
             รับใบเสนอราคา
           </button>
-          <button type="button" class="text-main bg-white border-2 border-main  focus:outline-none  font-medium rounded-full title_label px-10 py-2.5 w-full text-center  mt-4">
+          <button type="button" class="button_optional">
             ติดต่อเจ้าหน้าที่
           </button>
         </template>

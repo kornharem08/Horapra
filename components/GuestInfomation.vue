@@ -1,22 +1,19 @@
 <template>
   <ValidObs ref="form" v-slot="{ handleSubmit }">
-    <div class=" px-3 flex flex-col items-center justify-center py-5">
-      <div class="text-xl text-center mb-5 font-bold text-[#C68B67]">
+    <div class=" px-3 flex flex-col items-center justify-center py-5 mt-[93px]">
+      <div class="text-xl text-center  font-bold text-[#142917]">
         {{ title }}
       </div>
       <form class="w-full">
         <ValidPro v-slot="{ errors }" rules="required" name="ชื่อ-นามสกุล">
-          <base-input v-model="users.name" type="text" placeholder="ชื่อ-นามสกุล *" label="ชื่อ-นามสกุล *" />
+          <base-input v-model="users.name" type="text" label="ชื่อ-นามสกุล *" />
           <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
         </ValidPro>
         <ValidPro v-slot="{ errors }" rules="required|phone_th" name="เบอร์โทรศัพท์">
-          <base-input v-model="users.phone" type="number" placeholder="เบอร์โทรศัพท์ *" label="เบอร์โทรศัพท์ *" />
+          <base-input v-model="users.phone" type="number" label="เบอร์โทรศัพท์ *" />
           <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
         </ValidPro>
-        <ValidPro v-slot="{ errors }" rules="required|email" name="อีเมล">
-          <base-input v-model="users.email" type="email" placeholder="อีเมล *" label="อีเมล *" />
-          <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-        </ValidPro>
+        <base-input v-model="users.email" type="email" label="อีเมล *" />
         <div class="flex items-center justify-center mt-10">
           <button type="button" class="button_base" @click="handleSubmit(submit)">
             ถัดไป

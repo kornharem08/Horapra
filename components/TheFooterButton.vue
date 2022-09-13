@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-layout  z-100  mx-auto max-w-3xl w-full">
+  <div class="footer-layout  z-100  mx-auto max-w-3xl w-full px-[24pt]">
     <slot name="button" />
   </div>
 </template>

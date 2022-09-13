@@ -1,14 +1,27 @@
 <template>
   <div>
-    <base-button-back :title="step ===1 ? $route.query.morepackage ? ' สิริมงคล' : 'กลับหน้าหลัก' : 'จัดเลี้ยงบุฟเฟ่ต์'" class="mb-2" @back="back" />
+    <base-button-back :title="step === 0 ? $route.query.morepackage ? ' สิริมงคล' : 'กลับหน้าหลัก' : 'จัดเลี้ยงบุฟเฟ่ต์'" class="mb-2" @back="back" />
+    <section v-if="step === 0" class="step1 ">
+      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
+        <div v-for="(menu,idx) in guestBuffet" :key="idx" class="flex items-center flex-col justify-start" @click="selectSet(menu)">
+          <div class="w-full h-[126pt]  rounded-[10pt] flex items-center justify-center border bg-white">
+            รูปภาพ
+          </div>
+          <div class="text-center text-[14pt] mt-[10pt]">
+            {{ menu.name }}
+          </div>
+        </div>
+      </div>
+    </section>
     <ValidObs ref="form" v-slot="{ handleSubmit }">
       <section v-if="step === 1" class="step1 ">
-        <div class="mx-auto flex flex-col justify-center items-center max-w-md w-full  bg-gray-50  border-2 border-gray-300  cursor-pointer mt-6 mb-4">
+        <div class="mx-auto flex flex-col justify-center items-center  w-full   cursor-pointer mt-6 mb-4 px-[24pt]">
           <img
+            class="rounded-[10pt]"
             :src="require(`~/assets/img/buffet/set/${setbuffet}.jpg`)"
           >
         </div>
-        <div class="px-3">
+        <div class="px-[24pt]">
           <div>
             <label class="label_base">เลือกจำนวนลูกค้า</label>
             <ValidPro v-slot="{ errors }" rules="required" name="เลือกจำนวนลูกค้า">
@@ -25,7 +38,7 @@
             <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
               <select v-model="setPrice" class=" w-full input_base">
                 <option v-for="set in optionprice" :key="set.value" :value="set.value">
-                  {{ set.name }} ({{ set.price }} บาท)
+                  {{ set.name }} ({{ set.price }} บาท/ชุด)
                 </option>
               </select>
               <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
@@ -47,7 +60,7 @@
             <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
               <select v-model="setStyle" class=" w-full input_base">
                 <option v-for="set in monkBuffet" :key="set.value" :value="set.value">
-                  {{ set.name }} ({{ set.price }} บาท)
+                  {{ set.name }} ({{ set.price }} บาท/ชุด)
                 </option>
               </select>
               <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
@@ -66,7 +79,10 @@
     </ValidObs>
 
     <section v-if="step === 2" class="step2 ">
-      <div class="grid gap-6 mb-6 grid-cols-2 px-3">
+      <div class="text-[16pt] text-left px-[24pt]">
+        เลือกอุปกรณ์เพิ่มเติม
+      </div>
+      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(item,idx) in setAccessories" :key="idx">
           <card :name="item.name" :price="Number(item.price)" :show-detail="true" />
           <div class="block product-count-button-position mt-2">
@@ -96,78 +112,103 @@
           <button type="button" class="button_base" @click="next">
             ถัดไป
           </button>
+          <button type="button" class="button_optional" @click="next">
+            ข้าม
+          </button>
         </template>
       </the-footer-button>
     </section>
 
     <section v-if="step === 3" class="step3 ">
-      <div class="mt-6 px-3">
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            ชื่อ-นามสกุล
-          </p>
-          <p class="">
-            {{ $store.state.users.name }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            เบอร์โทร
-          </p>
-          <p class="">
-            {{ $store.state.users.phone }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            อีเมล์
-          </p>
-          <p class="">
-            {{ $store.state.users.email }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            จำนวนแขก
-          </p>
-          <p class="">
-            {{ (Number(monk)).toString() }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            จำนวนพระสงฆ์
-          </p>
-          <p class="">
-            {{ Number(guests).toString() }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  w-1/2">
-            เซ็ทราคาที่เลือก
-          </p>
-          <p class="text-right w-1/2">
-            {{ `บุฟเฟ่ ${setStyleBuffet.name}` }} <br>
-            {{ `${setPriceBuffet.name}: ${setPriceBuffet.price} บาท` }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  w-1/2">
-            รูปแบบการจัดเลี้ยง
-          </p>
-          <p class="text-right w-1/2">
-            {{ setStyleMonk }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4 w-1/2 ">
-            อุปกรณ์เพิ่มเติม
-          </p>
-          <p class="text-right w-1/2">
-            {{ listAccessories }}
-          </p>
+      <div class="px-[24pt]">
+        <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
+          <div class="text-[16pt] font-medium text-center mb-[10pt]">
+            สรุปรายการ
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="   ">
+              ชื่อ-นามสกุล
+            </p>
+            <p class="">
+              {{ $store.state.users.name }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="  ">
+              เบอร์โทร
+            </p>
+            <p class="">
+              {{ $store.state.users.phone }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="   ">
+              อีเมล์
+            </p>
+            <p class="">
+              {{ $store.state.users.email ? $store.state.users.email : '-' }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium    ">
+              จัดเลี้ยงบุฟเฟ่ต์
+            </p>
+            <p class="">
+              {{ `บุฟเฟ่ ${setStyleBuffet.name}` }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium    ">
+              เซ็ทจัดเลี้ยง
+            </p>
+            <p class="">
+              {{ `${setPriceBuffet.name}: ${setPriceBuffet.price} บาท` }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="">
+              จำนวนแขก
+            </p>
+            <p class="">
+              {{ (Number(guests)).toString() }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="">
+              จำนวนพระสงฆ์
+            </p>
+            <p class="">
+              {{ Number(monk).toString() }}
+            </p>
+          </div>
+          <!-- <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="  w-1/2">
+              เซ็ทราคาที่เลือก
+            </p>
+            <p class="text-right w-1/2">
+              {{ `บุฟเฟ่ ${setStyleBuffet.name}` }} <br>
+              {{ `${setPriceBuffet.name}: ${setPriceBuffet.price} บาท` }}
+            </p>
+          </div> -->
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="w-1/2">
+              รูปแบบการจัดเลี้ยงพระสงฆ์
+            </p>
+            <p class="text-right w-1/2">
+              {{ setStyleMonk }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="w-1/2 ">
+              อุปกรณ์เพิ่มเติม
+            </p>
+            <p class="text-right w-1/2">
+              {{ listAccessories ? listAccessories : '-' }}
+            </p>
+          </div>
         </div>
       </div>
+
       <the-footer-button>
         <template #button>
           <button type="button" class="button_base" @click="next">
@@ -201,7 +242,7 @@ export default {
   components: { BaseInput, Card, TheQuotation, BaseButtonBack, modalfinish, ModalguestInformation },
   data () {
     return {
-      step: 1,
+      step: 0,
       priceBuffet,
       accessories,
       guestBuffet,
@@ -272,12 +313,17 @@ export default {
     }
   },
   methods: {
+    selectSet (value) {
+      this.setbuffet = value.value
+      this.step = 1
+      // console.log(value)
+    },
     handelfinish () {
       this.isFinish = false
       this.$router.push('/menu')
     },
     back () {
-      if (this.step === 1) {
+      if (this.step === 0) {
         if (this.$route.query.morepackage) {
           let set = this.$route.query.morepackage
           this.$router.push({
@@ -293,7 +339,7 @@ export default {
       }
     },
     next () {
-      if (this.step === 2 && (!this.$store.state.users.name || !this.$store.state.users.phone || !this.$store.state.users.email)) {
+      if (this.step === 2 && (!this.$store.state.users.name || !this.$store.state.users.phone)) {
         this.isModalinfo = true
       }
       this.step++

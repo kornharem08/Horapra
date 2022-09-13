@@ -1,0 +1,50 @@
+
+  @font-face {
+    font-family: 'OpunMai';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('~assets/fonts/OpunMai/TTF/Opun-Mai-Regular.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'OpunMai';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('~assets/fonts/OpunMai/TTF/Opun-Mai-Medium.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'OpunMai';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('~assets/fonts/OpunMai/TTF/Opun-Mai-Bold.ttf') format('truetype');
+  }
+ 
+  
+  @font-face {
+    font-family: 'Opun';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('~assets/fonts/Opun/TTF/Opun-Regular.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Opun';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('~assets/fonts/Opun/TTF/Opun-Medium.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Opun';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('~assets/fonts/Opun/TTF/Opun-Bold.ttf') format('truetype');
+  }
+  
