@@ -181,15 +181,6 @@
               {{ Number(monk).toString() }}
             </p>
           </div>
-          <!-- <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="  w-1/2">
-              เซ็ทราคาที่เลือก
-            </p>
-            <p class="text-right w-1/2">
-              {{ `บุฟเฟ่ ${setStyleBuffet.name}` }} <br>
-              {{ `${setPriceBuffet.name}: ${setPriceBuffet.price} บาท` }}
-            </p>
-          </div> -->
           <div class="flex flex-row justify-between mb-2 label_base">
             <p class="w-1/2">
               รูปแบบการจัดเลี้ยงพระสงฆ์

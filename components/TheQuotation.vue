@@ -2,7 +2,7 @@
   <ValidObs ref="form" v-slot="{ handleSubmit }">
     <div class="mt-4">
       <div class="px-[24pt]">
-        <div class="grid gap-6 mb-2 grid-cols-2">
+        <div class="grid gap-2  grid-cols-2">
           <ValidPro v-slot="{ errors }" rules="required" name="วันที่จัดงาน">
             <base-input v-model="quotation.date" type="date" placeholder="วันที่จัดงาน *" label="วันที่จัดงาน *" />
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
@@ -23,15 +23,15 @@
           </div>
         </div>
 
-        <div class="mb-2">
+        <div class="mt-[21px]">
           <label for="last_name" class="label_base">รายละเอียดที่อยู่</label>
           <ValidPro v-slot="{ errors }" rules="required" name="รายละเอียดที่อยู่">
             <textarea v-model="quotation.address" rows="4" type="text" class="input_base_textarea" />
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
         </div>
-        <div class="grid gap-6 mb-2 grid-cols-2 mt-[21px]">
-          <div class="">
+        <div class="grid gap-2 grid-cols-2 ">
+          <div class="mt-[21px]">
             <label class="label_base ">จังหวัด</label>
             <ValidPro v-slot="{ errors }" rules="required" name="จังหวัด">
               <select
@@ -51,7 +51,7 @@
             </ValidPro>
           </div>
 
-          <div class="">
+          <div class="mt-[21px]">
             <label for="last_name" class="label_base">เขต/อำเภอ *</label>
             <ValidPro v-slot="{ errors }" rules="required" name="เขต/อำเภอ">
               <select
