@@ -8,7 +8,7 @@
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(item,idx) in lunchset" :key="idx" @click="selectMorePackage(item)">
           <card :show-detail="false" />
-          <div class="text-center  mt-2">
+          <div class="text-center text-[14pt]  mt-2">
             {{ item.name }}
           </div>
         </div>
@@ -26,8 +26,8 @@
       </div>
     </section>
 
-    <section v-if="step === 2 " class="step2 px-[24pt] pb-10">
-      <div>
+    <section v-if="step === 2 " class="step2  pb-10">
+      <div class="px-[24pt]">
         <div
           v-if="setNumber !== 2"
           v-swiper:mySwiper="swiperOptions"
@@ -97,6 +97,14 @@
           </div>
         </div>
       </div>
+
+      <the-footer-button>
+        <template #button>
+          <button v-if="step === 2" type="button" class="button_base " @click="handleresulte">
+            ถัดไป
+          </button>
+        </template>
+      </the-footer-button>
     </section>
 
     <section v-if="step === 3">
@@ -154,24 +162,68 @@
           </div>
         </div>
       </div>
+      <the-footer-button>
+        <template #button>
+          <button v-if="step === 3" type="button" class="button_base " @click="handleValidate">
+            ยืนยัน
+          </button>
+        </template>
+      </the-footer-button>
     </section>
 
     <section v-if="step === 1 && setNumber === 2" class="step1 ">
-      <div class="px-3 ">
-        <div class="flex justify-center items-center border rounded my-4 h-40 text-white">
+      <div class="px-[24pt]">
+        <div class="flex justify-center items-center bg-white rounded-[10pt] my-4 h-[223pt] ">
           รูปภาพ
         </div>
       </div>
-      <div class="text-white text-center px-3">
+      <div class="text-center px-[24pt] text-[14pt]">
         Box Set รักษ์โลกที่เหมาะกับทุกงานจัดเลี้ยง ที่โหระพาตั้งใจคัดสรรบรรจุภัณฑ์ที่ย่อยสลายได้เองตามธรรมชาติ
       </div>
+      <the-footer-button>
+        <template #button>
+          <button v-if="(step === 1 && setNumber !== 1 ) || step === 4" type="button" class="button_base " @click="step++">
+            ถัดไป
+          </button>
+        </template>
+      </the-footer-button>
     </section>
 
     <section v-if="step === 1 && setNumber === 3" class="step1 ">
-      <div class="text-white">
-        <div class="px-3 ">
-          <div class="flex justify-center items-center border rounded my-4 h-40 text-white">
-            รูปภาพ
+      <div
+        v-swiper:pintoIamge="swiperOptionsimage"
+        class="swiper mt-4"
+      >
+        <div class="swiper-wrapper  " @click.stop="">
+          <div v-for="(image,idx) in 4" :key="idx" class="swiper-slide ">
+            <div class="mx-auto flex flex-col justify-center items-center  w-full   cursor-pointer mt-3 mb-4 px-[24pt]">
+              <img
+                class="rounded-[10pt] object-cover"
+                :src="require(`~/assets/img/Pinto/${idx}.jpg`)"
+              >
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-bullets" />
+      </div>
+
+      <!--
+      <div class="mx-auto flex flex-col justify-center items-center  w-full   cursor-pointer mt-3 mb-4 px-[24pt]">
+        <img
+          class="rounded-[10pt] object-cover"
+          :src="require(`~/assets/img/Pinto/0.jpg`)"
+        >
+      </div> -->
+      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt] mt-[10pt]">
+        <div v-for="(pinto,idx) in pintoset" :key="idx" class="flex items-center flex-col justify-start" @click="selectSet(pinto)">
+          <div class="w-full h-[126pt]  rounded-[10pt] flex items-center justify-center border bg-white">
+            <img
+              class="rounded-[10pt] object-cover object-left h-full w-full"
+              :src="require(`~/assets/img/Pinto/${pinto.value}.jpg`)"
+            >
+          </div>
+          <div class="text-center text-[14pt] mt-[10pt]">
+            {{ pinto.name }}
           </div>
         </div>
       </div>
@@ -223,7 +275,7 @@
       <the-quotation @handleSubmitInformation="submit" />
     </section>
 
-    <the-footer-button>
+    <!-- <the-footer-button>
       <template #button>
         <button v-if="(step === 1 && setNumber !== 1 ) || step === 4" type="button" class="button_base " @click="step++">
           ถัดไป
@@ -235,19 +287,8 @@
           ยืนยัน
         </button>
       </template>
-    </the-footer-button>
+    </the-footer-button> -->
 
-    <!-- <div class="px-3">
-      <button v-if="step === 1 && setNumber !== 1" type="button" class="button_base " @click="step++">
-        ถัดไป
-      </button>
-      <button v-if="step === 2" type="button" class="button_base " @click="handleresulte">
-        ถัดไป
-      </button>
-      <button v-if="step === 3" type="button" class="button_base " @click="handleValidate">
-        ยืนยัน
-      </button>
-    </div> -->
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
   </div>
@@ -261,6 +302,7 @@ import ModalguestInformation from '../../components/Modal/modalguestInformation.
 import boxset from '@/static/json/boxset.json'
 import boxsetmenu from '@/static/json/boxset/menu.json'
 import lunchset from '@/static/json/lunchset.json'
+import pintoset from '@/static/json/pinto.json'
 import lunchboxmenu from '@/static/json/lunchmenu/lunchboxmenu.json'
 import luchDuomenu from '@/static/json/lunchmenu/lubchboxduoset.json'
 import luchTriomenu from '@/static/json/lunchmenu/lunchboxtrioset.json'
@@ -272,6 +314,7 @@ export default {
   },
   data () {
     return {
+      pintoset,
       boxset,
       lunchset,
       lunchboxmenu,
@@ -288,6 +331,15 @@ export default {
         slidesPerView: 3,
         spaceBetween: 3,
         freeMode: true
+      },
+      swiperOptionsimage: {
+        slidesPerView: 1,
+        freeMode: true,
+        pagination: {
+          el: '.swiper-pagination',
+          dynamicBullets: true,
+          clickable: true
+        }
       },
       menu: [],
       fields: {},
