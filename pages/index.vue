@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="px-[24pt]">
     <guest-information title="ขอทำความรู้จักคุณลูกค้าหน่อยนะคะ" @submit="submit" />
   </div>
 </template>

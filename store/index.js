@@ -9,7 +9,8 @@ export const state = () => ({
     monk: 0,
     is_monk: true,
     is_churchwarden: true,
-    style_buffet: ''
+    style_buffet: '',
+    price: 0
   },
   loading: false
 })

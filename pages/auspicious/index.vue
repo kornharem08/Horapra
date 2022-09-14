@@ -1,22 +1,34 @@
 <template>
   <div class=" pb-10">
-    <base-button-back :title="step === 1 ? 'กลับหน้าหลัก' : 'สิริมงคล'" @back="back" />
-    <section v-if="step === 1 " class="p-3">
+    <base-button-back :title="step === 0 ? 'กลับหน้าหลัก' : 'สิริมงคล'" @back="back" />
+
+    <section v-if="step === 0">
+      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
+        <div v-for="(item,idx) in auspiciouset" :key="idx" @click="selectMorePackage(item)">
+          <card :show-detail="false" />
+          <div class="text-center text-[14pt]  mt-2">
+            {{ item.name }}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section v-if="step === 1 " class="px-[24pt]">
       <div>
-        <span v-if="setName" class="text-white"> {{ setName }}</span>
-        <div class="h-32 w-full text-center border text-white rounded flex itmes-center justify-center">
+        <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
+        <div class="mx-auto flex flex-col justify-center items-center  w-full rounded-[10pt] h-[200pt] bg-white  cursor-pointer mt-3 mb-4 px-[24pt]">
           รูปภาพ
         </div>
       </div>
       <div>
-        <div class="mt-2 text-white">
-          แพ็คเกจ
+        <div class="mt-2 ">
+          Package
         </div>
 
-        <div class="grid gap-6 mb-6 grid-cols-2 ">
+        <div class="grid gap-6 mb-6 grid-cols-2 mt-[25pt]">
           <div v-for="(item,idx) in pacakgex" :key="idx" class="text-center" @click="selectpackage(item.value)">
             <card :name="item.name" />
-            <div class="mt-2 text-white">
+            <div class="mt-2 text-[14pt]">
               {{ item.name }}
             </div>
           </div>
@@ -24,23 +36,23 @@
       </div>
     </section>
     <ValidObs ref="validator4">
-      <section v-if="step === 2 && Number($route.query.set) !== 2" class="p-3 pb-12">
-        <div>
-          <span v-if="setName" class="text-white"> {{ setName }}</span>
+      <section v-if="step === 2 && Number(setNumber) !== 2" class=" pb-12">
+        <div class="px-[24pt]">
+          <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
           <div class="h-32 w-full text-center border text-white rounded flex itmes-center justify-center">
             รูปภาพ
           </div>
         </div>
-        <div>
-          <p class=" mt-4 text-white">
-            ชื่อแพ็คเกจ {{ packages.package }}
+        <div class="px-[24pt]">
+          <p class="mt-4 text-[16pt]">
+            ชื่อแพ็คเกจ {{ packages.name }}
           </p>
-          <p class="text-sm mt-2 text-white">
+          <p class="text-[12pt] mt-2">
             รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
           </p>
         </div>
-        <div class="mt-4 text-white">
-          บริการนิมนต์พระสงฆ์*
+        <div class="mt-4 px-[24pt]">
+          <span class="text-[12pt]">บริการนิมนต์พระสงฆ์*</span>
           <div class="flex">
             <div class="flex items-center">
               <input
@@ -49,9 +61,9 @@
                 type="radio"
                 :value="true"
                 name="bordered-checkbox"
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               >
-              <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ต้องการ</label>
+              <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[14pt] flex ">ต้องการ</label>
             </div>
             <div class="flex items-center pl-4 ">
               <input
@@ -60,18 +72,18 @@
                 type="radio"
                 :value="false"
                 name="bordered-checkbox"
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               >
-              <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ไม่ต้องการ</label>
+              <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[14pt] flex ">ไม่ต้องการ</label>
             </div>
           </div>
         </div>
-        <div v-if="packages.is_monk" class="grid gap-6 mb-6 grid-cols-2">
+        <div v-if="packages.is_monk" class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
           <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
-            <label for="จำนวนพระสงฆ์" class="label_base">จำนวนพระสงฆ์</label>
+            <label for="จำนวนพระสงฆ์" class="text-[12pt]">ระบุจำนวนพระสงฆ์</label>
             <input
               v-model="packages.monk"
-              class="input_base w-24"
+              class="block py-2.5 px-4 w-1/2 text-[#142917] bg-gray-50 rounded-full border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
               type="number"
               name="จำนวนพระสงฆ์"
               placeholder="จำนวนพระสงฆ์"
@@ -82,12 +94,12 @@
           </ValidPro>
         </div>
 
-        <div class="text-xs text-center text-white">
+        <div class="text-[7pt] text-center px-[24pt]">
           *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
         </div>
-        <div class="mt-4  text-white">
-          บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
-          <div class="flex  text-white">
+        <div class="mt-6  px-[24pt]">
+          <span class="text-[12pt]">บริการมัคนายก/มัคนายิกา แบบมืออาชีพ</span>
+          <div class="flex  ">
             <div class="flex items-center">
               <input
                 id="bordered-checkbox-4"
@@ -95,9 +107,9 @@
                 type="radio"
                 :value="true"
                 name="bordered-checkbox-4"
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               >
-              <label for="bordered-checkbox-4" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ต้องการ</label>
+              <label for="bordered-checkbox-4" class="py-4 ml-2 w-full text-[14pt] flex ">ต้องการ</label>
             </div>
             <div class="flex items-center pl-4 ">
               <input
@@ -106,30 +118,37 @@
                 type="radio"
                 :value="false"
                 name="bordered-checkbox-3"
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               >
-              <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-sm font-medium flex text-white">ไม่ต้องการ</label>
+              <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-[14pt] flex ">ไม่ต้องการ</label>
             </div>
           </div>
-          <div class="text-xs text-center">
+          <div class="text-[7pt] text-center">
             *หมายเหตุ: ลูกค้าจะได้รับส่วนลดในกรณีที่ไม่ต้องการบริการมัคนายก/มัคนายิกา
           </div>
         </div>
+        <the-footer-button>
+          <template #button>
+            <button type="button" class="button_base " @click="next(1)">
+              ถัดไป
+            </button>
+          </template>
+        </the-footer-button>
       </section>
     </ValidObs>
     <ValidObs ref="validator3">
-      <section v-if="step === 2 && $route.query.set === 2" class="px-3 pt-3 pb-6">
+      <section v-if="step === 2 && setNumber === 2" class="px-[24pt] pt-3 pb-6">
         <div>
-          <span v-if="setName" class="text-white"> {{ setName }}</span>
-          <div class="h-32 w-full text-center border text-white ">
+          <span v-if="setName" class=""> {{ setName }}</span>
+          <div class="h-32 w-full text-center border ">
             รูปภาพ
           </div>
         </div>
         <div>
-          <p class=" mt-4 text-white">
+          <p class="mt-4 ">
             ชื่อแพ็คเกจ
           </p>
-          <p class="text-sm mt-2 text-white">
+          <p class="text-sm mt-2">
             รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
           </p>
         </div>
@@ -150,11 +169,11 @@
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
         </div>
-        <div class="text-xs text-center text-white">
+        <div class="text-[7pt] text-center">
           *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
         </div>
         <div class="mt-4">
-          <label class="label_base">เลือกเซ็ทราคา</label>
+          <label class="label_base">รูปแบบการจัดเลี้ยงพระสงฆ์</label>
           <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
             <select v-model="setStyle" class=" w-full input_base">
               <option v-for="set in monkBuffet" :key="set.value" :value="set.value">
@@ -167,7 +186,7 @@
       </section>
     </ValidObs>
 
-    <section v-if="step === 3" class="p-3">
+    <section v-if="step === 3" class="px-[24pt]">
       <div class=" text-white">
         พิธีสงฆ์ > เลือกแพ็คเกจ > เลือกแพ็คเกจอาหาร
       </div>
@@ -182,7 +201,7 @@
     </section>
 
     <section v-if="step === 4 " class="step2 ">
-      <div class="grid gap-6 mb-6 grid-cols-2 px-3">
+      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(item,idx) in setAccessories" :key="idx" class="grid-cols-2">
           <card :name="item.name" :price="Number(item.price)" :show-detail="true" />
           <div class="block product-count-button-position mt-2">
@@ -207,85 +226,107 @@
           </div>
         </div>
       </div>
+      <the-footer-button>
+        <template #button>
+          <button type="button" class="button_base " @click="next(1)">
+            ถัดไป
+          </button>
+        </template>
+      </the-footer-button>
 
-      <button type="button" class="button_base" @click="next">
+      <!-- <button type="button" class="button_base" @click="next">
         ถัดไป
-      </button>
+      </button> -->
     </section>
 
     <section v-if="step === 5" class="">
-      <div class="mt-6  p-3">
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            ชื่อ-นามสกุล
-          </p>
-          <p class="">
-            {{ $store.state.users.name }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            เบอร์โทร
-          </p>
-          <p class="">
-            {{ $store.state.users.phone }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            อีเมล์
-          </p>
-          <p class="">
-            {{ $store.state.users.email }}
-          </p>
-        </div>
+      <div class="px-[24pt]">
+        <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
+          <div class="text-[16pt] font-medium text-center mb-[10pt]">
+            สรุปรายการ
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   ">
+              ชื่อ-นามสกุล
+            </p>
+            <p class="">
+              {{ $store.state.users.name }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   ">
+              เบอร์โทร
+            </p>
+            <p class="">
+              {{ $store.state.users.phone }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   ">
+              อีเมล์
+            </p>
+            <p class="">
+              {{ $store.state.users.email ? $store.state.users.email : '-' }}
+            </p>
+          </div>
 
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            จำนวนพระสงฆ์
-          </p>
-          <p class="">
-            {{ Number(packages.monk).toString() }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
-          </p>
-          <p class="">
-            {{ packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ' }}
-          </p>
-        </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   ">
+              จำนวนพระสงฆ์
+            </p>
+            <p class="">
+              {{ Number(packages.monk).toString() }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   w-2/3">
+              บริการนิมนต์พระสงฆ์*
+            </p>
+            <p class="w-1/3 text-right">
+              {{ packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ' }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   w-2/3">
+              บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
+            </p>
+            <p class="w-1/3 text-right">
+              {{ packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ' }}
+            </p>
+          </div>
 
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            อุปกรณ์เพิ่มเติม
-          </p>
-          <p class="text-right">
-            {{ listAccessories }}
-          </p>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   w-1/2">
+              อุปกรณ์เพิ่มเติม
+            </p>
+            <p class="w-1/2 text-right">
+              {{ listAccessories }}
+            </p>
+          </div>
         </div>
-
-        <!-- <button type="button" class="button_base" @click="next">
-            ถัดไป
-          </button> -->
       </div>
-
-      <button type="button" class="button_base" @click="next">
-        ถัดไป
-      </button>
+      <the-footer-button>
+        <template #button>
+          <button type="button" class="button_base " @click="next(1)">
+            ถัดไป
+          </button>
+          <button type="button" class="button_optional mt-4" @click="next(2)">
+            เลือกแพ็คเกจอาหาร
+          </button>
+        </template>
+      </the-footer-button>
     </section>
 
     <section v-show="step === 6" class="step4 ">
       <the-quotation @handleSubmitInformation="submit" />
     </section>
 
-    <button v-show=" step === 2" type="button" class="button_base " @click="next(1)">
+    <!-- <button v-show=" step === 2" type="button" class="button_base " @click="next(1)">
       ถัดไป
     </button>
     <button v-show=" step === 2" type="button" class="button_base mt-4" @click="next(2)">
       เลือกแพ็คเกจอาหาร
-    </button>
+    </button> -->
 
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
@@ -297,6 +338,9 @@ import BaseButtonBack from '../../components/Base/BaseButtonBack.vue'
 import modalfinish from '../../components/Modal/finish.vue'
 import ModalguestInformation from '../../components/Modal/modalguestInformation.vue'
 import auspiciouset from '@/static/json/auspiciouset.json'
+import set1 from '@/static/json/auspicious/set1.json'
+import set2 from '@/static/json/auspicious/set2.json'
+import set3 from '@/static/json/auspicious/set3.json'
 import accessories from '@/static/json/accessories.json'
 import monkBuffet from '@/static/json/monkBuffet.json'
 export default {
@@ -308,7 +352,10 @@ export default {
 
   data () {
     return {
-      step: 1,
+      set1,
+      set2,
+      set3,
+      step: 0,
       auspiciouset,
       accessories,
       setAccessories: [],
@@ -321,22 +368,12 @@ export default {
         package: null,
         monk: 0,
         is_monk: true,
-        is_churchwarden: false
+        is_churchwarden: false,
+        name: '',
+        price: 0
       },
-      pacakgex: [
-        {
-          name: 'Package A',
-          value: 1
-        },
-        {
-          name: 'Package B',
-          value: 2
-        },
-        {
-          name: 'Package C',
-          value: 3
-        }
-      ],
+      setNumber: null,
+      pacakgex: [],
       moreMenu: [
         {
           name: 'บุฟเฟ่ต์',
@@ -355,8 +392,8 @@ export default {
   },
   computed: {
     setName () {
-      if (this.$route.query.set) {
-        let x = this.auspiciouset.find(x => x.value === Number(this.$route.query.set))
+      if (this.setNumber) {
+        let x = this.auspiciouset.find(x => x.value === Number(this.setNumber))
         if (x) {
           return x.name
         } else {
@@ -367,11 +404,14 @@ export default {
       }
     },
     totalPrice () {
-      if (this.$route.query.set === 2) {
+      if (this.setNumber === 2) {
         return this.$store.state.auspicious_packages.style_buffet.price * this.$store.state.auspicious_packages.monk
       } else {
         let x = this.setAccessories.filter(x => x.count > 0)
         let sum = x.reduce((sum, current) => sum + current.count * current.price, 0)
+        if (this.packages.price > 0) {
+          sum += this.packages.price
+        }
         // this.x.reduce((sum, current) => sum + current.count * current.price, 0)
         return sum
       }
@@ -398,8 +438,36 @@ export default {
     })
   },
   methods: {
+    selectMorePackage (item) {
+      this.setNumber = item.value
+
+      if (item.value === 1) {
+        this.pacakgex = this['set' + item.value].map((x) => {
+          return {
+            name: x.name,
+            price: x.price,
+            value: x.value
+          }
+        })
+        console.log('1')
+      }
+      if (item.value === 2) {
+        this.pacakgex = this['set' + item.value].map((x) => {
+          return {
+            name: x.name,
+            price: 0,
+            value: x.value,
+            set: x.set
+          }
+        })
+      }
+      if (item.value === 3) {
+        console.log('1')
+      }
+      this.step = 1
+    },
     handleMoreMenu (menu) {
-      if (this.$route.query.set === 2) {
+      if (this.setNumber === 2) {
         return menu.filter(x => x.value !== 1)
       } else {
         return menu
@@ -414,7 +482,7 @@ export default {
       let x = this.setAccessories.filter(x => x.count > 0)
       let sum = x.map((el) => { return `${el.name} x ${el.count}\n` })
 
-      if (this.$route.query.set === 2) {
+      if (this.setNumber === 2) {
         Object.assign(this.fields, {
           สรุปรายการ: `${this.$store.state.auspicious_packages.style_buffet.name}: ${this.$store.state.auspicious_packages.style_buffet.price} บาท`
         })
@@ -470,10 +538,11 @@ export default {
       createRecord()
     },
     next (value) {
-      if (this.step === 4 && (!this.$store.state.users.name || !this.$store.state.users.phone || !this.$store.state.users.email)) {
+      console.log(this.setNumber, value)
+      if (this.step === 4 && (!this.$store.state.users.name || !this.$store.state.users.phone)) {
         this.isModalinfo = true
       }
-      if (Number(this.$route.query.set) === 2) {
+      if (Number(this.setNumber) === 2) {
         this.$refs.validator3.validate().then((res) => {
           if (res) {
             let selectedPackage = ''
@@ -484,7 +553,7 @@ export default {
               selectedPackage = `${this.setName}`
             }
             let setMonk = {}
-            if (Number(this.$route.query.set) === 2) {
+            if (Number(this.setNumber) === 2) {
               setMonk = this.monkBuffet.find(x => x.value === this.setStyle)
             }
 
@@ -497,12 +566,13 @@ export default {
               monk: this.packages.monk,
               is_monk: this.packages.is_monk,
               is_churchwarden: this.packages.is_churchwarden,
+              price: this.packages.price,
               style_buffet: setMonk
             }
 
             this.$store.dispatch('setAuspiciousPackages', data)
             if (value === 1) {
-              if (Number(this.$route.query.set) !== 1) {
+              if (Number(this.setNumber) !== 1) {
                 this.step = 5
               } else {
                 this.step = 4
@@ -525,7 +595,7 @@ export default {
               selectedPackage = `${this.setName}`
             }
             let setMonk = {}
-            if (Number(this.$route.query.set) === 2) {
+            if (Number(this.setNumber) === 2) {
               setMonk = this.monkBuffet.find(x => x.value === this.setStyle)
             }
 
@@ -538,18 +608,22 @@ export default {
               monk: this.packages.monk,
               is_monk: this.packages.is_monk,
               is_churchwarden: this.packages.is_churchwarden,
+              price: this.packages.price,
               style_buffet: setMonk
             }
 
             this.$store.dispatch('setAuspiciousPackages', data)
-            if (value === 1) {
-              if (Number(this.$route.query.set) !== 1) {
-                this.step = 5
-              } else {
-                this.step = 4
+
+            if (Number(this.setNumber) === 1) {
+              if (value === 1) {
+                if (this.step === 2) {
+                  this.step = 5
+                } else {
+                  this.step++
+                }
+              } else if (value === 2) {
+                this.step = 3
               }
-            } else {
-              this.step++
             }
           }
         })
@@ -558,11 +632,11 @@ export default {
     back () {
       if (this.step === 3) {
         this.step--
-      } else if (this.step === 1) {
+      } else if (this.step === 0) {
         this.$router.push('/menu')
       } else if (this.step === 4) {
         this.step = 2
-      } else if (Number(this.$route.query.set) !== 1 && this.step === 5) {
+      } else if (Number(this.setNumber) !== 1 && this.step === 5) {
         this.step = 2
       } else {
         this.step--
@@ -570,6 +644,10 @@ export default {
     },
     selectpackage (value) {
       this.packages.package = value
+      let packageMain = this.pacakgex.find(x => x.value === value)
+      this.packages.name = packageMain.name
+      this.packages.price = packageMain.price
+      console.log(this.packages, 'Select Main')
       this.step++
     },
     selectMenu (value) {
@@ -581,7 +659,7 @@ export default {
       // this.step++
       this.$router.push({
         name: page[value],
-        query: { morepackage: Number(this.$route.query.set) }
+        query: { morepackage: Number(this.setNumber) }
       })
     }
   }

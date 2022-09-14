@@ -29,7 +29,7 @@
     <section v-if="step === 2 " class="step2  pb-10">
       <div class="px-[24pt]">
         <div
-          v-if="setNumber !== 2"
+          v-if="setNumber === 1"
           v-swiper:mySwiper="swiperOptions"
           class="swiper mt-4"
         >
@@ -55,7 +55,7 @@
             </div>
           </div>
         </div>
-        <div v-for=" (list,i) in setNumber !== 2 ? lists[selectListMenu] : lists" :key="i" class=" bg-white rounded  mt-4">
+        <div v-for=" (list,i) in setNumber === 1 ? lists[selectListMenu] : lists" :key="i" class=" bg-white rounded  mt-4">
           <div
             class="overflow-hidden border border-gray-100 rounded-lg grid  group grid-cols-3"
             href=""
@@ -107,7 +107,7 @@
       </the-footer-button>
     </section>
 
-    <section v-if="step === 3">
+    <section v-if="step === 3 ">
       <div class="flex justify-between items-center px-[24pt] mb-3">
         <div class="text-[16pt]">
           สรุปรายการอาหาร
@@ -119,7 +119,7 @@
       <div class="px-[24pt]">
         <ValidObs ref="validator3">
           <div v-for="(item,index) in menu" :key="index" class="bg-white rounded mb-3">
-            <ValidPro v-slot="{ errors }" :rules="`morethan:5`" :name="item.menu">
+            <ValidPro v-slot="{ errors }" :rules="item.min ? `morethan:${item.min}` : 'morethan:5'" :name="item.menu">
               <div class="flex justify-between items-center">
                 <div class="p-2 flex flex-col">
                   <span class="text-sm">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
@@ -192,7 +192,7 @@
     <section v-if="step === 1 && setNumber === 3" class="step1 ">
       <div
         v-swiper:pintoIamge="swiperOptionsimage"
-        class="swiper mt-4"
+        class="swiper "
       >
         <div class="swiper-wrapper  " @click.stop="">
           <div v-for="(image,idx) in 4" :key="idx" class="swiper-slide ">
@@ -206,16 +206,8 @@
         </div>
         <div class="swiper-pagination swiper-pagination-bullets" />
       </div>
-
-      <!--
-      <div class="mx-auto flex flex-col justify-center items-center  w-full   cursor-pointer mt-3 mb-4 px-[24pt]">
-        <img
-          class="rounded-[10pt] object-cover"
-          :src="require(`~/assets/img/Pinto/0.jpg`)"
-        >
-      </div> -->
-      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt] mt-[10pt]">
-        <div v-for="(pinto,idx) in pintoset" :key="idx" class="flex items-center flex-col justify-start" @click="selectSet(pinto)">
+      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt] mt-[25pt]">
+        <div v-for="(pinto,idx) in pintoset" :key="idx" class="flex items-center flex-col justify-start" @click="selectBoxSet(pinto)">
           <div class="w-full h-[126pt]  rounded-[10pt] flex items-center justify-center border bg-white">
             <img
               class="rounded-[10pt] object-cover object-left h-full w-full"
@@ -228,6 +220,19 @@
         </div>
       </div>
     </section>
+    <!--
+    <section v-if="step === 2 && setNumber === 3">
+      <div>
+        3
+      </div>
+      <the-footer-button>
+        <template #button>
+          <button type="button" class="button_base " @click="step++">
+            ถัดไป
+          </button>
+        </template>
+      </the-footer-button>
+    </section> -->
 
     <section v-if="step === 4" class="step4">
       <div class="px-[24pt]">
@@ -259,16 +264,25 @@
               {{ $store.state.users.email ? $store.state.users.email : '-' }}
             </p>
           </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium  w-1/2">
+          <div class="flex flex-col mb-2 label_base">
+            <p class="font-medium  ">
               เมนูที่เลือก
             </p>
-            <p class="w-1/2 text-right">
-              {{ listMenu.join(', ') }}
-            </p>
+            <div class="text-left  flex flex-col ">
+              <div v-for="(menus,index) in listMenu" :key="index">
+                {{ index+1 }}.  {{ menus }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <the-footer-button>
+        <template #button>
+          <button type="button" class="button_base " @click="step++">
+            ถัดไป
+          </button>
+        </template>
+      </the-footer-button>
     </section>
 
     <section v-if="step === 5" class="step5">
@@ -306,6 +320,9 @@ import pintoset from '@/static/json/pinto.json'
 import lunchboxmenu from '@/static/json/lunchmenu/lunchboxmenu.json'
 import luchDuomenu from '@/static/json/lunchmenu/lubchboxduoset.json'
 import luchTriomenu from '@/static/json/lunchmenu/lunchboxtrioset.json'
+import pinto1 from '@/static/json/lunchmenu/pintoset1.json'
+import pinto2 from '@/static/json/lunchmenu/pintoset2.json'
+import pinto3 from '@/static/json/lunchmenu/pintoset3.json'
 export default {
   components: {
     BaseButtonBack,
@@ -314,6 +331,9 @@ export default {
   },
   data () {
     return {
+      pinto1,
+      pinto2,
+      pinto3,
       pintoset,
       boxset,
       lunchset,
@@ -378,24 +398,24 @@ export default {
       this.setNumber = Number(this.$route.query.set)
     }
 
-    if (!this.$route.query.morepackage) {
-      if (this.$route.query.set !== 2) {
-        this.lists = Object.keys(this.lunchboxmenu).map(k => this.lunchboxmenu[k].map((el) => {
-          return {
-            ...el,
-            count: 0
-          }
-        }))
-      } else {
-        this.lists = this.boxsetmenu.map((k) => {
-          return {
-            ...k,
-            count: 0
-          }
-        }
-        )
-      }
-    }
+    // if (!this.$route.query.morepackage) {
+    //   if (this.$route.query.set !== 2) {
+    //     this.lists = Object.keys(this.lunchboxmenu).map(k => this.lunchboxmenu[k].map((el) => {
+    //       return {
+    //         ...el,
+    //         count: 0
+    //       }
+    //     }))
+    //   } else {
+    //     this.lists = this.boxsetmenu.map((k) => {
+    //       return {
+    //         ...k,
+    //         count: 0
+    //       }
+    //     }
+    //     )
+    //   }
+    // }
 
     // if (this.$route.query.morepackage) {
     //   this.step = 0
@@ -404,6 +424,9 @@ export default {
     // }
   },
   methods: {
+    selectSetPinto (value) {
+      console.log(value)
+    },
     selectMorePackage (item) {
       this.setNumber = item.value
       if (item.value !== 2) {
@@ -422,7 +445,6 @@ export default {
         }
         )
       }
-      console.log(this.lists)
       this.step = 1
     },
     minus (item, index) {
@@ -436,7 +458,7 @@ export default {
       if (this.menu.length > 0) {
         this.$refs.validator3.validate().then((res) => {
           if (res) {
-            if ((!this.$store.state.users.name || !this.$store.state.users.phone || !this.$store.state.users.email)) {
+            if ((!this.$store.state.users.name || !this.$store.state.users.phone)) {
               this.isModalinfo = true
             }
             this.step++
@@ -448,12 +470,13 @@ export default {
     },
     increse (item) {
       let result = []
-      if (this.setNumber !== 2) {
+      if (this.setNumber === 1) {
         this.lists.forEach((element) => {
           result.push(
             ...element.filter(x => x.count > 0).map((el) => {
               return {
                 menu: el.name,
+                min: el.min ? el.min : 5,
                 price: el.price,
                 count: el.count,
                 ...this.selectBox
@@ -467,6 +490,7 @@ export default {
         ).map((el) => {
           return {
             menu: el.name,
+            min: el.min ? el.min : 5,
             price: el.price,
             count: el.count,
             ...this.selectBox
@@ -487,13 +511,14 @@ export default {
     },
     handleresulte () {
       let result = []
-      if (this.setNumber !== 2) {
+      if (this.setNumber === 1) {
         this.lists.forEach((element) => {
           result.push(
             ...element.filter(x => x.count > 0).map((el) => {
               return {
                 menu: el.name,
                 price: el.price,
+                min: el.min ? el.min : 5,
                 count: el.count,
                 ...this.selectBox
               }
@@ -507,12 +532,14 @@ export default {
           return {
             menu: el.name,
             price: el.price,
+            min: el.min ? el.min : 5,
             count: el.count,
             ...this.selectBox
           }
         })
       }
 
+      console.log(result)
       result.forEach((element) => {
         let found = this.menu.find(el => el.menu === element.menu)
         if (found) {
@@ -555,7 +582,7 @@ export default {
       } else {
         Object.assign(this.fields, {
           'Rich Menu': [
-            'ข้าวกล่องรักษ์โลก/ชุดปิ่นโตอิ่มบุญ'],
+            'ข้าวกล่อง/Box setรักษ์โลก/ชุดปิ่นโตอิ่มบุญ'],
           'Package หลัก': `${this.selectedSet.name}`,
           ยอดเงิน: this.totalPrice,
           'Package รอง': '-',
@@ -629,47 +656,57 @@ export default {
         }
       }
 
-      // if (this.step !== 1) {
-      //   this.step--
-      // } else {
-      //   this.$router.push('/menu')
-
-      //   this.selectListMenu = 0
-      // }
       this.selectListMenu = 0
     },
     selectBoxSet (set) {
       this.selectBox = set
       this.step = 2
       this.setmenu(set.value)
-      console.log(set, 'set')
     },
     setmenu (value) {
-      if (value === 1) {
-        this.lists = Object.keys(this.luchDuomenu).map(k => this.luchDuomenu[k].map((el) => {
-          return {
-            ...el,
-            count: 0
-          }
-        }))
+      if (this.setNumber === 1) {
+        if (value === 1) {
+          this.lists = Object.keys(this.luchDuomenu).map(k => this.luchDuomenu[k].map((el) => {
+            return {
+              ...el,
+              count: 0
+            }
+          }))
+        }
+
+        if (value === 2) {
+          this.lists = Object.keys(this.luchTriomenu).map(k => this.luchTriomenu[k].map((el) => {
+            return {
+              ...el,
+              count: 0
+            }
+          }))
+        }
+
+        if (value === 3) {
+          this.lists = Object.keys(this.lunchboxmenu).map(k => this.lunchboxmenu[k].map((el) => {
+            return {
+              ...el,
+              count: 0
+            }
+          }))
+        }
       }
 
-      if (value === 2) {
-        this.lists = Object.keys(this.luchTriomenu).map(k => this.luchTriomenu[k].map((el) => {
-          return {
-            ...el,
-            count: 0
-          }
-        }))
+      if (this.setNumber === 2) {
+        console.log('2')
       }
 
-      if (value === 3) {
-        this.lists = Object.keys(this.lunchboxmenu).map(k => this.lunchboxmenu[k].map((el) => {
+      if (this.setNumber === 3) {
+        this.lists = this['pinto' + value].map((k) => {
           return {
-            ...el,
+            ...k,
             count: 0
           }
-        }))
+        }
+
+        )
+        console.log(this.lists)
       }
     }
   }

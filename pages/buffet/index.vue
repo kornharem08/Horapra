@@ -44,19 +44,20 @@
               <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
             </ValidPro>
           </div>
-          <div class="grid grid-cols-2 gap-4">
+          <div class="mt-4">
             <ValidPro v-slot="{ errors }" rules="required|minquantity" name="จำนวนแขก">
               <base-input v-model="guests" type="number" placeholder="จำนวนแขก" label="จำนวนแขก" />
               <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
             </ValidPro>
-
+          </div>
+          <div class="mt-4">
             <ValidPro v-slot="{ errors }" rules="required|minquantity" name="จำนวนพระสงฆ์">
               <base-input v-model="monk" type="number" placeholder="จำนวนพระสงฆ์" label="จำนวนพระสงฆ์" />
               <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
             </ValidPro>
           </div>
           <div class="mt-4">
-            <label class="label_base">เลือกเซ็ทราคา</label>
+            <label class="label_base">เลือกรูปแบบการจัดเลี้ยงพระสงฆ์</label>
             <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
               <select v-model="setStyle" class=" w-full input_base">
                 <option v-for="set in monkBuffet" :key="set.value" :value="set.value">
@@ -147,6 +148,14 @@
             </p>
             <p class="">
               {{ $store.state.users.email ? $store.state.users.email : '-' }}
+            </p>
+          </div>
+          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium    ">
+              เเพ็กเกจหลัก
+            </p>
+            <p class="">
+              {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
             </p>
           </div>
           <div class="flex flex-row justify-between mb-2 label_base">
@@ -342,23 +351,31 @@ export default {
       let setMonk = this.monkBuffet.find(x => x.value === this.setStyle)
       let x = this.setAccessories.filter(x => x.count > 0)
       let sum = x.map((el) => { return `${el.name} x ${el.count}\n` })
-
+      console.log(setBuffet)
       if (this.$route.query.morepackage) {
+        let pricePackage = this.$store.state.auspicious_packages.price ? Number(this.$store.state.auspicious_packages.price) : 0
+        let priceBuffetGuest = (Number(setPrice.price) * Number(this.guests))
+        let priceMonk = (Number(setMonk.price) * Number(this.monk))
+        let priceAccess = x.reduce((sum, current) => sum + current.count * current.price, 0)
         Object.assign(this.fields, {
           'Rich Menu': [
             'สิริมงคล'],
           'Package หลัก': this.$store.state.auspicious_packages.package,
           'Package รอง': `บุฟเฟ่ ${setBuffet.name} ${setPrice.name}: ${setPrice.price} บาท`,
-          'มัคนายก/มัคนายิกา': this.$store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ'
-
+          'มัคนายก/มัคนายิกา': this.$store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
+          ยอดเงิน: pricePackage + priceBuffetGuest + priceMonk + priceAccess
         })
       } else {
+        let priceBuffetGuest = (Number(setPrice.price) * Number(this.guests))
+        let priceMonk = (Number(setMonk.price) * Number(this.monk))
+        let priceAccess = x.reduce((sum, current) => sum + current.count * current.price, 0)
         Object.assign(this.fields, {
           'Rich Menu': [
             'บุฟเฟ่'],
           'Package หลัก': `${setBuffet.name} ${setPrice.name}: ${setPrice.price} บาท`,
           'Package รอง': '-',
-          'มัคนายก/มัคนายิกา': 'ไม่ต้องการ'
+          'มัคนายก/มัคนายิกา': 'ไม่ต้องการ',
+          ยอดเงิน: priceBuffetGuest + priceMonk + priceAccess
         })
       }
 
@@ -367,7 +384,6 @@ export default {
         เบอร์โทร: this.$store.state.users.phone,
         'เบอร์โทร (สำรอง)': data.phone_backup,
         อีเมล: this.$store.state.users.email,
-        ยอดเงิน: 0,
         วันส่งสินค้า: this.$moment(data.date).format('L'),
         เวลาพร้อมทาน: data.time,
         ลิฟท์ขนของ: data.cargo_lift ? 'มี' : 'ไม่มี',
