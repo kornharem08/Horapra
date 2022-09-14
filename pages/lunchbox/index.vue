@@ -1,34 +1,32 @@
 <template>
   <div>
-    <div class="text-white px-4">
-      {{ selectedSet ? selectedSet.name : null }}    {{ step }}
+    <base-button-back :title="setName" @back="back" />
+    <div class="text-14pt px-[24pt]">
+      {{ selectedSet ? selectedSet.name : null }}
     </div>
-    <!--selectBox.name ? selectBox.name : '' -->
-    <base-button-back v-if="step !== 3" :title="setName" @back="back" />
-
-    <section v-if="$route.query.morepackage && step === 0">
-      <div class="grid gap-6 mb-6 grid-cols-2">
+    <section v-if="step === 0">
+      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(item,idx) in lunchset" :key="idx" @click="selectMorePackage(item)">
           <card :show-detail="false" />
-          <div class="text-center text-white mt-2">
+          <div class="text-center  mt-2">
             {{ item.name }}
           </div>
         </div>
       </div>
     </section>
 
-    <section v-if="step === 1 && setNumber === 1" class="step1 px-3">
-      <div class="grid grid-cols-2 gap-3 ">
+    <section v-if="step === 1 && setNumber === 1" class="step1 ">
+      <div class="grid grid-cols-2 gap-3 px-[24pt]">
         <div v-for="(box,index) in boxset" :key="index" class="mt-2" @click="selectBoxSet(box)">
           <card :name="box.name" :price="Number(box.price)" />
-          <div class="flex items-center text-[14px] text-white justify-center mt-4">
+          <div class="flex items-center text-center text-[14pt] justify-center mt-4">
             {{ box.name }}
           </div>
         </div>
       </div>
     </section>
 
-    <section v-if="step === 2 " class="step2 px-3 text-white pb-10">
+    <section v-if="step === 2 " class="step2 px-[24pt] pb-10">
       <div>
         <div
           v-if="setNumber !== 2"
@@ -37,27 +35,27 @@
         >
           <div v-if="selectBox.value === 3" class="swiper-wrapper">
             <div v-for="(item, key , index) in lunchboxmenu" :key="index" class="swiper-slide " @click="selectListMenu = index">
-              <div class="p-2 h-8 flex text-[12px]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#EEDAB9] text-[#EEDAB9]' : ''">
+              <div class="p-2 h-8 flex text-[12pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
                 {{ key }}
               </div>
             </div>
           </div>
           <div v-if="selectBox.value === 1" class="swiper-wrapper">
             <div v-for="(item, key , index) in luchDuomenu" :key="index" class="swiper-slide " @click="selectListMenu = index">
-              <div class="p-2 h-8 flex text-[12px]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#EEDAB9] text-[#EEDAB9]' : ''">
+              <div class="p-2 h-8 flex text-[12pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
                 {{ key }}
               </div>
             </div>
           </div>
           <div v-if="selectBox.value === 2" class="swiper-wrapper">
             <div v-for="(item, key , index) in luchTriomenu" :key="index" class="swiper-slide " @click="selectListMenu = index">
-              <div class="p-2 h-8 flex text-[12px]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#EEDAB9] text-[#EEDAB9]' : ''">
+              <div class="p-2 h-8 flex text-[12pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
                 {{ key }}
               </div>
             </div>
           </div>
         </div>
-        <div v-for=" (list,i) in setNumber !== 2 ? lists[selectListMenu] : lists" :key="i" class=" bg-white rounded p-1 mt-4">
+        <div v-for=" (list,i) in setNumber !== 2 ? lists[selectListMenu] : lists" :key="i" class=" bg-white rounded  mt-4">
           <div
             class="overflow-hidden border border-gray-100 rounded-lg grid  group grid-cols-3"
             href=""
@@ -102,15 +100,15 @@
     </section>
 
     <section v-if="step === 3">
-      <div class="flex justify-between items-center px-3 mb-3">
-        <div class="text-white">
+      <div class="flex justify-between items-center px-[24pt] mb-3">
+        <div class="text-[16pt]">
           สรุปรายการอาหาร
         </div>
-        <div v-if="menu.length < 5" class="text-[#EEDAB9]" @click="addmore">
+        <div v-if="menu.length < 5" class="text-[#5A7F52] text-[14pt]" @click="addmore">
           เพิ่มรายการ
         </div>
       </div>
-      <div class="px-3">
+      <div class="px-[24pt]">
         <ValidObs ref="validator3">
           <div v-for="(item,index) in menu" :key="index" class="bg-white rounded mb-3">
             <ValidPro v-slot="{ errors }" :rules="`morethan:5`" :name="item.menu">
@@ -146,12 +144,13 @@
             </ValidPro>
           </div>
         </ValidObs>
-        <div class="text-center mb-4">
-          <span class="text-red-500">*</span> <span class="text-white text-xs"> หมายเหตุ: เฉพาะรายการข้าวกล่องเพิ่มรายการได้สูงสุด 5 รายการ</span>
+        <div class="mt-[50pt]">
+          <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
+          <textarea id="message" rows="4" class="input_base_textarea" />
         </div>
-        <div class="text-white">
-          <div class="flex justify-between">
-            <span>รวมทั้งหมด</span>  <span>{{ totalMenu }} กล่อง </span>
+        <div class="mt-[15pt]">
+          <div class="flex justify-between text-[20pt]">
+            <span class="">รวมทั้งหมด</span>  <span>{{ totalMenu }} กล่อง </span>
           </div>
         </div>
       </div>
@@ -179,38 +178,43 @@
     </section>
 
     <section v-if="step === 4" class="step4">
-      <div class="mt-6 px-3">
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium   ">
-            ชื่อ-นามสกุล
-          </p>
-          <p class=" ">
-            {{ $store.state.users.name }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium    ">
-            เบอร์โทร
-          </p>
-          <p class="">
-            {{ $store.state.users.phone }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            อีเมล์
-          </p>
-          <p class="">
-            {{ $store.state.users.email }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  w-1/2">
-            เมนูที่เลือก
-          </p>
-          <p class="w-1/2 text-right">
-            {{ listMenu.join(', ') }}
-          </p>
+      <div class="px-[24pt]">
+        <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
+          <div class="text-[16pt] font-medium text-center mb-[10pt]">
+            สรุปรายการ
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   ">
+              ชื่อ-นามสกุล
+            </p>
+            <p class=" ">
+              {{ $store.state.users.name }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium    ">
+              เบอร์โทร
+            </p>
+            <p class="">
+              {{ $store.state.users.phone }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium  leading-4  ">
+              อีเมล์
+            </p>
+            <p class="">
+              {{ $store.state.users.email ? $store.state.users.email : '-' }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium  w-1/2">
+              เมนูที่เลือก
+            </p>
+            <p class="w-1/2 text-right">
+              {{ listMenu.join(', ') }}
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -281,8 +285,8 @@ export default {
       lists: [],
       selectBox: {},
       swiperOptions: {
-        slidesPerView: 4,
-        spaceBetween: 5,
+        slidesPerView: 3,
+        spaceBetween: 3,
         freeMode: true
       },
       menu: [],
@@ -302,13 +306,9 @@ export default {
       return this.menu.reduce((sum, current) => sum + current.count * current.price, 0)
     },
     setName () {
-      if (this.step === 0 || this.step === 1) {
-        if (this.step === 1) {
-          if (this.$route.query.morepackage) {
-            return 'ย้อนกลับ'
-          } else {
-            return 'กลับหน้าหลัก'
-          }
+      if (this.step === 0) {
+        if (!this.$route.query.morepackage) {
+          return 'กลับหน้าหลัก'
         } else {
           return 'สิริมงคล'
         }
@@ -345,11 +345,11 @@ export default {
       }
     }
 
-    if (this.$route.query.morepackage) {
-      this.step = 0
-    } else {
-      this.step = 1
-    }
+    // if (this.$route.query.morepackage) {
+    //   this.step = 0
+    // } else {
+    //   this.step = 1
+    // }
   },
   methods: {
     selectMorePackage (item) {
@@ -554,21 +554,21 @@ export default {
     },
     back () {
       if (this.$route.query.morepackage) {
-        if (this.step === 1) {
-          this.step = 0
-        } else if (this.step === 0) {
-          let set = this.$route.query.morepackage
-          this.$router.push({
-            name: 'auspicious',
-            query: { set }
-          })
-        } else {
-          this.step--
+        if (this.$route.query.morepackage) {
+          if (this.step === 0) {
+            let set = this.$route.query.morepackage
+            this.$router.push({
+              name: 'auspicious',
+              query: { set }
+            })
+          } else {
+            this.step--
+          }
         }
       }
 
       if (!this.$route.query.morepackage) {
-        if (this.step !== 1) {
+        if (this.step !== 0) {
           this.step--
         } else {
           this.$router.push('/menu')
@@ -584,6 +584,7 @@ export default {
 
       //   this.selectListMenu = 0
       // }
+      this.selectListMenu = 0
     },
     selectBoxSet (set) {
       this.selectBox = set
