@@ -354,6 +354,7 @@
 
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
+    <modalerror v-if="isError" @close="handelfinish" />
   </div>
 </template>
 
@@ -361,17 +362,20 @@
 import BaseButtonBack from '../../components/Base/BaseButtonBack.vue'
 import modalfinish from '../../components/Modal/finish.vue'
 import ModalguestInformation from '../../components/Modal/modalguestInformation.vue'
+import Modalerror from '../../components/Modal/modalerror.vue'
 import auspiciouset from '@/static/json/auspiciouset.json'
 import set1 from '@/static/json/auspicious/set1.json'
 import set2 from '@/static/json/auspicious/set2.json'
 import set3 from '@/static/json/auspicious/set3.json'
 import accessories from '@/static/json/accessories.json'
 import monkBuffet from '@/static/json/monkBuffet.json'
+
 export default {
   components: {
     BaseButtonBack,
     modalfinish,
-    ModalguestInformation
+    ModalguestInformation,
+    Modalerror
   },
 
   data () {
@@ -387,6 +391,7 @@ export default {
       fields: {},
       setStyle: 1,
       monkBuffet,
+      isError: false,
       isModalinfo: false,
       isFinish: false,
       packages: {
@@ -506,6 +511,7 @@ export default {
     },
     handelfinish () {
       this.isFinish = false
+      this.isError = false
       this.$router.push('/menu')
     },
     submit (data) {
@@ -559,11 +565,12 @@ export default {
             }
 
           ])
+          this.isFinish = true
         } catch (err) {
           console.log(err)
+          this.isError = true
           this.$store.dispatch('handleLoading', false)
         } finally {
-          this.isFinish = true
           this.$store.dispatch('handleLoading', false)
         }
       }

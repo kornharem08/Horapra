@@ -313,6 +313,7 @@
 
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
+    <modalerror v-if="isError" @close="handelfinish" />
   </div>
 </template>
 
@@ -321,6 +322,7 @@
 import BaseButtonBack from '../../components/Base/BaseButtonBack.vue'
 import modalfinish from '../../components/Modal/finish.vue'
 import ModalguestInformation from '../../components/Modal/modalguestInformation.vue'
+import Modalerror from '../../components/Modal/modalerror.vue'
 import boxset from '@/static/json/boxset.json'
 import boxsetmenu from '@/static/json/boxset/menu.json'
 import lunchset from '@/static/json/lunchset.json'
@@ -335,7 +337,8 @@ export default {
   components: {
     BaseButtonBack,
     modalfinish,
-    ModalguestInformation
+    ModalguestInformation,
+    Modalerror
   },
   data () {
     return {
@@ -373,7 +376,8 @@ export default {
       menu: [],
       fields: {},
       set: this.$route.query.set ? this.$route.query.set : 1,
-      isModalinfo: false
+      isModalinfo: false,
+      isError: false
     }
   },
   computed: {
@@ -562,6 +566,7 @@ export default {
     },
     handelfinish () {
       this.isFinish = false
+      this.isError = false
       this.$router.push('/menu')
     },
     submit (data) {
@@ -630,11 +635,12 @@ export default {
             }
 
           ])
+          this.isFinish = true
         } catch (err) {
           console.log(err)
+          this.isError = true
           this.$store.dispatch('handleLoading', false)
         } finally {
-          this.isFinish = true
           this.$store.dispatch('handleLoading', false)
         }
       }

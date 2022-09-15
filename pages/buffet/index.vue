@@ -227,6 +227,7 @@
     </section>
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
+    <modalerror v-if="isError" @close="handelfinish" />
   </div>
 </template>
 
@@ -237,13 +238,14 @@ import TheQuotation from '../../components/TheQuotation.vue'
 import BaseButtonBack from '../../components/Base/BaseButtonBack.vue'
 import modalfinish from '../../components/Modal/finish.vue'
 import ModalguestInformation from '../../components/Modal/modalguestInformation'
+import Modalerror from '../../components/Modal/modalerror.vue'
 import priceBuffet from '@/static/json/priceBuffet.json'
 import guestBuffet from '@/static/json/guestBuffet.json'
 import monkBuffet from '@/static/json/monkBuffet.json'
 import accessories from '@/static/json/accessories.json'
 
 export default {
-  components: { BaseInput, Card, TheQuotation, BaseButtonBack, modalfinish, ModalguestInformation },
+  components: { BaseInput, Card, TheQuotation, BaseButtonBack, modalfinish, ModalguestInformation, Modalerror },
   data () {
     return {
       step: 0,
@@ -262,6 +264,7 @@ export default {
       setPrice: 1,
       username: '',
       lastname: '',
+      isError: false,
       fields: {
 
       }
@@ -325,6 +328,7 @@ export default {
     },
     handelfinish () {
       this.isFinish = false
+      this.isError = false
       this.$router.push('/menu')
     },
     back () {
@@ -414,12 +418,13 @@ export default {
             }
 
           ])
+          this.isFinish = true
         } catch (err) {
           console.log(err)
+          this.isError = true
           this.$store.dispatch('handleLoading', false)
         } finally {
           this.$store.dispatch('handleLoading', false)
-          this.isFinish = true
         }
       }
       createRecord()

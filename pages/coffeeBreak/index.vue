@@ -210,12 +210,14 @@
     </section>
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
+    <modalerror v-if="isError" @close="handelfinish" />
   </div>
 </template>
 
 <script>
 import modalfinish from '../../components/Modal/finish.vue'
 import ModalguestInformation from '../../components/Modal/modalguestInformation'
+import Modalerror from '../../components/Modal/modalerror.vue'
 import coffeebreak from '@/static/json/coffeebreak.json'
 const coffeeSet = [
   {
@@ -258,7 +260,8 @@ const boiledRice = [
 export default {
   components: {
     modalfinish,
-    ModalguestInformation
+    ModalguestInformation,
+    Modalerror
   },
 
   data () {
@@ -282,7 +285,8 @@ export default {
       resultOrder: '',
       isFinish: false,
       fields: {},
-      isModalinfo: false
+      isModalinfo: false,
+      isError: false
     }
   },
   computed: {
@@ -362,6 +366,7 @@ export default {
     },
     handelfinish () {
       this.isFinish = false
+      this.isError = false
       this.$router.push('/menu')
     },
     submit (data) {
@@ -429,11 +434,12 @@ export default {
             }
 
           ])
+          this.isFinish = true
         } catch (err) {
           console.log(err)
+          this.isError = true
           this.$store.dispatch('handleLoading', false)
         } finally {
-          this.isFinish = true
           this.$store.dispatch('handleLoading', false)
         }
       }
