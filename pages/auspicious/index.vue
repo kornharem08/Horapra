@@ -13,20 +13,32 @@
       </div>
     </section>
 
-    <section v-if="step === 1 " class="px-[24pt]">
-      <div>
-        <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
-        <div class="mx-auto flex flex-col justify-center items-center  w-full rounded-[10pt] h-[200pt] bg-white  cursor-pointer mt-3 mb-4 px-[24pt]">
-          รูปภาพ
+    <section v-if="step === 1" class="px-[24pt]">
+      <div v-if="!isSelectPackage">
+        <div>
+          <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
+          <div class="mx-auto flex flex-col justify-center items-center  w-full rounded-[10pt] h-[200pt] bg-white  cursor-pointer mt-3 mb-4 ">
+            รูปภาพ
+          </div>
+        </div>
+        <div>
+          <div class="mt-2 ">
+            Package
+          </div>
+
+          <div class="grid gap-6 mb-6 grid-cols-2 mt-[25pt]">
+            <div v-for="(item,idx) in pacakgex" :key="idx" class="text-center" @click="selectpackage(item.value)">
+              <card :name="item.name" />
+              <div class="mt-2 text-[14pt]">
+                {{ item.name }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div>
-        <div class="mt-2 ">
-          Package
-        </div>
-
-        <div class="grid gap-6 mb-6 grid-cols-2 mt-[25pt]">
-          <div v-for="(item,idx) in pacakgex" :key="idx" class="text-center" @click="selectpackage(item.value)">
+      <div v-else>
+        <div class="grid gap-6 mb-6 grid-cols-2 ">
+          <div v-for="(item,idx) in secoundPackage" :key="idx" class="text-center" @click="selectSecondpackage(item)">
             <card :name="item.name" />
             <div class="mt-2 text-[14pt]">
               {{ item.name }}
@@ -35,11 +47,12 @@
         </div>
       </div>
     </section>
+
     <ValidObs ref="validator4">
-      <section v-if="step === 2 && Number(setNumber) !== 2" class=" pb-12">
+      <section v-if="step === 2 && Number(setNumber) !== 2" class="pb-12">
         <div class="px-[24pt]">
           <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
-          <div class="h-32 w-full text-center border text-white rounded flex itmes-center justify-center">
+          <div class="h-[200pt] w-full text-center   rounded-[10pt]  bg-white flex items-center justify-center">
             รูปภาพ
           </div>
         </div>
@@ -137,14 +150,14 @@
       </section>
     </ValidObs>
     <ValidObs ref="validator3">
-      <section v-if="step === 2 && setNumber === 2" class="px-[24pt] pt-3 pb-6">
-        <div>
+      <section v-if="step === 2 && setNumber === 2" class=" pt-3 pb-6">
+        <div class="px-[24pt]">
           <span v-if="setName" class=""> {{ setName }}</span>
-          <div class="h-32 w-full text-center border ">
+          <div class="h-[200pt] w-full text-center rounded-[10pt] bg-white flex items-center justify-center">
             รูปภาพ
           </div>
         </div>
-        <div>
+        <div class="px-[24pt] mb-4">
           <p class="mt-4 ">
             ชื่อแพ็คเกจ
           </p>
@@ -153,7 +166,7 @@
           </p>
         </div>
 
-        <div vclass="grid gap-6 mb-6 grid-cols-2">
+        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
           <ValidPro v-slot="{ errors }" rules="required|minquantity:1" name="จำนวนพระสงฆ์">
             <label for="จำนวนพระสงฆ์" class="label_base">จำนวนพระสงฆ์</label>
             <input
@@ -169,10 +182,10 @@
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
         </div>
-        <div class="text-[7pt] text-center">
+        <div class="text-[7pt] mt-4 text-center px-[24pt]">
           *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
         </div>
-        <div class="mt-4">
+        <div class="mt-4 px-[24pt]">
           <label class="label_base">รูปแบบการจัดเลี้ยงพระสงฆ์</label>
           <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
             <select v-model="setStyle" class=" w-full input_base">
@@ -183,17 +196,24 @@
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
         </div>
+        <the-footer-button>
+          <template #button>
+            <button type="button" class="button_base " @click="next(1)">
+              ถัดไป
+            </button>
+          </template>
+        </the-footer-button>
       </section>
     </ValidObs>
 
     <section v-if="step === 3" class="px-[24pt]">
-      <div class=" text-white">
-        พิธีสงฆ์ > เลือกแพ็คเกจ > เลือกแพ็คเกจอาหาร
+      <div class="text-[16pt]">
+        เลือกแพ็คเกจอาหาร
       </div>
       <div class="grid gap-6 mb-6 grid-cols-2">
-        <div v-for="(item,idx) in handleMoreMenu(moreMenu)" :key="idx" class="text-center text-white" @click="selectMenu(item.value)">
+        <div v-for="(item,idx) in handleMoreMenu(moreMenu)" :key="idx" class="text-center" @click="selectMenu(item.value)">
           <card :name="item.name" />
-          <div class="mt-2">
+          <div class="mt-2 text-[14pt]">
             {{ item.name }}
           </div>
         </div>
@@ -304,6 +324,10 @@
             </p>
           </div>
         </div>
+        <div class="mt-[50pt]">
+          <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
+          <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
+        </div>
       </div>
       <the-footer-button>
         <template #button>
@@ -357,6 +381,7 @@ export default {
       set3,
       step: 0,
       auspiciouset,
+      isSelectPackage: false,
       accessories,
       setAccessories: [],
       fields: {},
@@ -372,7 +397,9 @@ export default {
         name: '',
         price: 0
       },
+      secoundPackage: [],
       setNumber: null,
+      note: '',
       pacakgex: [],
       moreMenu: [
         {
@@ -405,14 +432,18 @@ export default {
     },
     totalPrice () {
       if (this.setNumber === 2) {
-        return this.$store.state.auspicious_packages.style_buffet.price * this.$store.state.auspicious_packages.monk
+        let pricePackageBuffet = this.$store.state.auspicious_packages.style_buffet.price * this.$store.state.auspicious_packages.monk
+        if (this.packages.price > 0) {
+          pricePackageBuffet += this.packages.price
+        }
+        return pricePackageBuffet
       } else {
         let x = this.setAccessories.filter(x => x.count > 0)
         let sum = x.reduce((sum, current) => sum + current.count * current.price, 0)
         if (this.packages.price > 0) {
           sum += this.packages.price
         }
-        // this.x.reduce((sum, current) => sum + current.count * current.price, 0)
+
         return sum
       }
     },
@@ -449,7 +480,7 @@ export default {
             value: x.value
           }
         })
-        console.log('1')
+        console.log('1', 'sssss')
       }
       if (item.value === 2) {
         this.pacakgex = this['set' + item.value].map((x) => {
@@ -509,6 +540,7 @@ export default {
         'มัคนายก/มัคนายิกา': this.$store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
         'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
         อุปกรณ์เสริม: sum.toString(),
+        Notes: this.note,
         จำนวนพระสงฆ์: this.packages.monk.toString(),
         'จำนวนแขก (รวมพระ)': (Number(this.packages.monk)).toString(),
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
@@ -546,12 +578,13 @@ export default {
         this.$refs.validator3.validate().then((res) => {
           if (res) {
             let selectedPackage = ''
-            let packaged = this.pacakgex.find(x => x.value === this.packages.package)
-            if (packaged) {
-              selectedPackage = `${this.setName} ${packaged.name}`
-            } else {
-              selectedPackage = `${this.setName}`
-            }
+            // let packaged = this.pacakgex.find(x => x.value === this.packages.package)
+            // if (packaged) {
+            //   selectedPackage = `${this.setName} ${this.packages.name}`
+            // } else {
+            //   selectedPackage = `${this.setName}`
+            // }
+            selectedPackage = `${this.setName} ${this.packages.name}`
             let setMonk = {}
             if (Number(this.setNumber) === 2) {
               setMonk = this.monkBuffet.find(x => x.value === this.setStyle)
@@ -572,13 +605,19 @@ export default {
 
             this.$store.dispatch('setAuspiciousPackages', data)
             if (value === 1) {
-              if (Number(this.setNumber) !== 1) {
+              // this.step++
+              if (this.step === 2) {
                 this.step = 5
               } else {
-                this.step = 4
+                this.step++
               }
-            } else {
-              this.step++
+              // if (Number(this.setNumber) !== 1) {
+              //   this.step = 5
+              // } else {
+              //   this.step = 4
+              // }
+            } else if (value === 2) {
+              this.step = 3
             }
           } else {
             console.log('Plase validate')
@@ -638,17 +677,33 @@ export default {
         this.step = 2
       } else if (Number(this.setNumber) !== 1 && this.step === 5) {
         this.step = 2
+      } else if (this.step === 1 && this.isSelectPackage) {
+        this.isSelectPackage = false
+      } else if (this.step === 2 && this.isSelectPackage) {
+        this.step = 1
       } else {
         this.step--
       }
     },
+    selectSecondpackage (value) {
+      this.packages.price = value.price
+      this.packages.name = `${this.packages.name} ${value.name}`
+      this.step++
+    },
     selectpackage (value) {
+      this.secoundPackage = []
       this.packages.package = value
       let packageMain = this.pacakgex.find(x => x.value === value)
       this.packages.name = packageMain.name
       this.packages.price = packageMain.price
-      console.log(this.packages, 'Select Main')
-      this.step++
+      if (this.setNumber !== 2) {
+        this.step++
+      } else {
+        if (packageMain.set) {
+          this.secoundPackage.push(...packageMain.set)
+        }
+        this.isSelectPackage = true
+      }
     },
     selectMenu (value) {
       const page = {

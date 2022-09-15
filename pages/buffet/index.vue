@@ -207,6 +207,10 @@
             </p>
           </div>
         </div>
+        <div class="mt-[50pt]">
+          <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
+          <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
+        </div>
       </div>
 
       <the-footer-button>
@@ -252,6 +256,7 @@ export default {
       setStyle: 1,
       isFinish: false,
       isModalinfo: false,
+      note: '',
       monk: 1,
       guests: 1,
       setPrice: 1,
@@ -392,6 +397,7 @@ export default {
         สรุปรายการ: `${setBuffet.name}\n` + `${setMonk.name}: ${setMonk.price} บาท`,
         อุปกรณ์เสริม: sum.toString(),
         จำนวนพระสงฆ์: this.monk.toString(),
+        Notes: this.note,
         'จำนวนแขก (รวมพระ)': (Number(this.monk) + Number(this.guests)).toString(),
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
         วันรับออเดอร์: this.$moment(new Date()).format('L'),

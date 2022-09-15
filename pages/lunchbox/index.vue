@@ -154,7 +154,7 @@
         </ValidObs>
         <div class="mt-[50pt]">
           <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
-          <textarea id="message" rows="4" class="input_base_textarea" />
+          <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
         </div>
         <div class="mt-[15pt]">
           <div class="flex justify-between text-[20pt]">
@@ -264,6 +264,14 @@
               {{ $store.state.users.email ? $store.state.users.email : '-' }}
             </p>
           </div>
+          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium    ">
+              เเพ็กเกจหลัก
+            </p>
+            <p class="">
+              {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
+            </p>
+          </div>
           <div class="flex flex-col mb-2 label_base">
             <p class="font-medium  ">
               เมนูที่เลือก
@@ -342,6 +350,7 @@ export default {
       luchDuomenu,
       luchTriomenu,
       step: 0,
+      note: '',
       setNumber: 0,
       isFinish: false,
       selectListMenu: 0,
@@ -564,7 +573,7 @@ export default {
         let totalPriceMonkPacakge = 0
         if (Number(this.$route.query.morepackage) === 2) {
           result += `\n${this.$store.state.auspicious_packages.style_buffet.name} ${this.$store.state.auspicious_packages.style_buffet.price} 'บาท'`
-          totalPriceMonkPacakge = (Number(this.$store.state.auspicious_packages.monk) * this.$store.state.auspicious_packages.style_buffet.price)
+          totalPriceMonkPacakge = (Number(this.$store.state.auspicious_packages.monk) * Number(this.$store.state.auspicious_packages.style_buffet.price))
         }
 
         Object.assign(this.fields, {
@@ -575,7 +584,7 @@ export default {
           'มัคนายก/มัคนายิกา': this.$store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
           จำนวนพระสงฆ์: this.$store.state.auspicious_packages.monk,
           'จำนวนแขก (รวมพระ)': this.$store.state.auspicious_packages.monk,
-          ยอดเงิน: Number(Number(this.totalPrice) + Number(totalPriceMonkPacakge)),
+          ยอดเงิน: Number(Number(this.totalPrice) + Number(totalPriceMonkPacakge) + Number(this.$store.state.auspicious_packages.price)),
           สรุปรายการ: result
 
         })
@@ -604,6 +613,7 @@ export default {
         รหัสไปรษณีย์: Number(data.post_code),
         'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
         อุปกรณ์เสริม: '',
+        Notes: this.note,
         'จำนวนแขก (รวมพระ)': '-',
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
         วันรับออเดอร์: this.$moment(new Date()).format('L'),

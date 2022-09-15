@@ -1,26 +1,26 @@
 <template>
   <div>
-    <base-button-back :title="step === 1 ? $route.query.morepackage ? setName : 'กลับหน้าหลัก' : 'คอฟฟี่เบรค/สแน็คบ็อกซ์/ข้าวต้ม'" class="mb-2" @back="back" />
+    <base-button-back :title="step === 0 ? $route.query.morepackage ? setName : 'กลับหน้าหลัก' : 'คอฟฟี่เบรค/สแน็คบ็อกซ์/ข้าวต้ม'" class="mb-2" @back="back" />
 
-    <section v-if="$route.query.morepackage && step === 0">
-      <div class="grid gap-6 mb-6 grid-cols-2">
+    <section v-if=" step === 0">
+      <div class="grid gap-6 mb-6 grid-cols-2  px-[24pt]">
         <div v-for="(item,idx) in coffeebreak" :key="idx" @click="selectMorePackage(item)">
           <card :show-detail="false" />
-          <div class="text-center text-white mt-2">
+          <div class="text-center text-[14pt] mt-2">
             {{ item.name }}
           </div>
         </div>
       </div>
     </section>
 
-    <section v-if="step === 1" class="step1 px-3">
-      <div class="text-white w-fit">
+    <section v-if="step === 1" class="step1  px-[24pt]">
+      <div class="text-[14pt] w-fit">
         {{ setName }}
       </div>
       <div class="grid gap-6 mb-6 grid-cols-2">
         <div v-for="(item,idx) in coffeeMenu" :key="idx" @click="selectPacakge(item)">
           <card :name="item.name" :price="Number(item.price)" :show-detail="true" />
-          <div class="text-center text-white mt-2">
+          <div class="text-center text-[14pt]   mt-2">
             {{ item.name }} <br> {{ item.price }} บาท
           </div>
         </div>
@@ -28,16 +28,16 @@
     </section>
 
     <section v-if="step === 2" class="step1 ">
-      <div class="text-white w-fit px-3 ">
+      <div class=" w-fit  px-[24pt] ">
         {{ setName }} >  {{ packselected.name }}  {{ packselected.price }}
       </div>
-      <div class="px-3 ">
-        <div class="flex justify-center items-center border rounded my-4 h-40 text-white">
+      <div class=" px-[24pt] ">
+        <div class="flex justify-center items-center rounded-[10pt] my-4 h-40 bg-white ">
           รูปภาพ
         </div>
       </div>
 
-      <div v-if="$route.query.set === 1" class="text-white text-sm px-3 ">
+      <div v-if="$route.query.set === 1" class=" text-[12pt]  px-[24pt]">
         เงื่อนไข:<br>
         1. ลูกค้าจะได้รับ ชา, กาแฟ, โอวัลติน คละแบบ <br>
         2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)  <br>
@@ -45,13 +45,13 @@
         4. ระยะเวลาให้บริการ 2 ชั่วโมง <br>
         5. มีค่าขนส่งตามระยะทาง
       </div>
-      <div v-if="$route.query.set === 2" class="text-white text-sm px-3 ">
+      <div v-if="$route.query.set === 2" class=" text-[12pt]  px-[24pt] ">
         เงื่อนไข:<br> 1. ลูกค้าจะได้รับน้ำผลไม้ 1 กล่อง (คละแบบ)<br> 2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)<br> 3. จำนวนขั้นต่ำ 50 ชุด<br> 4. มีค่าขนส่งตามระยะทาง
       </div>
-      <div v-if="$route.query.set === 3" class="text-white text-sm px-3 ">
+      <div v-if="$route.query.set === 3" class="text-[12pt]  px-[24pt] ">
         *หมายเหตุ:<br> แขกจำนวน 1 - 30 ท่าน ราคา 62 บาท/ท่าน <br> แขกจำนวน 30 ท่านขึ้นไป ราคา 59 บาท/ท่าน
       </div>
-      <div class="px-3 ">
+      <div class="px-[24pt]">
         <div class="block product-count-button-position mt-4 flex justify-center">
           <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-42">
             <button class="flex items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="menu.count > 0 ? menu.count-- : 0">
@@ -91,19 +91,19 @@
     </section>
 
     <section v-if="step === 3" class="step1  ">
-      <div class="flex justify-between items-center px-3 mb-3" @click.stop="">
-        <div class="text-white w-fit" @click.stop="">
+      <div class="flex justify-between items-center px-[24pt] mb-3" @click.stop="">
+        <div class="text-[16pt] w-fit" @click.stop="">
           สรุปรายการอาหาร
         </div>
-        <div v-if="orders.length < coffeeMenu.length" class="text-[#EEDAB9]" @click="addmore">
+        <div v-if="orders.length < coffeeMenu.length" class="text-[#5A7F52] text-[14pt]" @click="addmore">
           เพิ่มรายการ
         </div>
       </div>
-      <div class="px-3">
+      <div class="px-[24pt]">
         <div v-for="(item,index) in orders" :key="index" class="bg-white rounded mb-3">
           <div class="flex justify-between items-center py-3">
             <div class="p-2 flex flex-col">
-              <span class="text-sm">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
+              <span class="text-[14pt]">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
             </div>
             <div class="block product-count-button-position mt-2 px-2">
               <div class="flex items-center border-[#5A7F52] border justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-32">
@@ -130,8 +130,12 @@
           </div>
         </div>
       </div>
-      <div class="text-white px-3">
-        <div class="flex justify-between">
+      <div class="mt-[50pt] px-[24pt]">
+        <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
+        <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
+      </div>
+      <div class="mt-[15pt] px-[24pt]">
+        <div class="flex justify-between text-[20pt]">
           <span>รวมทั้งหมด</span>  <span>{{ totalMenu }} ชิ้น </span>
         </div>
       </div>
@@ -145,38 +149,51 @@
     </section>
 
     <section v-if="step === 4">
-      <div class="mt-6 px-3">
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium   ">
-            ชื่อ-นามสกุล
-          </p>
-          <p class=" ">
-            {{ $store.state.users.name }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium    ">
-            เบอร์โทร
-          </p>
-          <p class="">
-            {{ $store.state.users.phone }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  leading-4  ">
-            อีเมล์
-          </p>
-          <p class="">
-            {{ $store.state.users.email }}
-          </p>
-        </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
-          <p class="font-medium  w-1/2">
-            แพ็คเกจที่เลือก
-          </p>
-          <p class="w-1/2 text-right">
-            {{ resultOrder.join('') }}
-          </p>
+      <div class="px-[24pt]">
+        <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
+          <div class="text-[16pt] font-medium text-center mb-[10pt]">
+            สรุปรายการ
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium">
+              ชื่อ-นามสกุล
+            </p>
+            <p class=" ">
+              {{ $store.state.users.name }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium">
+              เบอร์โทร
+            </p>
+            <p class="">
+              {{ $store.state.users.phone }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   ">
+              อีเมล์
+            </p>
+            <p class="">
+              {{ $store.state.users.email }}
+            </p>
+          </div>
+          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium    w-1/2">
+              เเพ็กเกจหลัก
+            </p>
+            <p class="text-right w-1/2">
+              {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium  w-1/2">
+              แพ็คเกจที่เลือก
+            </p>
+            <p class="w-1/2 text-right">
+              {{ resultOrder.join('') }}
+            </p>
+          </div>
         </div>
       </div>
       <the-footer-button>
@@ -254,6 +271,7 @@ export default {
       coffeeMenu: [],
       coffeeSet,
       snackSet,
+      note: '',
       menu: {
         count: 0,
         name: '',
@@ -279,7 +297,7 @@ export default {
       return this.orders.reduce((sum, current) => sum + current.count, 0)
     },
     totalPrice () {
-      if (this.$route.query.set === 3) {
+      if (this.setNumber === 3) {
         let price = 0
         if (this.totalMenu <= 30) {
           price = 62
@@ -310,11 +328,11 @@ export default {
     } else if (this.setNumber === 3) {
       this.coffeeMenu.push(...this.boiledRice)
     }
-    if (this.$route.query.morepackage) {
-      this.step = 0
-    } else {
-      this.step = 1
-    }
+    // if (this.$route.query.morepackage) {
+    //   this.step = 0
+    // } else {
+    //   this.step = 1
+    // }
   },
   methods: {
     selectMorePackage (item) {
@@ -353,8 +371,11 @@ export default {
         let result = this.resultOrder.join('\r\n')
         if (Number(this.$route.query.morepackage) === 2) {
           result += `\n${this.$store.state.auspicious_packages.style_buffet.name} ${this.$store.state.auspicious_packages.style_buffet.price} 'บาท'`
-          totalPriceMonkPacakge = (Number(this.$store.state.auspicious_packages.monk) * this.$store.state.auspicious_packages.style_buffet.price)
+          totalPriceMonkPacakge = (Number(this.$store.state.auspicious_packages.monk) * Number(this.$store.state.auspicious_packages.style_buffet.price))
         }
+        console.log(totalPriceMonkPacakge)
+        console.log((Number(this.$store.state.auspicious_packages.monk) * Number(this.$store.state.auspicious_packages.style_buffet.price)))
+
         Object.assign(this.fields, {
           'Rich Menu': [
             'สิริมงคล'
@@ -363,7 +384,7 @@ export default {
           'Package รอง': this.setName,
           จำนวนพระสงฆ์: this.$store.state.auspicious_packages.monk,
           'จำนวนแขก (รวมพระ)': this.$store.state.auspicious_packages.monk,
-          ยอดเงิน: Number(Number(this.totalPrice) + Number(totalPriceMonkPacakge)),
+          ยอดเงิน: Number(Number(this.totalPrice) + Number(totalPriceMonkPacakge) + Number(this.$store.state.auspicious_packages.price)),
           สรุปรายการ: result
 
         })
@@ -386,13 +407,13 @@ export default {
         เบอร์โทร: this.$store.state.users.phone,
         'เบอร์โทร (สำรอง)': data.phone_backup,
         อีเมล: this.$store.state.users.email,
-        ยอดเงิน: this.totalPrice,
         วันส่งสินค้า: this.$moment(data.date).format('L'),
         เวลาพร้อมทาน: data.time,
         ลิฟท์ขนของ: data.cargo_lift ? 'มี' : 'ไม่มี',
         รหัสไปรษณีย์: Number(data.post_code),
         'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
         อุปกรณ์เสริม: '',
+        Notes: this.note,
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
         วันรับออเดอร์: this.$moment(new Date()).format('L'),
         'Last Contact': this.$moment(new Date()).format('L')
@@ -471,7 +492,7 @@ export default {
       }
 
       if (!this.$route.query.morepackage) {
-        if (this.step !== 1) {
+        if (this.step !== 0) {
           this.step--
         } else {
           this.$router.push('/menu')
