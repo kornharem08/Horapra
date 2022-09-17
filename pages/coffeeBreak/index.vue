@@ -32,7 +32,7 @@
         {{ setName }} >  {{ packselected.name }}  {{ packselected.price }}
       </div>
       <div class=" px-[24pt] ">
-        <div class="flex justify-center items-center rounded-[10pt] my-4 h-40 bg-white ">
+        <div class="flex justify-center items-center rounded-[10pt] my-4 aspect-video  bg-white ">
           รูปภาพ
         </div>
       </div>

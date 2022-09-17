@@ -189,14 +189,14 @@
       </the-footer-button>
     </section>
 
-    <section v-if="step === 1 && setNumber === 3" class="step1 ">
+    <section v-show="step === 1 && setNumber === 3" class="step1 ">
       <div
         v-swiper:pintoIamge="swiperOptionsimage"
         class="swiper "
       >
         <div class="swiper-wrapper  " @click.stop="">
           <div v-for="(image,idx) in 4" :key="idx" class="swiper-slide ">
-            <div class="mx-auto flex flex-col justify-center items-center  w-full   cursor-pointer mt-3 mb-4 px-[24pt]">
+            <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4 px-[24pt]">
               <img
                 class="rounded-[10pt] object-cover"
                 :src="require(`~/assets/img/Pinto/${idx}.jpg`)"
@@ -208,7 +208,7 @@
       </div>
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt] mt-[25pt]">
         <div v-for="(pinto,idx) in pintoset" :key="idx" class="flex items-center flex-col justify-start" @click="selectBoxSet(pinto)">
-          <div class="w-full h-[126pt]  rounded-[10pt] flex items-center justify-center border bg-white">
+          <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
             <img
               class="rounded-[10pt] object-cover object-left h-full w-full"
               :src="require(`~/assets/img/Pinto/${pinto.value}.jpg`)"
@@ -730,5 +730,10 @@ export default {
 </script>
 
 <style>
-
+.swiper-pagination {
+  width: 100% !important;
+}
+.swiper-horizontal>.swiper-pagination-bullets {
+  bottom: 25px;
+}
 </style>

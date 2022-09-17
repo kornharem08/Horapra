@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-[126pt]  rounded-[10pt] flex items-center justify-center text-center border bg-white relative">
+  <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center text-center border bg-white relative">
     {{ name }}
     <div v-if="showDetail" class="absolute right-0 bottom-0 left-0 text-center ">
       <div class="bg-[#1C3E23] py-1 text-white rounded-b-[10pt]">

@@ -17,7 +17,7 @@
       <div v-if="!isSelectPackage">
         <div>
           <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
-          <div class="mx-auto flex flex-col justify-center items-center  w-full rounded-[10pt] h-[200pt] bg-white  cursor-pointer mt-3 mb-4 ">
+          <div class="mx-auto flex flex-col justify-center items-center  w-full rounded-[10pt] aspect-video  bg-white  cursor-pointer mt-3 mb-4 ">
             รูปภาพ
           </div>
         </div>
@@ -52,7 +52,7 @@
       <section v-if="step === 2 && Number(setNumber) !== 2" class="pb-12">
         <div class="px-[24pt]">
           <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
-          <div class="h-[200pt] w-full text-center   rounded-[10pt]  bg-white flex items-center justify-center">
+          <div class="aspect-video  w-full text-center   rounded-[10pt]  bg-white flex items-center justify-center">
             รูปภาพ
           </div>
         </div>
@@ -153,7 +153,7 @@
       <section v-if="step === 2 && setNumber === 2" class=" pt-3 pb-6">
         <div class="px-[24pt]">
           <span v-if="setName" class=""> {{ setName }}</span>
-          <div class="h-[200pt] w-full text-center rounded-[10pt] bg-white flex items-center justify-center">
+          <div class="aspect-video w-full text-center rounded-[10pt] bg-white flex items-center justify-center">
             รูปภาพ
           </div>
         </div>

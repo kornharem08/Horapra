@@ -2,7 +2,7 @@
   <div class="">
     <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt] mt-[76px]">
       <div v-for="(item,index) in list" :key="index" class="flex items-center flex-col justify-start" @click="selectMenu(item.value)">
-        <div class="w-full h-[126pt]  rounded-[10pt] flex items-center justify-center border bg-white">
+        <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
           รูปภาพ
         </div>
         <div class="text-center text-[14pt] mt-[10pt]">

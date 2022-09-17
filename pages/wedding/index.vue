@@ -21,7 +21,7 @@
             เลือกแพ็คเกจ
           </div>
           <!-- <span v-if="setName" class="text-[14pt]"> {{ setName }}</span> -->
-          <div class="h-[200pt] w-full text-center   rounded-[10pt]  bg-white flex items-center justify-center">
+          <div class="aspect-video w-full text-center   rounded-[10pt]  bg-white flex items-center justify-center">
             รูปภาพ
           </div>
         </div>

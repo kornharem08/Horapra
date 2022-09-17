@@ -4,7 +4,7 @@
     <section v-if="step === 0" class="step1 ">
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(menu,idx) in guestBuffet" :key="idx" class="flex items-center flex-col justify-start" @click="selectSet(menu)">
-          <div class="w-full h-[126pt]  rounded-[10pt] flex items-center justify-center border bg-white">
+          <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border bg-white">
             รูปภาพ
           </div>
           <div class="text-center text-[14pt] mt-[10pt]">
@@ -15,7 +15,7 @@
     </section>
     <ValidObs ref="form" v-slot="{ handleSubmit }">
       <section v-if="step === 1" class="step1 ">
-        <div class="mx-auto flex flex-col justify-center items-center  w-full   cursor-pointer mt-6 mb-4 px-[24pt]">
+        <div class=" flex flex-col justify-center items-center  w-full  aspect-video  cursor-pointer mt-6 mb-4 px-[24pt]">
           <img
             class="rounded-[10pt]"
             :src="require(`~/assets/img/buffet/set/${setbuffet}.jpg`)"
