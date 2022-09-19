@@ -4,12 +4,12 @@
     <section v-if="step === 0">
       <div class="text-[14pt] mb-[10pt] px-[24pt]">
         เลือกแพ็คเกจ
-      </div>
-      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
-        <div v-for="(item,idx) in weddingSet" :key="idx" @click="selectPackage(item)">
-          <card :show-detail="false" />
-          <div class="text-center text-[14pt]  mt-2">
-            {{ item.name }}
+        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
+          <div v-for="(item,idx) in weddingSet" :key="idx" @click="selectPackage(item)">
+            <card :show-detail="false" />
+            <div class="text-center text-[14pt]  mt-2">
+              {{ item.name }}
+            </div>
           </div>
         </div>
       </div>
@@ -169,7 +169,8 @@ export default {
         'จำนวนแขก (รวมพระ)': (Number(this.packages.guest)).toString(),
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
         วันรับออเดอร์: this.$moment(new Date()).format('L'),
-        'Last Contact': this.$moment(new Date()).format('L')
+        'Last Contact': this.$moment(new Date()).format('L'),
+        'Sales Stage': 'New Lead'
       })
 
       let Airtable = require('airtable')

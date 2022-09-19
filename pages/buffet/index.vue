@@ -405,7 +405,8 @@ export default {
         'จำนวนแขก (รวมพระ)': (Number(this.monk) + Number(this.guests)).toString(),
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
         วันรับออเดอร์: this.$moment(new Date()).format('L'),
-        'Last Contact': this.$moment(new Date()).format('L')
+        'Last Contact': this.$moment(new Date()).format('L'),
+        'Sales Stage': 'New Lead'
       })
 
       let Airtable = require('airtable')

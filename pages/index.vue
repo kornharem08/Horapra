@@ -11,7 +11,19 @@ export default {
   components: { guestInformation },
   methods: {
     submit () {
-      this.$router.push('/menu')
+      const menu = {
+        1: 'buffet',
+        2: 'lunchbox',
+        3: 'auspicious',
+        4: 'wedding',
+        5: 'coffeeBreak'
+      }
+
+      this.$router.push({
+        name: menu[Number(this.$route.query.menu)]
+      })
+
+      // console.log(this.$route.query.menu)
     }
   }
 }
