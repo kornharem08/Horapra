@@ -455,7 +455,7 @@ export default {
       this.step = 1
     },
     handleListOrder () {
-      if (this.step === 3 && (!this.$store.state.users.name || !this.$store.state.users.phone || !this.$store.state.users.email)) {
+      if (this.step === 3 && (!this.$store.state.users.name || !this.$store.state.users.phone)) {
         this.isModalinfo = true
       }
       this.resultOrder = this.orders.map((el) => { return `${el.name} ${el.price} บาท x ${el.count} ` })
