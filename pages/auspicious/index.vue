@@ -91,9 +91,8 @@
             </div>
           </div>
         </div>
-        <div v-if="packages.is_monk" class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
+        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
           <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
-            <label for="จำนวนพระสงฆ์" class="text-[12pt]">ระบุจำนวนพระสงฆ์</label>
             <input
               v-model="packages.monk"
               class="block py-2.5 px-4 w-1/2 text-[#142917] bg-gray-50 rounded-full border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
@@ -103,11 +102,14 @@
               @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
               @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
             >
-            <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            <div class="flex flex-col">
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+              <label for="จำนวนพระสงฆ์" class="text-[12pt] mt-2">ระบุจำนวนพระสงฆ์</label>
+            </div>
           </ValidPro>
         </div>
 
-        <div class="text-[7pt] text-center px-[24pt]">
+        <div class="text-[11px] text-left px-[24pt]">
           *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
         </div>
         <div class="mt-6  px-[24pt]">
@@ -136,7 +138,7 @@
               <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-[14pt] flex ">ไม่ต้องการ</label>
             </div>
           </div>
-          <div class="text-[7pt] text-center">
+          <div class="text-[11px] text-left">
             *หมายเหตุ: ลูกค้าจะได้รับส่วนลดในกรณีที่ไม่ต้องการบริการมัคนายก/มัคนายิกา
           </div>
         </div>
@@ -182,7 +184,7 @@
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
         </div>
-        <div class="text-[7pt] mt-4 text-center px-[24pt]">
+        <div class="text-[11px] mt-4 text-left px-[24pt]">
           *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
         </div>
         <div class="mt-4 px-[24pt]">
@@ -220,10 +222,10 @@
       </div>
     </section>
 
-    <section v-if="step === 4 " class="step2 ">
+    <section v-if="step === 4" class="step2 ">
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(item,idx) in setAccessories" :key="idx" class="grid-cols-2">
-          <card :name="item.name" :price="Number(item.price)" :show-detail="true" />
+          <card :price="Number(item.price)" :show-detail="true" />
           <div class="block product-count-button-position mt-2">
             <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-full">
               <button class="flex items-center text=black justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="item.count > 0 ? item.count-- : 0">
@@ -243,6 +245,9 @@
                 <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
               </button>
             </div>
+          </div>
+          <div class="text-[#142917] text-[12pt] text-center mt-2">
+            {{ item.name }}
           </div>
         </div>
       </div>
@@ -312,6 +317,14 @@
             </p>
             <p class="w-1/3 text-right">
               {{ packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ' }}
+            </p>
+          </div>
+          <div v-if="setNumber === 2" class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   w-2/3">
+              รูปแบบการจัดเลี้ยงพระสงฆ์
+            </p>
+            <p class="w-1/3 text-right">
+              {{ `${$store.state.auspicious_packages.style_buffet.name}: ${$store.state.auspicious_packages.style_buffet.price} บาท` }}
             </p>
           </div>
 
@@ -486,6 +499,7 @@ export default {
           }
         })
         console.log('1', 'sssss')
+        this.step = 1
       }
       if (item.value === 2) {
         this.pacakgex = this['set' + item.value].map((x) => {
@@ -496,11 +510,11 @@ export default {
             set: x.set
           }
         })
+        this.step = 1
       }
       if (item.value === 3) {
         console.log('1')
       }
-      this.step = 1
     },
     handleMoreMenu (menu) {
       if (this.setNumber === 2) {
@@ -527,6 +541,23 @@ export default {
         Object.assign(this.fields, {
           สรุปรายการ: ''
         })
+      }
+
+      if (data.time_for_lunch) {
+        const times = {
+          1: 'เช้า',
+          2: 'เพล',
+          3: 'กำหนดเวลาเอง'
+        }
+        if (data.time_for_lunch !== 3) {
+          Object.assign(this.fields, {
+            เวลาถวายข้าวพระ: times[data.time_for_lunch]
+          })
+        } else {
+          Object.assign(this.fields, {
+            เวลาถวายข้าวพระ: ` ${times[data.time_for_lunch]} : ${data.timeLunch}`
+          })
+        }
       }
 
       Object.assign(this.fields, {
@@ -578,8 +609,7 @@ export default {
       createRecord()
     },
     next (value) {
-      console.log(this.setNumber, value)
-      if (this.step === 4 && (!this.$store.state.users.name || !this.$store.state.users.phone)) {
+      if (this.step === 5 && (!this.$store.state.users.name || !this.$store.state.users.phone)) {
         this.isModalinfo = true
       }
       if (Number(this.setNumber) === 2) {
@@ -664,7 +694,7 @@ export default {
             if (Number(this.setNumber) === 1) {
               if (value === 1) {
                 if (this.step === 2) {
-                  this.step = 5
+                  this.step = 4
                 } else {
                   this.step++
                 }
@@ -699,6 +729,7 @@ export default {
       this.step++
     },
     selectpackage (value) {
+      console.log(value)
       this.secoundPackage = []
       this.packages.package = value
       let packageMain = this.pacakgex.find(x => x.value === value)

@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div v-if="$route.query.set === 1" class=" text-[12pt]  px-[24pt]">
+      <div v-if="setNumber === 1" class=" text-[12pt]  px-[24pt]">
         เงื่อนไข:<br>
         1. ลูกค้าจะได้รับ ชา, กาแฟ, โอวัลติน คละแบบ <br>
         2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)  <br>
@@ -45,10 +45,10 @@
         4. ระยะเวลาให้บริการ 2 ชั่วโมง <br>
         5. มีค่าขนส่งตามระยะทาง
       </div>
-      <div v-if="$route.query.set === 2" class=" text-[12pt]  px-[24pt] ">
+      <div v-if="setNumber === 2" class=" text-[12pt]  px-[24pt] ">
         เงื่อนไข:<br> 1. ลูกค้าจะได้รับน้ำผลไม้ 1 กล่อง (คละแบบ)<br> 2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)<br> 3. จำนวนขั้นต่ำ 50 ชุด<br> 4. มีค่าขนส่งตามระยะทาง
       </div>
-      <div v-if="$route.query.set === 3" class="text-[12pt]  px-[24pt] ">
+      <div v-if="setNumber === 3" class="text-[12pt]  px-[24pt] ">
         *หมายเหตุ:<br> แขกจำนวน 1 - 30 ท่าน ราคา 62 บาท/ท่าน <br> แขกจำนวน 30 ท่านขึ้นไป ราคา 59 บาท/ท่าน
       </div>
       <div class="px-[24pt]">
@@ -66,7 +66,7 @@
               ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
             </button>
             <input
-              v-model="menu.count"
+              v-model.number="menu.count"
               type="number"
               class="font-semibold flex items-center justify-center h-full border-none text-center focus:ring-0 transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-20"
               min="0"
@@ -118,7 +118,7 @@
                     xmlns="http://www.w3.org/2000/svg"
                   ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
                 </button>
-                <input v-model="item.count " type="number" class="border-none  text-black text-center focus:outline-none focus:ring-0  text-sm ">
+                <input v-model.number="item.count " type="number" class="border-none  text-black text-center focus:outline-none focus:ring-0  text-sm ">
 
                 <!-- <span class="font-semibold text-black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span> -->
                 <button class="group flex text-[#5A7F52] items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
@@ -183,7 +183,39 @@
               เเพ็กเกจหลัก
             </p>
             <p class="text-right w-1/2">
-              {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
+              {{ `สิริมงคล ${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
+            </p>
+          </div>
+          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+            <p class="w-1/2">
+              บริการนิมนต์พระสงฆ์*
+            </p>
+            <p class="text-right w-1/2">
+              {{ $store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ', }}
+            </p>
+          </div>
+          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+            <p class="w-1/2">
+              บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
+            </p>
+            <p class="text-right w-1/2">
+              {{ $store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ', }}
+            </p>
+          </div>
+          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+            <p class="w-1/2">
+              จำนวนพระสงฆ์
+            </p>
+            <p class="text-right w-1/2">
+              {{ $store.state.auspicious_packages.monk }}
+            </p>
+          </div>
+          <div v-if="$route.query.morepackage && $route.query.morepackage === 2" class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   w-2/3">
+              รูปแบบการจัดเลี้ยงพระสงฆ์
+            </p>
+            <p class="w-1/3 text-right">
+              {{ `${$store.state.auspicious_packages.style_buffet.name}: ${$store.state.auspicious_packages.style_buffet.price} บาท` }}
             </p>
           </div>
           <div class="flex flex-row justify-between mb-2 label_base">
@@ -191,7 +223,7 @@
               แพ็คเกจที่เลือก
             </p>
             <p class="w-1/2 text-right">
-              {{ resultOrder.join('') }}
+              {{ resultOrder.join(',') }}
             </p>
           </div>
         </div>
@@ -298,7 +330,7 @@ export default {
       }
     },
     totalMenu () {
-      return this.orders.reduce((sum, current) => sum + current.count, 0)
+      return Number(this.orders.reduce((sum, current) => Number(sum) + Number(current.count), 0))
     },
     totalPrice () {
       if (this.setNumber === 3) {
@@ -385,9 +417,11 @@ export default {
           'Rich Menu': [
             'สิริมงคล'
           ],
-          'Package หลัก': this.$store.state.auspicious_packages.package,
+          'Package หลัก': `สิริมงคล ${this.$store.state.auspicious_packages.package}`,
           'Package รอง': this.setName,
           จำนวนพระสงฆ์: this.$store.state.auspicious_packages.monk,
+          'มัคนายก/มัคนายิกา': this.$store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
+          บริการนิมต์พระสงฆ์: this.$store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ',
           'จำนวนแขก (รวมพระ)': this.$store.state.auspicious_packages.monk,
           ยอดเงิน: Number(Number(this.totalPrice) + Number(totalPriceMonkPacakge) + Number(this.$store.state.auspicious_packages.price)),
           สรุปรายการ: result
@@ -405,6 +439,23 @@ export default {
           สรุปรายการ: this.resultOrder.join('\r\n'),
           ยอดเงิน: this.totalPrice
         })
+      }
+
+      if (data.time_for_lunch) {
+        const times = {
+          1: 'เช้า',
+          2: 'เพล',
+          3: 'กำหนดเวลาเอง'
+        }
+        if (data.time_for_lunch !== 3) {
+          Object.assign(this.fields, {
+            เวลาถวายข้าวพระ: times[data.time_for_lunch]
+          })
+        } else {
+          Object.assign(this.fields, {
+            เวลาถวายข้าวพระ: ` ${times[data.time_for_lunch]} : ${data.timeLunch}`
+          })
+        }
       }
 
       Object.assign(this.fields, {
@@ -463,10 +514,11 @@ export default {
     },
     next () {
       let item = { ...this.menu }
+      console.log(item)
       if (this.orders.length) {
         let found = this.orders.find(x => x.value === item.value)
         if (found) {
-          found.count += this.menu.count
+          found.count = Number(this.menu.count) + Number(found.count)
         } else {
           this.orders.push(item)
         }
@@ -501,6 +553,7 @@ export default {
       if (!this.$route.query.morepackage) {
         if (this.step !== 0) {
           this.step--
+          this.menu.count = 0
         } else {
           this.$router.push('/menu')
         }

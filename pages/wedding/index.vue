@@ -3,8 +3,11 @@
     <base-button-back :title="step === 0 ? 'กลับหน้าหลัก' : 'Wedding@Home'" class="mb-2" @back="back" />
     <section v-if="step === 0">
       <div class="text-[14pt] mb-[10pt] px-[24pt]">
+        <div class="mx-auto flex flex-col justify-center items-center  w-full rounded-[10pt] aspect-video  bg-white  cursor-pointer mt-3 mb-4 ">
+          รูปภาพ
+        </div>
         เลือกแพ็คเกจ
-        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
+        <div class="grid gap-6 mb-6 grid-cols-2 mt-2">
           <div v-for="(item,idx) in weddingSet" :key="idx" @click="selectPackage(item)">
             <card :show-detail="false" />
             <div class="text-center text-[14pt]  mt-2">
@@ -145,6 +148,23 @@ export default {
     },
     submit (data) {
       this.$store.dispatch('handleLoading', true)
+
+      if (data.time_for_lunch) {
+        const times = {
+          1: 'เช้า',
+          2: 'เพล',
+          3: 'กำหนดเวลาเอง'
+        }
+        if (data.time_for_lunch !== 3) {
+          Object.assign(this.fields, {
+            เวลาถวายข้าวพระ: times[data.time_for_lunch]
+          })
+        } else {
+          Object.assign(this.fields, {
+            เวลาถวายข้าวพระ: ` ${times[data.time_for_lunch]} : ${data.timeLunch}`
+          })
+        }
+      }
 
       Object.assign(this.fields, {
         Name: this.$store.state.users.name,

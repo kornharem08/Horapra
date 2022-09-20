@@ -61,11 +61,11 @@
             href=""
           >
             <div class="relative">
-              <img
+              <!-- <img
                 class="absolute inset-0 object-cover w-22 h-22"
                 src="https://www.hyperui.dev/photos/activity-1.jpeg"
                 alt=""
-              >
+              > -->
             </div>
 
             <div class="p-2 col-span-2">
@@ -119,7 +119,7 @@
       <div class="px-[24pt]">
         <ValidObs ref="validator3">
           <div v-for="(item,index) in menu" :key="index" class="bg-white rounded mb-3">
-            <ValidPro v-slot="{ errors }" :rules="item.min ? `morethan:${item.min}` : 'morethan:5'" :name="item.menu">
+            <ValidPro v-slot="{ errors }" :rules="item.min ? `required|morethan:${item.min}` : 'required|morethan:5'" :name="item.menu">
               <div class="flex justify-between items-center">
                 <div class="p-2 flex flex-col">
                   <span class="text-sm">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
@@ -138,7 +138,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                       ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
                     </button>
-                    <input v-model="item.count " type="number" class="border-none  text-black text-center focus:outline-none focus:ring-0  text-sm ">
+                    <input v-model.number="item.count" min="0" type="number" class="border-none  text-black text-center focus:outline-none focus:ring-0  text-sm ">
 
                     <!-- <span class="font-semibold text-black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span> -->
                     <button class="group flex text-[#5A7F52] items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
@@ -264,19 +264,67 @@
               {{ $store.state.users.email ? $store.state.users.email : '-' }}
             </p>
           </div>
+          <!-- <div v-if="!$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium w-1/2">
+              เเพ็กเกจที่เลือก
+            </p>
+            <p class="w-1/2">
+              {{ `${selectedSet.name} ${setName} ` }}
+            </p>
+          </div> -->
           <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium    ">
+            <p class="font-medium w-1/2">
               เเพ็กเกจหลัก
             </p>
-            <p class="">
+            <p class="w-1/2">
               {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
             </p>
           </div>
-          <div class="flex flex-col mb-2 label_base">
-            <p class="font-medium  ">
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium w-1/2">
+              {{ $route.query.morepackage ? 'เเพ็กเกจรอง' : 'เเพ็กเกจที่เลือก' }}
+            </p>
+            <p class="w-1/2">
+              {{ `${selectedSet.name} ${setName} ` }}
+            </p>
+          </div>
+          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+            <p class="w-1/2">
+              บริการนิมนต์พระสงฆ์*
+            </p>
+            <p class="text-right w-1/2">
+              {{ $store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ', }}
+            </p>
+          </div>
+          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+            <p class="w-1/2">
+              บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
+            </p>
+            <p class="text-right w-1/2">
+              {{ $store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ', }}
+            </p>
+          </div>
+          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+            <p class="w-1/2">
+              จำนวนพระสงฆ์
+            </p>
+            <p class="text-right w-1/2">
+              {{ $store.state.auspicious_packages.monk }}
+            </p>
+          </div>
+          <div v-if="$route.query.morepackage && $route.query.morepackage === 2" class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   w-2/3">
+              รูปแบบการจัดเลี้ยงพระสงฆ์
+            </p>
+            <p class="w-1/3 text-right">
+              {{ `${$store.state.auspicious_packages.style_buffet.name}: ${$store.state.auspicious_packages.style_buffet.price} บาท` }}
+            </p>
+          </div>
+          <div class="flex mb-2 label_base">
+            <p class="font-medium  w-1/2">
               เมนูที่เลือก
             </p>
-            <div class="text-left  flex flex-col ">
+            <div class="flex flex-col w-1/2">
               <div v-for="(menus,index) in listMenu" :key="index">
                 {{ index+1 }}.  {{ menus }}
               </div>
@@ -584,11 +632,12 @@ export default {
         Object.assign(this.fields, {
           'Rich Menu': [
             'สิริมงคล'],
-          'Package หลัก': this.$store.state.auspicious_packages.package,
-          'Package รอง': `${this.selectedSet.name}`,
+          'Package หลัก': `สิริมงคล ${this.$store.state.auspicious_packages.package}`,
+          'Package รอง': `${this.selectedSet.name} ${this.setName} `,
           'มัคนายก/มัคนายิกา': this.$store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
           จำนวนพระสงฆ์: this.$store.state.auspicious_packages.monk,
           'จำนวนแขก (รวมพระ)': this.$store.state.auspicious_packages.monk,
+          บริการนิมต์พระสงฆ์: this.$store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ',
           ยอดเงิน: Number(Number(this.totalPrice) + Number(totalPriceMonkPacakge) + Number(this.$store.state.auspicious_packages.price)),
           สรุปรายการ: result
 
@@ -597,7 +646,7 @@ export default {
         Object.assign(this.fields, {
           'Rich Menu': [
             'ข้าวกล่อง/Box setรักษ์โลก/ชุดปิ่นโตอิ่มบุญ'],
-          'Package หลัก': `${this.selectedSet.name}`,
+          'Package หลัก': `${this.selectedSet.name} ${this.setName} `,
           ยอดเงิน: this.totalPrice,
           'Package รอง': '-',
           จำนวนพระสงฆ์: '-',
@@ -605,6 +654,23 @@ export default {
           สรุปรายการ: newStuff.join('\r\n')
 
         })
+      }
+
+      if (data.time_for_lunch) {
+        const times = {
+          1: 'เช้า',
+          2: 'เพล',
+          3: 'กำหนดเวลาเอง'
+        }
+        if (data.time_for_lunch !== 3) {
+          Object.assign(this.fields, {
+            เวลาถวายข้าวพระ: times[data.time_for_lunch]
+          })
+        } else {
+          Object.assign(this.fields, {
+            เวลาถวายข้าวพระ: ` ${times[data.time_for_lunch]} : ${data.timeLunch}`
+          })
+        }
       }
 
       Object.assign(this.fields, {

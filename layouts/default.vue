@@ -1,6 +1,7 @@
 <template>
-  <div class="container mx-auto min-h-screen max-w-3xl pb-32">
+  <div class="container mx-auto min-h-screen max-w-3xl pb-32 relative overflow-x-hidden">
     <thenav />
+    <img src="~/static/leaf.png" class="top-16 -right-8 absolute w-36 h-36 rotate-[-60deg]">
     <base-name-customer />
     <div class="">
       <Nuxt />

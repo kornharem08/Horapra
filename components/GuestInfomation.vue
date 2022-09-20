@@ -1,7 +1,7 @@
 <template>
   <ValidObs ref="form" v-slot="{ handleSubmit }">
     <div class="flex flex-col items-center justify-center py-5 ">
-      <div class="text-xl text-center  font-bold text-[#142917]">
+      <div class="text-[14pt] text-center  font-bold text-[#142917]">
         {{ title }}
       </div>
       <form class="w-full">
@@ -13,7 +13,7 @@
           <base-input v-model="users.phone" type="number" label="เบอร์โทรศัพท์ *" />
           <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
         </ValidPro>
-        <base-input v-model="users.email" type="email" label="อีเมล *" />
+        <base-input v-model="users.email" type="email" label="อีเมล" />
         <div class="flex items-center justify-center mt-10">
           <button type="button" class="button_base" @click="handleSubmit(submit)">
             ถัดไป

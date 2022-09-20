@@ -22,6 +22,43 @@
             </ValidPro>
           </div>
         </div>
+        <div class="grid gap-2  grid-cols-2 mt-[21px]">
+          <div>
+            <label for="last_name" class="label_base">เวลาถวายข้าวพระ</label>
+            <select
+              v-model="quotation.time_for_lunch"
+              class="w-full input_base"
+            >
+              <!-- <option :value="0"  disabled>
+                เลือกเวลาถวายข้าวพระ
+              </option> -->
+              <option :value="1">
+                เช้า
+              </option>
+              <option :value="2">
+                เพล
+              </option>
+              <option :value="3">
+                ระบุเวลาเอง
+              </option>
+            </select>
+          </div>
+
+          <div v-if="quotation.time_for_lunch === 3" class="">
+            <ValidPro v-slot="{ errors }" rules="required" name="เวลาถวายข้าวพระ">
+              <label for="เวลาถวายข้าวพระ" class="label_base">เวลาถวายข้าวพระ</label>
+
+              <input
+                v-model="quotation.timeLunch"
+                class="input_base"
+                type="time"
+                name="เวลาถวายข้าวพระ"
+              >
+
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
+        </div>
 
         <div class="mt-[21px]">
           <label for="last_name" class="label_base">รายละเอียดที่อยู่</label>
@@ -52,7 +89,7 @@
           </div>
 
           <div class="mt-[21px]">
-            <label for="last_name" class="label_base">เขต/อำเภอ *</label>
+            <label for="last_name" class="label_base">เขต/อำเภอ</label>
             <ValidPro v-slot="{ errors }" rules="required" name="เขต/อำเภอ">
               <select
                 v-model="quotation.district"
@@ -69,7 +106,7 @@
           </div>
 
           <div class="mt-[21px]">
-            <label for="last_name" class="label_base">แขวง/ตำบล *</label>
+            <label for="last_name" class="label_base">แขวง/ตำบล</label>
             <ValidPro v-slot="{ errors }" rules="required" name="แขวง/ตำบล">
               <select
                 v-model="quotation.subdistrict"
@@ -84,7 +121,7 @@
           </div>
 
           <div class="mt-[21px]">
-            <label for="last_name" class="label_base">รหัสไปรษีย์ *</label>
+            <label for="last_name" class="label_base">รหัสไปรษีย์</label>
             <ValidPro v-slot="{ errors }" rules="required" name="รหัสไปรษีย์">
               <select
                 v-model="quotation.post_code"
@@ -100,7 +137,7 @@
           </div>
         </div>
         <div class="mt-[21px]">
-          <label for="last_name" class="label_base">ลิฟท์ขนของ *</label>
+          <label for="last_name" class="label_base">ลิฟท์ขนของ</label>
           <ValidPro v-slot="{ errors }" rules="required" name="ลิฟท์ขนของ">
             <select
               v-model="quotation.cargo_lift"
@@ -119,7 +156,7 @@
         </div>
 
         <div class="mt-[21px]">
-          <label for="last_name" class="label_base">เบอร์โทรสำรอง *</label>
+          <label for="last_name" class="label_base">เบอร์โทรสำรอง</label>
           <ValidPro v-slot="{ errors }" rules="required|phone_th" name="เบอร์โทรสำรอง">
             <input v-model="quotation.phone_backup" type="number" class="input_base">
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
@@ -160,8 +197,11 @@ export default {
         district: '',
         post_code: '',
         cargo_lift: false,
-        phone_backup: ''
+        phone_backup: '',
+        time_for_lunch: null,
+        timeLunch: null
       }
+
     }
   },
   computed: {
