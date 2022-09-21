@@ -6,7 +6,7 @@
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(item,idx) in auspiciouset" :key="idx" @click="selectMorePackage(item)">
           <card :show-detail="false" />
-          <div class="text-center text-[14pt]  mt-2">
+          <div class="text-center text-[16px]  mt-2">
             {{ item.name }}
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="grid gap-6 mb-6 grid-cols-2 mt-[25pt]">
             <div v-for="(item,idx) in pacakgex" :key="idx" class="text-center" @click="selectpackage(item.value)">
               <card :name="item.name" />
-              <div class="mt-2 text-[14pt]">
+              <div class="mt-2 text-[16px]">
                 {{ item.name }}
               </div>
             </div>
@@ -40,7 +40,7 @@
         <div class="grid gap-6 mb-6 grid-cols-2 ">
           <div v-for="(item,idx) in secoundPackage" :key="idx" class="text-center" @click="selectSecondpackage(item)">
             <card :name="item.name" />
-            <div class="mt-2 text-[14pt]">
+            <div class="mt-2 text-[16px]">
               {{ item.name }}
             </div>
           </div>
@@ -63,6 +63,22 @@
           <p class="text-[12pt] mt-2">
             รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
           </p>
+        </div>
+        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt] mt-4">
+          <label for="จำนวนพระสงฆ์" class="text-[12pt] mt-2">ระบุจำนวนพระสงฆ์</label>
+          <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
+            <input
+              v-model="packages.monk"
+              class="block py-2.5 px-4 w-1/2 text-[#142917] bg-gray-50 rounded-full border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
+              type="number"
+              name="จำนวนพระสงฆ์"
+              placeholder="จำนวนพระสงฆ์"
+              @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
+              @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
+            >
+
+            <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+          </ValidPro>
         </div>
         <div class="mt-4 px-[24pt]">
           <span class="text-[12pt]">บริการนิมนต์พระสงฆ์*</span>
@@ -91,24 +107,6 @@
             </div>
           </div>
         </div>
-        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
-          <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
-            <input
-              v-model="packages.monk"
-              class="block py-2.5 px-4 w-1/2 text-[#142917] bg-gray-50 rounded-full border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
-              type="number"
-              name="จำนวนพระสงฆ์"
-              placeholder="จำนวนพระสงฆ์"
-              @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
-              @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
-            >
-            <div class="flex flex-col">
-              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-              <label for="จำนวนพระสงฆ์" class="text-[12pt] mt-2">ระบุจำนวนพระสงฆ์</label>
-            </div>
-          </ValidPro>
-        </div>
-
         <div class="text-[11px] text-left px-[24pt]">
           *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
         </div>
@@ -215,7 +213,7 @@
       <div class="grid gap-6 mb-6 grid-cols-2">
         <div v-for="(item,idx) in handleMoreMenu(moreMenu)" :key="idx" class="text-center" @click="selectMenu(item.value)">
           <card :name="item.name" />
-          <div class="mt-2 text-[14pt]">
+          <div class="mt-2 text-[16px]">
             {{ item.name }}
           </div>
         </div>
@@ -498,7 +496,6 @@ export default {
             value: x.value
           }
         })
-        console.log('1', 'sssss')
         this.step = 1
       }
       if (item.value === 2) {
@@ -526,7 +523,38 @@ export default {
     handelfinish () {
       this.isFinish = false
       this.isError = false
-      this.$router.push('/menu')
+      let x = this.setAccessories.filter(x => x.count > 0)
+      let sum = x.map((el) => { return `${el.name} x ${el.count}` })
+      let summary = {
+        fullname: this.fields.Name,
+        phone: this.fields['เบอร์โทร'],
+        อีเมล: this.fields['อีเมล'],
+        backupPhone: this.fields['เบอร์โทร (สำรอง)'],
+        lift: this.fields['ลิฟท์ขนของ'],
+        totalprice: this.fields['ยอดเงิน'],
+        mainPackage: this.$store.state.auspicious_packages.package,
+        subPackage: '',
+        monk: this.fields['จำนวนพระสงฆ์'],
+        guest: this.fields['จำนวนแขก (รวมพระ)'],
+        is_churchwarden: this.fields.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
+        is_monk: this.fields.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
+        address: this.fields['สถานที่จัดงาน (ที่อยู่)'],
+        accessories: sum.toString(),
+        orderid: this.fields['Order ID'],
+        time_for_monk_lunch: this.fields['เวลาถวายข้าวพระ'],
+        time_for_lunch: this.fields['เวลาพร้อมทาน'],
+        note: this.fields.Notes,
+        date: this.fields['วันส่งสินค้า']
+      }
+
+      if (this.setNumber === 2) {
+        Object.assign(summary, {
+          style_buffet: `${this.$store.state.auspicious_packages.style_buffet.name}: ${this.$store.state.auspicious_packages.style_buffet.price} บาท`
+        })
+      }
+
+      this.$store.dispatch('setSummary', summary)
+      this.$router.push('/summary')
     },
     submit (data) {
       this.$store.dispatch('handleLoading', true)
@@ -545,11 +573,12 @@ export default {
 
       if (data.time_for_lunch) {
         const times = {
-          1: 'เช้า',
-          2: 'เพล',
-          3: 'กำหนดเวลาเอง'
+          1: 'ไม่ระบุ',
+          2: 'เช้า',
+          3: 'เพล',
+          4: 'กำหนดเวลาเอง'
         }
-        if (data.time_for_lunch !== 3) {
+        if (data.time_for_lunch !== 4) {
           Object.assign(this.fields, {
             เวลาถวายข้าวพระ: times[data.time_for_lunch]
           })
@@ -578,6 +607,7 @@ export default {
         'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
         อุปกรณ์เสริม: sum.toString(),
         Notes: this.note,
+        'Order ID': Math.floor(100000 + Math.random() * 900000),
         จำนวนพระสงฆ์: this.packages.monk.toString(),
         'จำนวนแขก (รวมพระ)': (Number(this.packages.monk)).toString(),
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
@@ -638,7 +668,8 @@ export default {
               is_monk: this.packages.is_monk,
               is_churchwarden: this.packages.is_churchwarden,
               price: this.packages.price,
-              style_buffet: setMonk
+              style_buffet: setMonk,
+              is_morepackage: true
             }
 
             this.$store.dispatch('setAuspiciousPackages', data)
@@ -688,8 +719,10 @@ export default {
               price: this.packages.price,
               style_buffet: setMonk
             }
-
+            let x = this.setAccessories.filter(x => x.count > 0)
+            // let sum = x.map((el) => { return `${el.name} x ${el.count}` })
             this.$store.dispatch('setAuspiciousPackages', data)
+            this.$store.dispatch('setAccessories', x)
 
             if (Number(this.setNumber) === 1) {
               if (value === 1) {

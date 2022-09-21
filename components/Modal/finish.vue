@@ -10,7 +10,7 @@
             ทำรายการสำเร็จ
           </p>
           <p class="text-xs sm:text-sm leading-5 mt-2 sm:mt-4 text-center text-gray-600 dark:text-gray-300">
-            หลังจากนี้จะมีเจ้าหน้าที่ติดต่อกลับนะคะ
+            หลังจากนี้จะมีเจ้าหน้าที่ติดต่อกลับไม่เกิน 20 นาทีค่ะ
           </p>
           <div class="flex items-center justify-center mt-6">
             <button type="button" class="button_base" @click="close">
@@ -28,6 +28,7 @@ export default {
   methods: {
     close () {
       this.$emit('close')
+      // create call api
     }
   }
 }

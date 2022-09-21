@@ -7,7 +7,7 @@
           <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border bg-white">
             รูปภาพ
           </div>
-          <div class="text-center text-[14pt] mt-[10pt]">
+          <div class="text-center text-[16px] mt-[10pt]">
             {{ menu.name }}
           </div>
         </div>
@@ -173,7 +173,7 @@
             <p class="font-medium    ">
               เซ็ทจัดเลี้ยง
             </p>
-            <p class="">
+            <p class="text-right">
               {{ `${setPriceBuffet.name}: ${setPriceBuffet.price} บาท` }}
             </p>
           </div>
@@ -181,7 +181,7 @@
             <p class="">
               จำนวนแขก
             </p>
-            <p class="">
+            <p class="text-right">
               {{ (Number(guests)).toString() }}
             </p>
           </div>
@@ -197,7 +197,7 @@
             <p class="w-1/2">
               รูปแบบการจัดเลี้ยงพระสงฆ์
             </p>
-            <p class="text-right w-1/2">
+            <p class="text-right w-1/2 text-right">
               {{ setStyleMonk }}
             </p>
           </div>
@@ -205,7 +205,7 @@
             <p class="w-1/2">
               บริการนิมนต์พระสงฆ์*
             </p>
-            <p class="text-right w-1/2">
+            <p class="text-right w-1/2 text-right">
               {{ $store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ', }}
             </p>
           </div>
@@ -213,7 +213,7 @@
             <p class="w-1/2">
               บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
             </p>
-            <p class="text-right w-1/2">
+            <p class="text-right w-1/2 text-right">
               {{ $store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ', }}
             </p>
           </div>
@@ -221,7 +221,7 @@
             <p class="w-1/2 ">
               อุปกรณ์เพิ่มเติม
             </p>
-            <p class="text-right w-1/2">
+            <p class="text-right w-1/2 text-right">
               {{ listAccessories ? listAccessories : '-' }}
             </p>
           </div>
@@ -244,6 +244,7 @@
     <section v-if="step === 4" class="step4 ">
       <the-quotation @handleSubmitInformation="submit" />
     </section>
+
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
     <modalerror v-if="isError" @close="handelfinish" />
@@ -348,7 +349,45 @@ export default {
     handelfinish () {
       this.isFinish = false
       this.isError = false
-      this.$router.push('/menu')
+      let setPrice = this.optionprice.find(x => x.value === this.setPrice)
+      let setBuffet = this.guestBuffet.find(x => x.value === this.setbuffet)
+      let setMonk = this.monkBuffet.find(x => x.value === this.setStyle)
+      let x = this.setAccessories.filter(x => x.count > 0)
+      let sum = x.map((el) => { return `${el.name} x ${el.count}` })
+      let summary = {
+        fullname: this.fields.Name,
+        phone: this.fields['เบอร์โทร'],
+        อีเมล: this.fields['อีเมล'],
+        backupPhone: this.fields['เบอร์โทร (สำรอง)'],
+        lift: this.fields['ลิฟท์ขนของ'],
+        totalprice: this.fields['ยอดเงิน'],
+        monk: this.fields['จำนวนพระสงฆ์'],
+        guest: this.fields['จำนวนแขก (รวมพระ)'],
+        is_churchwarden: this.fields.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
+        is_monk: this.fields.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
+        address: this.fields['สถานที่จัดงาน (ที่อยู่)'],
+        style_buffet: `${setMonk.name}: ${setMonk.price} บาท`,
+        accessories: sum.toString(),
+        time_for_monk_lunch: this.fields['เวลาถวายข้าวพระ'],
+        time_for_lunch: this.fields['เวลาพร้อมทาน'],
+        note: this.fields.Notes,
+        orderid: this.fields['Order ID'],
+        date: this.fields['วันส่งสินค้า']
+      }
+
+      if (this.$route.query.morepackage) {
+        Object.assign(summary, {
+          mainPackage: `สิริมงคล ${this.$store.state.auspicious_packages.package}`,
+          subPackage: `บุฟเฟ่ ${setBuffet.name} ${setPrice.name}: ${setPrice.price} บาท`
+        })
+      } else {
+        Object.assign(summary, {
+          mainPackage: `${setBuffet.name} ${setPrice.name}: ${setPrice.price} บาท`,
+          subPackage: ''
+        })
+      }
+      this.$store.dispatch('setSummary', summary)
+      this.$router.push('/summary')
     },
     back () {
       if (this.step === 0) {
@@ -379,7 +418,6 @@ export default {
       let setMonk = this.monkBuffet.find(x => x.value === this.setStyle)
       let x = this.setAccessories.filter(x => x.count > 0)
       let sum = x.map((el) => { return `${el.name} x ${el.count}\n` })
-      console.log(setBuffet)
       if (this.$route.query.morepackage) {
         let pricePackage = this.$store.state.auspicious_packages.price ? Number(this.$store.state.auspicious_packages.price) : 0
         let priceBuffetGuest = (Number(setPrice.price) * Number(this.guests))
@@ -410,11 +448,12 @@ export default {
 
       if (data.time_for_lunch) {
         const times = {
-          1: 'เช้า',
-          2: 'เพล',
-          3: 'กำหนดเวลาเอง'
+          1: 'ไม่ระบุ',
+          2: 'เช้า',
+          3: 'เพล',
+          4: 'กำหนดเวลาเอง'
         }
-        if (data.time_for_lunch !== 3) {
+        if (data.time_for_lunch !== 4) {
           Object.assign(this.fields, {
             เวลาถวายข้าวพระ: times[data.time_for_lunch]
           })
@@ -438,6 +477,7 @@ export default {
         สรุปรายการ: `${setBuffet.name}\n` + `${setMonk.name}: ${setMonk.price} บาท`,
         อุปกรณ์เสริม: sum.toString(),
         จำนวนพระสงฆ์: this.monk.toString(),
+        'Order ID': Math.floor(100000 + Math.random() * 900000),
         Notes: this.note,
         'จำนวนแขก (รวมพระ)': (Number(this.monk) + Number(this.guests)).toString(),
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
@@ -475,3 +515,4 @@ export default {
 <style>
 
 </style>
+</template></template></template></template></template></template></template></template></template></template></template></template></template></template></template></template></template></template></template></template></template></template>

@@ -23,11 +23,11 @@ html {
 }
 
 .input_base {
-  @apply block py-2.5 px-4 w-full text-[#142917] bg-gray-50 rounded-full border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
+  @apply block py-2 px-4 w-full text-[#142917] bg-gray-50 rounded-full border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
 }
 
 .input_base_textarea {
-  @apply block py-2.5 px-4 w-full text-[#142917] bg-gray-50 rounded-md border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
+  @apply block py-2 px-4 w-full text-[#142917] bg-gray-50 rounded-md border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
 }
 
 .label_base {
@@ -39,7 +39,7 @@ html {
 }
 
 .button_optional {
-  @apply text-[#C68B67] border border-[#C68B67] mt-2  text-[12pt] block py-2.5 px-4 w-full outline-none bg-white rounded-full
+  @apply text-[#C68B67] border border-[#C68B67] mt-2  text-[12pt] block py-2 px-4 w-full outline-none bg-white rounded-full
 }
 
 .button_base {

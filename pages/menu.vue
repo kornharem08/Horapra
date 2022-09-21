@@ -5,7 +5,7 @@
         <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
           รูปภาพ
         </div>
-        <div class="text-center text-[14pt] mt-[10pt]">
+        <div class="text-center text-[16px] mt-[10pt]">
           {{ item.name }}
         </div>
       </div>
@@ -130,6 +130,9 @@ export default {
         spaceBetween: 10
       }
     }
+  },
+  mounted () {
+    this.$store.dispatch('setAccessories', null)
   },
   methods: {
     selectcoffeebreak (value) {

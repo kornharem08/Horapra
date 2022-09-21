@@ -92,7 +92,72 @@
       </section>
     </ValidObs>
     <section v-show="step === 2" class="step4 ">
-      <the-quotation @handleSubmitInformation="submit" />
+      <div class="px-[24pt]">
+        <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
+          <div class="text-[16pt] font-medium text-center mb-[10pt]">
+            สรุปรายการ
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   ">
+              ชื่อ-นามสกุล
+            </p>
+            <p class=" ">
+              {{ $store.state.users.name }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium    ">
+              เบอร์โทร
+            </p>
+            <p class="text-right">
+              {{ $store.state.users.phone }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium  w-1/2">
+              อีเมล์
+            </p>
+            <p class="w-1/2 text-right">
+              {{ $store.state.users.email ? $store.state.users.email : '-' }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   w-1/2 ">
+              จำนวนแขก
+            </p>
+            <p class="w-1/2 text-right">
+              {{ (Number(packages.guest)).toString() }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium w-1/2">
+              รูปแบบการจัดงาน
+            </p>
+            <p class="w-1/2">
+              {{ packages.name }} {{ packages.style ? 'งานในร่ม' : 'งานกลางแจ้ง' }}
+            </p>
+          </div>
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium w-1/2">
+              รายละเอียดเพิ่มเติม
+            </p>
+            <p class="w-1/2 text-right">
+              {{ note }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <the-footer-button>
+        <template #button>
+          <button type="button" class="button_base " @click="submit">
+            สนใจให้เจ้าหน้าที่ติดต่อกลับ
+          </button>
+          <button type="button" class="button_optional " @click="$router.push('/menu')">
+            สั่งรายการอื่นเพิ่มเติม
+          </button>
+        </template>
+      </the-footer-button>
+      <!-- <the-quotation @handleSubmitInformation="submit" /> -->
     </section>
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
@@ -149,42 +214,42 @@ export default {
     submit (data) {
       this.$store.dispatch('handleLoading', true)
 
-      if (data.time_for_lunch) {
-        const times = {
-          1: 'เช้า',
-          2: 'เพล',
-          3: 'กำหนดเวลาเอง'
-        }
-        if (data.time_for_lunch !== 3) {
-          Object.assign(this.fields, {
-            เวลาถวายข้าวพระ: times[data.time_for_lunch]
-          })
-        } else {
-          Object.assign(this.fields, {
-            เวลาถวายข้าวพระ: ` ${times[data.time_for_lunch]} : ${data.timeLunch}`
-          })
-        }
-      }
+      // if (data.time_for_lunch) {
+      //   const times = {
+      //     1: 'เช้า',
+      //     2: 'เพล',
+      //     3: 'กำหนดเวลาเอง'
+      //   }
+      //   if (data.time_for_lunch !== 3) {
+      //     Object.assign(this.fields, {
+      //       เวลาถวายข้าวพระ: times[data.time_for_lunch]
+      //     })
+      //   } else {
+      //     Object.assign(this.fields, {
+      //       เวลาถวายข้าวพระ: ` ${times[data.time_for_lunch]} : ${data.timeLunch}`
+      //     })
+      //   }
+      // }
 
       Object.assign(this.fields, {
         Name: this.$store.state.users.name,
         เบอร์โทร: this.$store.state.users.phone,
-        'เบอร์โทร (สำรอง)': data.phone_backup,
+        'เบอร์โทร (สำรอง)': '-',
         อีเมล: this.$store.state.users.email,
         ยอดเงิน: this.packages.price,
-        วันส่งสินค้า: this.$moment(data.date).format('L'),
-        เวลาพร้อมทาน: data.time,
-        ลิฟท์ขนของ: data.cargo_lift ? 'มี' : 'ไม่มี',
-        รหัสไปรษณีย์: Number(data.post_code),
+        วันส่งสินค้า: this.$moment(new Date()).format('L'),
+        เวลาพร้อมทาน: '-',
+        ลิฟท์ขนของ: 'ไม่มี',
+        รหัสไปรษณีย์: Number('00000'),
         สรุปรายการ: this.packages.style ? 'งานในร่ม' : 'งานกลางแจ้ง',
         'Rich Menu': [
           'wedding@home'],
         'Package หลัก': this.packages.name,
         'Package รอง': '-',
-        'มัคนายก/มัคนายิกา': 'ไม่ต้องการ',
-        'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
+        'สถานที่จัดงาน (ที่อยู่)': '',
         อุปกรณ์เสริม: '',
         Notes: this.note,
+        'Order ID': Math.floor(100000 + Math.random() * 900000),
         จำนวนพระสงฆ์: '',
         'จำนวนแขก (รวมพระ)': (Number(this.packages.guest)).toString(),
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,

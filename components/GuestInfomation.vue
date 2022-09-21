@@ -1,6 +1,6 @@
 <template>
   <ValidObs ref="form" v-slot="{ handleSubmit }">
-    <div class="flex flex-col items-center justify-center py-5 ">
+    <div class="flex flex-col items-center justify-center pt-3 ">
       <div class="text-[14pt] text-center  font-bold text-[#142917]">
         {{ title }}
       </div>

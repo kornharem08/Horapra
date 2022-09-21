@@ -29,22 +29,22 @@
               v-model="quotation.time_for_lunch"
               class="w-full input_base"
             >
-              <!-- <option :value="0"  disabled>
-                เลือกเวลาถวายข้าวพระ
-              </option> -->
               <option :value="1">
-                เช้า
+                ไม่ระบุ
               </option>
               <option :value="2">
-                เพล
+                เช้า
               </option>
               <option :value="3">
+                เพล
+              </option>
+              <option :value="4">
                 ระบุเวลาเอง
               </option>
             </select>
           </div>
 
-          <div v-if="quotation.time_for_lunch === 3" class="">
+          <div v-if="quotation.time_for_lunch === 4" class="">
             <ValidPro v-slot="{ errors }" rules="required" name="เวลาถวายข้าวพระ">
               <label for="เวลาถวายข้าวพระ" class="label_base">เวลาถวายข้าวพระ</label>
 
@@ -198,7 +198,7 @@ export default {
         post_code: '',
         cargo_lift: false,
         phone_backup: '',
-        time_for_lunch: null,
+        time_for_lunch: 1,
         timeLunch: null
       }
 

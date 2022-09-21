@@ -7,17 +7,26 @@ export const state = () => ({
   auspicious_packages: {
     package: null,
     monk: 0,
-    is_monk: true,
+    is_monk: false,
     is_churchwarden: true,
     style_buffet: '',
-    price: 0
+    price: 0,
+    is_morepackage: false
   },
-  loading: false
+  loading: false,
+  accessories: null,
+  summary: {}
 })
 
 export const getters = {
   getUsers (state) {
     return state.users
+  },
+  getSummary (state) {
+    return state.summary
+  },
+  getAccessories (state) {
+    return state.accessories
   },
   loading: state => state.loading
 }
@@ -31,6 +40,12 @@ export const mutations = {
   },
   SET_LOADING (state, status) {
     state.loading = status
+  },
+  SET_SUMMARY (state, data) {
+    state.summary = { ...data }
+  },
+  SET_ACCESSORIES (state, data) {
+    state.accessories = data
   },
   SET_AUSPICIOUS_PACKAGES (state, data) {
     state.auspicious_packages = {
@@ -49,5 +64,11 @@ export const actions = {
   },
   handleLoading ({ commit }, status) {
     commit('SET_LOADING', status)
+  },
+  setSummary ({ commit }, data) {
+    commit('SET_SUMMARY', data)
+  },
+  setAccessories ({ commit }, data) {
+    commit('SET_ACCESSORIES', data)
   }
 }

@@ -6,7 +6,7 @@
       <div class="grid gap-6 mb-6 grid-cols-2  px-[24pt]">
         <div v-for="(item,idx) in coffeebreak" :key="idx" @click="selectMorePackage(item)">
           <card :show-detail="false" />
-          <div class="text-center text-[14pt] mt-2">
+          <div class="text-center text-[16px] mt-2">
             {{ item.name }}
           </div>
         </div>
@@ -20,7 +20,7 @@
       <div class="grid gap-6 mb-6 grid-cols-2">
         <div v-for="(item,idx) in coffeeMenu" :key="idx" @click="selectPacakge(item)">
           <card :name="item.name" :price="Number(item.price)" :show-detail="true" />
-          <div class="text-center text-[14pt]   mt-2">
+          <div class="text-center text-[16px]   mt-2">
             {{ item.name }} <br> {{ item.price }} บาท
           </div>
         </div>
@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div v-if="setNumber === 1" class=" text-[12pt]  px-[24pt]">
+      <div v-if="setNumber === 1" class=" text-[14px]  px-[24pt]">
         เงื่อนไข:<br>
         1. ลูกค้าจะได้รับ ชา, กาแฟ, โอวัลติน คละแบบ <br>
         2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)  <br>
@@ -45,10 +45,10 @@
         4. ระยะเวลาให้บริการ 2 ชั่วโมง <br>
         5. มีค่าขนส่งตามระยะทาง
       </div>
-      <div v-if="setNumber === 2" class=" text-[12pt]  px-[24pt] ">
+      <div v-if="setNumber === 2" class=" text-[14px]  px-[24pt] ">
         เงื่อนไข:<br> 1. ลูกค้าจะได้รับน้ำผลไม้ 1 กล่อง (คละแบบ)<br> 2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)<br> 3. จำนวนขั้นต่ำ 50 ชุด<br> 4. มีค่าขนส่งตามระยะทาง
       </div>
-      <div v-if="setNumber === 3" class="text-[12pt]  px-[24pt] ">
+      <div v-if="setNumber === 3" class="text-[14px]  px-[24pt] ">
         *หมายเหตุ:<br> แขกจำนวน 1 - 30 ท่าน ราคา 62 บาท/ท่าน <br> แขกจำนวน 30 ท่านขึ้นไป ราคา 59 บาท/ท่าน
       </div>
       <div class="px-[24pt]">
@@ -206,7 +206,7 @@
             <p class="w-1/2">
               จำนวนพระสงฆ์
             </p>
-            <p class="text-right w-1/2">
+            <p class="text-right w-1/2 text-right">
               {{ $store.state.auspicious_packages.monk }}
             </p>
           </div>
@@ -216,6 +216,14 @@
             </p>
             <p class="w-1/3 text-right">
               {{ `${$store.state.auspicious_packages.style_buffet.name}: ${$store.state.auspicious_packages.style_buffet.price} บาท` }}
+            </p>
+          </div>
+          <div v-if="$route.query.morepackage && accessories && accessories.length" class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium   w-2/3">
+              อุปกรณ์เพิ่มเติม
+            </p>
+            <p class="w-1/3 text-right">
+              {{ sumAccessories.toString() }}
             </p>
           </div>
           <div class="flex flex-row justify-between mb-2 label_base">
@@ -329,6 +337,16 @@ export default {
         return null
       }
     },
+    accessories () {
+      return this.$store.getters.getAccessories
+    },
+    sumAccessories () {
+      if (this.accessories && this.accessories.length) {
+        return this.accessories.map((el) => { return `${el.name} x ${el.count}` })
+      } else {
+        return null
+      }
+    },
     totalMenu () {
       return Number(this.orders.reduce((sum, current) => Number(sum) + Number(current.count), 0))
     },
@@ -340,9 +358,9 @@ export default {
         } else {
           price = 59
         }
-        return this.orders.reduce((sum, current) => sum + price * current.count, 0)
+        return Number(this.orders.reduce((sum, current) => sum + price * current.count, 0))
       } else {
-        return this.orders.reduce((sum, current) => sum + current.price * current.count, 0)
+        return Number(this.orders.reduce((sum, current) => sum + current.price * current.count, 0))
       }
     },
     setName () {
@@ -399,19 +417,73 @@ export default {
     handelfinish () {
       this.isFinish = false
       this.isError = false
-      this.$router.push('/menu')
+
+      let result = this.resultOrder.join('\r\n')
+      let sumaccess = null
+      if (this.accessories && this.accessories.length) {
+        sumaccess = this.accessories.map((el) => { return `${el.name} x ${el.count}` }).toString()
+      }
+
+      let summary = {
+        fullname: this.fields.Name,
+        phone: this.fields['เบอร์โทร'],
+        อีเมล: this.fields['อีเมล'],
+        backupPhone: this.fields['เบอร์โทร (สำรอง)'],
+        lift: this.fields['ลิฟท์ขนของ'],
+        totalprice: this.fields['ยอดเงิน'],
+        monk: this.fields['จำนวนพระสงฆ์'],
+        guest: this.fields['จำนวนแขก (รวมพระ)'],
+        is_churchwarden: this.fields.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
+        is_monk: this.fields.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
+        address: this.fields['สถานที่จัดงาน (ที่อยู่)'],
+        accessories: sumaccess,
+        time_for_monk_lunch: this.fields['เวลาถวายข้าวพระ'],
+        time_for_lunch: this.fields['เวลาพร้อมทาน'],
+        date: this.fields['วันส่งสินค้า'],
+        note: this.fields.Notes,
+        orderid: this.fields['Order ID'],
+        result
+      }
+
+      if (Number(this.$route.query.morepackage) === 2) {
+        Object.assign(summary, {
+          style_buffet: `${this.$store.state.auspicious_packages.style_buffet.name} ${this.$store.state.auspicious_packages.style_buffet.price} 'บาท'`
+        })
+      }
+
+      if (this.$route.query.morepackage) {
+        Object.assign(summary, {
+          mainPackage: `สิริมงคล ${this.$store.state.auspicious_packages.package}`,
+          subPackage: this.setName
+        })
+      } else {
+        Object.assign(summary, {
+          mainPackage: this.setName,
+          subPackage: ''
+        })
+      }
+      this.$store.dispatch('setSummary', summary)
+      this.$router.push('/summary')
     },
     submit (data) {
       this.$store.dispatch('handleLoading', true)
       let totalPriceMonkPacakge = 0
       if (Number(this.$route.query.morepackage)) {
         let result = this.resultOrder.join('\r\n')
+        let sum = null
+        if (this.accessories && this.accessories.length) {
+          sum = this.accessories.map((el) => { return `${el.name} x ${el.count}\n` }).join('\r\n')
+        }
+        if (this.accessories && this.accessories.length) {
+          let sumPrice = this.accessories.reduce((sum, current) => sum + current.count * current.price, 0)
+          if (sumPrice > 0) {
+            totalPriceMonkPacakge += Number(sumPrice)
+          }
+        }
         if (Number(this.$route.query.morepackage) === 2) {
           result += `\n${this.$store.state.auspicious_packages.style_buffet.name} ${this.$store.state.auspicious_packages.style_buffet.price} 'บาท'`
           totalPriceMonkPacakge = (Number(this.$store.state.auspicious_packages.monk) * Number(this.$store.state.auspicious_packages.style_buffet.price))
         }
-        console.log(totalPriceMonkPacakge)
-        console.log((Number(this.$store.state.auspicious_packages.monk) * Number(this.$store.state.auspicious_packages.style_buffet.price)))
 
         Object.assign(this.fields, {
           'Rich Menu': [
@@ -424,6 +496,7 @@ export default {
           บริการนิมต์พระสงฆ์: this.$store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ',
           'จำนวนแขก (รวมพระ)': this.$store.state.auspicious_packages.monk,
           ยอดเงิน: Number(Number(this.totalPrice) + Number(totalPriceMonkPacakge) + Number(this.$store.state.auspicious_packages.price)),
+          อุปกรณ์เสริม: sum,
           สรุปรายการ: result
 
         })
@@ -436,6 +509,7 @@ export default {
           'Package รอง': '-',
           จำนวนพระสงฆ์: '-',
           'จำนวนแขก (รวมพระ)': '-',
+          อุปกรณ์เสริม: '-',
           สรุปรายการ: this.resultOrder.join('\r\n'),
           ยอดเงิน: this.totalPrice
         })
@@ -443,11 +517,12 @@ export default {
 
       if (data.time_for_lunch) {
         const times = {
-          1: 'เช้า',
-          2: 'เพล',
-          3: 'กำหนดเวลาเอง'
+          1: 'ไม่ระบุ',
+          2: 'เช้า',
+          3: 'เพล',
+          4: 'กำหนดเวลาเอง'
         }
-        if (data.time_for_lunch !== 3) {
+        if (data.time_for_lunch !== 4) {
           Object.assign(this.fields, {
             เวลาถวายข้าวพระ: times[data.time_for_lunch]
           })
@@ -468,8 +543,8 @@ export default {
         ลิฟท์ขนของ: data.cargo_lift ? 'มี' : 'ไม่มี',
         รหัสไปรษณีย์: Number(data.post_code),
         'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
-        อุปกรณ์เสริม: '',
         Notes: this.note,
+        'Order ID': Math.floor(100000 + Math.random() * 900000),
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
         วันรับออเดอร์: this.$moment(new Date()).format('L'),
         'Last Contact': this.$moment(new Date()).format('L'),
