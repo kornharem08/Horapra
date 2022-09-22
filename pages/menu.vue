@@ -5,7 +5,7 @@
         <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
           รูปภาพ
         </div>
-        <div class="text-center text-[16px] mt-[10pt]">
+        <div class="text-center text-[15px] mt-[10pt]">
           {{ item.name }}
         </div>
       </div>

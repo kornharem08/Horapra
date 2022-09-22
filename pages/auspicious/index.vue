@@ -6,7 +6,7 @@
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(item,idx) in auspiciouset" :key="idx" @click="selectMorePackage(item)">
           <card :show-detail="false" />
-          <div class="text-center text-[16px]  mt-2">
+          <div class="text-center text-[15px]  mt-2">
             {{ item.name }}
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="grid gap-6 mb-6 grid-cols-2 mt-[25pt]">
             <div v-for="(item,idx) in pacakgex" :key="idx" class="text-center" @click="selectpackage(item.value)">
               <card :name="item.name" />
-              <div class="mt-2 text-[16px]">
+              <div class="mt-2 text-[15px]">
                 {{ item.name }}
               </div>
             </div>
@@ -40,7 +40,7 @@
         <div class="grid gap-6 mb-6 grid-cols-2 ">
           <div v-for="(item,idx) in secoundPackage" :key="idx" class="text-center" @click="selectSecondpackage(item)">
             <card :name="item.name" />
-            <div class="mt-2 text-[16px]">
+            <div class="mt-2 text-[15px]">
               {{ item.name }}
             </div>
           </div>
@@ -64,7 +64,7 @@
             รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
           </p>
         </div>
-        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt] mt-4">
+        <div class="grid gap-0 mb-6 grid-cols-2 px-[24pt] mt-4">
           <label for="จำนวนพระสงฆ์" class="text-[12pt] mt-2">ระบุจำนวนพระสงฆ์</label>
           <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
             <input
@@ -92,7 +92,7 @@
                 name="bordered-checkbox"
                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               >
-              <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[14pt] flex ">ต้องการ</label>
+              <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
             </div>
             <div class="flex items-center pl-4 ">
               <input
@@ -103,7 +103,7 @@
                 name="bordered-checkbox"
                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               >
-              <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[14pt] flex ">ไม่ต้องการ</label>
+              <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
             </div>
           </div>
         </div>
@@ -122,7 +122,7 @@
                 name="bordered-checkbox-4"
                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               >
-              <label for="bordered-checkbox-4" class="py-4 ml-2 w-full text-[14pt] flex ">ต้องการ</label>
+              <label for="bordered-checkbox-4" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
             </div>
             <div class="flex items-center pl-4 ">
               <input
@@ -133,7 +133,7 @@
                 name="bordered-checkbox-3"
                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               >
-              <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-[14pt] flex ">ไม่ต้องการ</label>
+              <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
             </div>
           </div>
           <div class="text-[11px] text-left">
@@ -213,7 +213,7 @@
       <div class="grid gap-6 mb-6 grid-cols-2">
         <div v-for="(item,idx) in handleMoreMenu(moreMenu)" :key="idx" class="text-center" @click="selectMenu(item.value)">
           <card :name="item.name" />
-          <div class="mt-2 text-[16px]">
+          <div class="mt-2 text-[15px]">
             {{ item.name }}
           </div>
         </div>

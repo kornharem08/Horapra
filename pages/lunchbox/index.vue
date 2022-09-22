@@ -8,7 +8,7 @@
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(item,idx) in lunchset" :key="idx" @click="selectMorePackage(item)">
           <card :show-detail="false" />
-          <div class="text-center text-[16px]  mt-2">
+          <div class="text-center text-[15px]  mt-2">
             {{ item.name }}
           </div>
         </div>
@@ -19,7 +19,7 @@
       <div class="grid grid-cols-2 gap-3 px-[24pt]">
         <div v-for="(box,index) in boxset" :key="index" class="mt-2" @click="selectBoxSet(box)">
           <card :name="box.name" :price="Number(box.price)" />
-          <div class="flex items-center text-center text-[16px] justify-center mt-4">
+          <div class="flex items-center text-center text-[15px] justify-center mt-4">
             {{ box.name }}
           </div>
         </div>
@@ -119,7 +119,7 @@
       <div class="px-[24pt]">
         <ValidObs ref="validator3">
           <div v-for="(item,index) in menu" :key="index" class="bg-white rounded mb-3">
-            <ValidPro v-slot="{ errors }" :rules="item.min ? `required|morethan:${item.min}` : 'required|morethan:5'" :name="item.menu">
+            <ValidPro v-slot="{ errors }" :rules="item.min ? `morethan:${item.min}` : 'morethan:5'" :name="item.menu">
               <div class="flex justify-between items-center">
                 <div class="p-2 flex flex-col">
                   <span class="text-sm">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
@@ -214,7 +214,7 @@
               :src="require(`~/assets/img/Pinto/${pinto.value}.jpg`)"
             >
           </div>
-          <div class="text-center text-[16px] mt-[10pt]">
+          <div class="text-center text-[15px] mt-[10pt]">
             {{ pinto.name }}
           </div>
         </div>
@@ -353,20 +353,6 @@
       <the-quotation @handleSubmitInformation="submit" />
     </section>
 
-    <!-- <the-footer-button>
-      <template #button>
-        <button v-if="(step === 1 && setNumber !== 1 ) || step === 4" type="button" class="button_base " @click="step++">
-          ถัดไป
-        </button>
-        <button v-if="step === 2" type="button" class="button_base " @click="handleresulte">
-          ถัดไป
-        </button>
-        <button v-if="step === 3" type="button" class="button_base " @click="handleValidate">
-          ยืนยัน
-        </button>
-      </template>
-    </the-footer-button> -->
-
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
     <modalerror v-if="isError" @close="handelfinish" />
@@ -476,31 +462,6 @@ export default {
     if (this.$route.query.set) {
       this.setNumber = Number(this.$route.query.set)
     }
-
-    // if (!this.$route.query.morepackage) {
-    //   if (this.$route.query.set !== 2) {
-    //     this.lists = Object.keys(this.lunchboxmenu).map(k => this.lunchboxmenu[k].map((el) => {
-    //       return {
-    //         ...el,
-    //         count: 0
-    //       }
-    //     }))
-    //   } else {
-    //     this.lists = this.boxsetmenu.map((k) => {
-    //       return {
-    //         ...k,
-    //         count: 0
-    //       }
-    //     }
-    //     )
-    //   }
-    // }
-
-    // if (this.$route.query.morepackage) {
-    //   this.step = 0
-    // } else {
-    //   this.step = 1
-    // }
   },
   methods: {
     selectSetPinto (value) {
@@ -618,7 +579,6 @@ export default {
         })
       }
 
-      console.log(result)
       result.forEach((element) => {
         let found = this.menu.find(el => el.menu === element.menu)
         if (found) {

@@ -6,7 +6,7 @@
       <div class="grid gap-6 mb-6 grid-cols-2  px-[24pt]">
         <div v-for="(item,idx) in coffeebreak" :key="idx" @click="selectMorePackage(item)">
           <card :show-detail="false" />
-          <div class="text-center text-[16px] mt-2">
+          <div class="text-center text-[15px] mt-2">
             {{ item.name }}
           </div>
         </div>
@@ -20,7 +20,7 @@
       <div class="grid gap-6 mb-6 grid-cols-2">
         <div v-for="(item,idx) in coffeeMenu" :key="idx" @click="selectPacakge(item)">
           <card :name="item.name" :price="Number(item.price)" :show-detail="true" />
-          <div class="text-center text-[16px]   mt-2">
+          <div class="text-center text-[15px]   mt-2">
             {{ item.name }} <br> {{ item.price }} บาท
           </div>
         </div>

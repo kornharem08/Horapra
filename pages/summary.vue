@@ -249,7 +249,7 @@ export default {
               { text: 'ชื่อลูกค้า: ' + this.$store.state.users.name, style: 'information' },
               { text: 'เบอร์ติดต่อ: ' + this.$store.state.users.phone, style: 'information' },
               { text: 'เบอร์ติดต่อ (สำรอง): ' + this.summary.backupPhone, style: 'information' },
-              { text: 'อีเมล์: ' + this.$store.state.users.email ? this.$store.state.users.email : '-', style: 'information', margin: [0, 0, 0, 35] },
+              { text: 'อีเมล์: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
               {
                 table: {
                   widths: ['*'],

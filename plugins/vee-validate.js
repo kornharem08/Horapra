@@ -48,7 +48,7 @@ extend('morethan', {
   validate (value, { target }) {
     return value >= target
   },
-  message: 'ออเดอร์ต้องมากกว่าหรือเท่ากับ{target}'
+  message: 'กรุณากรอกจำนวนมากกว่าหรือเท่ากับ {target}'
 })
 
 extend('verify_password', {

@@ -2,15 +2,15 @@
   <div>
     <base-button-back :title="step === 0 ? 'กลับหน้าหลัก' : 'Wedding@Home'" class="mb-2" @back="back" />
     <section v-if="step === 0">
-      <div class="text-[14pt] mb-[10pt] px-[24pt]">
+      <div class=" mb-[10pt] px-[24pt]">
         <div class="mx-auto flex flex-col justify-center items-center  w-full rounded-[10pt] aspect-video  bg-white  cursor-pointer mt-3 mb-4 ">
           รูปภาพ
         </div>
         เลือกแพ็คเกจ
-        <div class="grid gap-6 mb-6 grid-cols-2 mt-2">
+        <div class="grid gap-2 mb-6 grid-cols-2 mt-2">
           <div v-for="(item,idx) in weddingSet" :key="idx" @click="selectPackage(item)">
             <card :show-detail="false" />
-            <div class="text-center text-[14pt]  mt-2">
+            <div class="text-center text-[15px]  mt-2">
               {{ item.name }}
             </div>
           </div>
@@ -20,7 +20,7 @@
     <ValidObs ref="validator3">
       <section v-if="step ===1">
         <div class="px-[24pt]">
-          <div class="text-[14pt] mb-[10pt]">
+          <div class="text-[15px] mb-[10pt]">
             เลือกแพ็คเกจ
           </div>
           <!-- <span v-if="setName" class="text-[14pt]"> {{ setName }}</span> -->
@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="px-[24pt]">
-          <p class="mt-4 text-[16pt]">
+          <p class="mt-4 text-[15px]">
             {{ packages.name }}
           </p>
           <p class="text-[12pt] mt-2">
@@ -48,7 +48,7 @@
                 name="bordered-checkbox"
                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               >
-              <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[14pt] flex ">งานในร่ม</label>
+              <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[16px] flex ">งานในร่ม</label>
             </div>
             <div class="flex items-center pl-4 ">
               <input
@@ -59,7 +59,7 @@
                 name="bordered-checkbox"
                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               >
-              <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[14pt] flex ">งานกลางแจ้ง</label>
+              <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[16px] flex ">งานกลางแจ้ง</label>
             </div>
           </div>
         </div>
