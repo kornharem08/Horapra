@@ -5,7 +5,7 @@
         <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
           รูปภาพ
         </div>
-        <div class="text-center text-[15px] mt-[10pt]">
+        <div class="text-center text-[15px] mt-[10pt]" :class="{ 'px-4' : item.value === 4}">
           {{ item.name }}
         </div>
       </div>
@@ -107,7 +107,7 @@ const list = [
     value: 3
   },
   {
-    name: 'คอฟฟี่เบรค/สแน็คบ็อกซ์/ข้าวต้ม',
+    name: 'คอฟฟี่เบรค/ข้าวต้ม/สแน็คบ็อค',
     value: 4
   },
   {
@@ -135,6 +135,28 @@ export default {
     this.$store.dispatch('setAccessories', null)
   },
   methods: {
+    test () {
+      let Airtable = require('airtable')
+      let base = new Airtable({ apiKey: 'keyt0HxfGGJGs7yGh' }).base('app8GE6tvKpt6fwj5')
+      base('Sales Deals').select({
+        // Selecting the first 3 records in All Deals:
+        view: 'All Deals',
+        fields: ['Name', 'Order ID']
+      }).eachPage(function page (records, fetchNextPage) {
+        // This function (`page`) will get called for each page of records.
+
+        records.forEach(function (record) {
+          console.log('Retrieved', record)
+        })
+
+        // To fetch the next page of records, call `fetchNextPage`.
+        // If there are more records, `page` will get called again.
+        // If there are no more records, `done` will get called.
+        fetchNextPage()
+      }, function done (err) {
+        if (err) { console.error(err) }
+      })
+    },
     selectcoffeebreak (value) {
       this.$router.push({
         name: 'coffeeBreak',

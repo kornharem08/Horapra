@@ -166,7 +166,7 @@
           </p>
         </div>
 
-        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
+        <!-- <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
           <ValidPro v-slot="{ errors }" rules="required|minquantity:1" name="จำนวนพระสงฆ์">
             <label for="จำนวนพระสงฆ์" class="label_base">จำนวนพระสงฆ์</label>
             <input
@@ -178,12 +178,85 @@
               @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
               @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
             >
-            <!-- <base-input v-model="packages.monk" type="number" placeholder="จำนวนพระสงฆ์ *" label="ระบุจำนวนพระสงฆ์*" /> -->
+
+            <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+          </ValidPro>
+        </div> -->
+        <div class="grid gap-0 mb-6 grid-cols-2 px-[24pt] mt-4">
+          <label for="จำนวนพระสงฆ์" class="text-[12pt] mt-2">ระบุจำนวนพระสงฆ์</label>
+          <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
+            <input
+              v-model="packages.monk"
+              class="block py-2.5 px-4 w-1/2 text-[#142917] bg-gray-50 rounded-full border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
+              type="number"
+              name="จำนวนพระสงฆ์"
+              placeholder="จำนวนพระสงฆ์"
+              @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
+              @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
+            >
+
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
         </div>
-        <div class="text-[11px] mt-4 text-left px-[24pt]">
-          *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
+        <div class="mt-4 px-[24pt]">
+          <span class="text-[12pt]">บริการนิมนต์พระสงฆ์*</span>
+          <div class="flex">
+            <div class="flex items-center">
+              <input
+                id="bordered-checkbox-1"
+                v-model="packages.is_monk"
+                type="radio"
+                :value="true"
+                name="bordered-checkbox"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              >
+              <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
+            </div>
+            <div class="flex items-center pl-4 ">
+              <input
+                id="bordered-checkbox-2"
+                v-model="packages.is_monk"
+                type="radio"
+                :value="false"
+                name="bordered-checkbox"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              >
+              <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
+            </div>
+          </div>
+          <div class="text-[11px]  text-left">
+            *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
+          </div>
+        </div>
+        <div class="mt-6  px-[24pt]">
+          <span class="text-[12pt]">บริการมัคนายก/มัคนายิกา แบบมืออาชีพ</span>
+          <div class="flex  ">
+            <div class="flex items-center">
+              <input
+                id="bordered-checkbox-4"
+                v-model="packages.is_churchwarden"
+                type="radio"
+                :value="true"
+                name="bordered-checkbox-4"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              >
+              <label for="bordered-checkbox-4" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
+            </div>
+            <div class="flex items-center pl-4 ">
+              <input
+                id="bordered-checkbox-3"
+                v-model="packages.is_churchwarden"
+                type="radio"
+                :value="false"
+                name="bordered-checkbox-3"
+                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              >
+              <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
+            </div>
+          </div>
+          <div class="text-[11px] text-left">
+            *หมายเหตุ: ลูกค้าจะได้รับส่วนลดในกรณีที่ไม่ต้องการบริการมัคนายก/มัคนายิกา
+          </div>
         </div>
         <div class="mt-4 px-[24pt]">
           <label class="label_base">รูปแบบการจัดเลี้ยงพระสงฆ์</label>
@@ -292,7 +365,14 @@
               {{ $store.state.users.email ? $store.state.users.email : '-' }}
             </p>
           </div>
-
+          <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium    w-1/2">
+              เเพ็กเกจหลัก
+            </p>
+            <p class="text-right w-1/2">
+              {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
+            </p>
+          </div>
           <div class="flex flex-row justify-between mb-2 label_base">
             <p class="font-medium   ">
               จำนวนพระสงฆ์
@@ -303,7 +383,7 @@
           </div>
           <div class="flex flex-row justify-between mb-2 label_base">
             <p class="font-medium   w-2/3">
-              บริการนิมนต์พระสงฆ์*
+              บริการนิมนต์พระสงฆ์
             </p>
             <p class="w-1/3 text-right">
               {{ packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ' }}
@@ -485,6 +565,13 @@ export default {
     })
   },
   methods: {
+    handleSubmitNext () {
+      if ((!this.$store.state.users.name || !this.$store.state.users.phone)) {
+        this.isModalinfo = true
+      } else {
+        this.step++
+      }
+    },
     selectMorePackage (item) {
       this.setNumber = item.value
 
@@ -603,7 +690,8 @@ export default {
           'สิริมงคล'],
         'Package หลัก': this.$store.state.auspicious_packages.package,
         'Package รอง': '',
-        'มัคนายก/มัคนายิกา': this.$store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
+        'มัคนายก/มัคนายิกา': this.packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
+        บริการนิมต์พระสงฆ์: this.packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ',
         'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
         อุปกรณ์เสริม: sum.toString(),
         Notes: this.note,

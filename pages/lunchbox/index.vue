@@ -109,10 +109,10 @@
 
     <section v-if="step === 3 ">
       <div class="flex justify-between items-center px-[24pt] mb-3">
-        <div class="text-[16pt]">
+        <div class="text-[18px]">
           สรุปรายการอาหาร
         </div>
-        <div v-if="menu.length < 5" class="text-[#5A7F52] text-[14pt]" @click="addmore">
+        <div v-if="menu.length < 5" class="text-[#5A7F52] text-[18px]" @click="addmore">
           เพิ่มรายการ
         </div>
       </div>
@@ -122,8 +122,8 @@
             <ValidPro v-slot="{ errors }" :rules="item.min ? `morethan:${item.min}` : 'morethan:5'" :name="item.menu">
               <div class="flex justify-between items-center">
                 <div class="p-2 flex flex-col">
-                  <span class="text-sm">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
-                  <span class="text-xs">   ({{ item.menu }})</span>
+                  <span class="text-[14px]">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
+                  <span class="text-[14px]">   ({{ item.menu }})</span>
                 </div>
                 <div class="block product-count-button-position mt-2 px-2">
                   <div class="flex items-center border-[#5A7F52] border justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-32">
@@ -138,7 +138,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                       ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
                     </button>
-                    <input v-model.number="item.count" min="0" type="number" class="border-none  text-black text-center focus:outline-none focus:ring-0  text-sm ">
+                    <input v-model.number="item.count" :min="0" type="number" class="border-none  text-black text-center focus:outline-none focus:ring-0  text-sm " @change="(item.count === '' || item.count === null) ? item.count = 1 : item.count">
 
                     <!-- <span class="font-semibold text-black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span> -->
                     <button class="group flex text-[#5A7F52] items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
@@ -342,7 +342,7 @@
       </div>
       <the-footer-button>
         <template #button>
-          <button type="button" class="button_base " @click="step++">
+          <button type="button" class="button_base " @click="handleSubmitNext()">
             ถัดไป
           </button>
         </template>
@@ -464,6 +464,13 @@ export default {
     }
   },
   methods: {
+    handleSubmitNext () {
+      if ((!this.$store.state.users.name || !this.$store.state.users.phone)) {
+        this.isModalinfo = true
+      } else {
+        this.step++
+      }
+    },
     selectSetPinto (value) {
       console.log(value)
     },

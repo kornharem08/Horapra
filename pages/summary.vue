@@ -199,7 +199,7 @@ export default {
       }
       let data = []
       let colum1 = [
-        [{ text: 'แพ็คเกจที่เลือก', style: 'orderId' }, { text: this.summary.mainPackage, style: 'orderId', alignment: 'right' }]
+        [{ text: 'เเพ็กเกจหลัก', style: 'orderId' }, { text: this.summary.mainPackage, style: 'orderId', alignment: 'right' }]
       ]
 
       if (this.summary.subPackage) {

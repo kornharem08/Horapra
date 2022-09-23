@@ -154,21 +154,29 @@
             </p>
           </div>
           <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium    ">
+            <p class="font-medium w-1/2">
               เเพ็กเกจหลัก
             </p>
-            <p class="">
-              <!-- {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }} -->
+            <p class="w-1/2  text-right">
+              {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
             </p>
           </div>
           <div class="flex flex-row justify-between mb-2 label_base">
+            <p class="font-medium w-1/2 ">
+              {{ $route.query.morepackage ? 'เเพ็กเกจรอง' : 'เเพ็กเกจหลัก' }}
+            </p>
+            <p class="w-1/2  text-right">
+              {{ `บุฟเฟ่ ${setStyleBuffet.name}` }}
+            </p>
+          </div>
+          <!-- <div class="flex flex-row justify-between mb-2 label_base">
             <p class="font-medium    ">
               จัดเลี้ยงบุฟเฟ่ต์
             </p>
             <p class="">
               {{ `บุฟเฟ่ ${setStyleBuffet.name}` }}
             </p>
-          </div>
+          </div> -->
           <div class="flex flex-row justify-between mb-2 label_base">
             <p class="font-medium    ">
               เซ็ทจัดเลี้ยง
@@ -234,7 +242,7 @@
 
       <the-footer-button>
         <template #button>
-          <button type="button" class="button_base" @click="next">
+          <button type="button" class="button_base" @click="handleSubmitNext">
             ถัดไป
           </button>
         </template>
@@ -341,6 +349,13 @@ export default {
     }
   },
   methods: {
+    handleSubmitNext () {
+      if ((!this.$store.state.users.name || !this.$store.state.users.phone)) {
+        this.isModalinfo = true
+      } else {
+        this.step++
+      }
+    },
     selectSet (value) {
       this.setbuffet = value.value
       this.step = 1

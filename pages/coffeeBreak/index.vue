@@ -92,10 +92,10 @@
 
     <section v-if="step === 3" class="step1  ">
       <div class="flex justify-between items-center px-[24pt] mb-3" @click.stop="">
-        <div class="text-[16pt] w-fit" @click.stop="">
+        <div class="text-[18px] w-fit" @click.stop="">
           สรุปรายการอาหาร
         </div>
-        <div v-if="orders.length < coffeeMenu.length" class="text-[#5A7F52] text-[14pt]" @click="addmore">
+        <div v-if="orders.length < coffeeMenu.length" class="text-[#5A7F52] text-[18px]" @click="addmore">
           เพิ่มรายการ
         </div>
       </div>
@@ -103,7 +103,7 @@
         <div v-for="(item,index) in orders" :key="index" class="bg-white rounded mb-3">
           <div class="flex justify-between items-center py-3">
             <div class="p-2 flex flex-col">
-              <span class="text-[14pt]">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
+              <span class="text-[14px]">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
             </div>
             <div class="block product-count-button-position mt-2 px-2">
               <div class="flex items-center border-[#5A7F52] border justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-32">
@@ -238,7 +238,7 @@
       </div>
       <the-footer-button>
         <template #button>
-          <button type="button" class="button_base" @click="step++">
+          <button type="button" class="button_base" @click="handleSubmitNext">
             ถัดไป
           </button>
         </template>
@@ -389,6 +389,13 @@ export default {
     // }
   },
   methods: {
+    handleSubmitNext () {
+      if ((!this.$store.state.users.name || !this.$store.state.users.phone)) {
+        this.isModalinfo = true
+      } else {
+        this.step++
+      }
+    },
     selectMorePackage (item) {
       this.setNumber = item.value
       this.coffeeMenu = []

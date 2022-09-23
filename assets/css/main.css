@@ -11,8 +11,9 @@ html {
     background-color: #EDEAE7;
     color: #142917;
   }
-  
+
 * {
+  touch-action: manipulation;
     scroll-behavior: smooth;
     @apply font-OpunMai
     /* font-family: 'OpunMai', sans-serif; */
