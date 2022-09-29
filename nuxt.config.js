@@ -34,7 +34,6 @@ export default {
   plugins: [
     '~plugins/vee-validate',
     { src: '~/plugins/flowbite.client.js', ssr: false },
-    { src: '~/plugins/time-picker.js' },
     { src: '@/plugins/vue-awesome-swiper', mode: 'client' },
     { src: '~plugins/vue-notification.js', mode: 'client' },
     {
