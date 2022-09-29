@@ -16,20 +16,8 @@ if (!firebase.apps.length) {
   // eslint-disable-next-line no-unused-vars
   app = firebase.initializeApp(firebaseConfig)
 }
-// inject it so it can be accessed as this.$firebase inside the project
 const storage = firebase.storage()
 export default (ctx, inject) => {
   inject('firebase', firebase)
   inject('storage', storage)
-//   inject('fireDb', fireDb)
 }
-
-// let app = null
-// if (!firebase.apps.length) {
-//   app = firebase.initializeApp(firebaseConfig)
-// }
-// const db = firebase.database()
-// const storage = firebase.storage()
-// const fireDb = firebase.firestore()
-
-// export { firebase, fireDb, storage, db }
