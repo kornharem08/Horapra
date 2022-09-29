@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-button-back :title="step === 0 ? 'กลับหน้าหลัก' : 'Wedding@Home'" class="mb-2" @back="back" />
+    <base-button-back title="ย้อนกลับ" class="mb-2" @back="back" />
     <section v-if="step === 0">
       <div class=" mb-[10pt] px-[24pt]">
         <div

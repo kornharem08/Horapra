@@ -15,7 +15,8 @@ export const state = () => ({
   },
   loading: false,
   accessories: null,
-  summary: {}
+  summary: {},
+  pdf: null
 })
 
 export const getters = {
@@ -27,6 +28,9 @@ export const getters = {
   },
   getAccessories (state) {
     return state.accessories
+  },
+  getPdf (state) {
+    return state.pdf
   },
   loading: state => state.loading
 }
@@ -46,6 +50,9 @@ export const mutations = {
   },
   SET_ACCESSORIES (state, data) {
     state.accessories = data
+  },
+  SET_PDF (state, data) {
+    state.pdf = data
   },
   SET_AUSPICIOUS_PACKAGES (state, data) {
     state.auspicious_packages = {
@@ -70,5 +77,8 @@ export const actions = {
   },
   setAccessories ({ commit }, data) {
     commit('SET_ACCESSORIES', data)
+  },
+  setPdf ({ commit }, data) {
+    commit('SET_PDF', data)
   }
 }

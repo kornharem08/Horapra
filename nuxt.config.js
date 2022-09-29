@@ -36,7 +36,11 @@ export default {
     { src: '~/plugins/flowbite.client.js', ssr: false },
     { src: '~/plugins/time-picker.js' },
     { src: '@/plugins/vue-awesome-swiper', mode: 'client' },
-    { src: '~plugins/vue-notification.js', mode: 'client' }
+    { src: '~plugins/vue-notification.js', mode: 'client' },
+    {
+      src: '~/plugins/firebase.js',
+      ssr: false
+    }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

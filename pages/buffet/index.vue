@@ -295,7 +295,8 @@ export default {
       isError: false,
       fields: {
 
-      }
+      },
+      summary: {}
     }
   },
   computed: {
@@ -364,6 +365,32 @@ export default {
     handelfinish () {
       this.isFinish = false
       this.isError = false
+
+      this.$router.push('/summary')
+    },
+    back () {
+      if (this.step === 0) {
+        if (this.$route.query.morepackage) {
+          let set = this.$route.query.morepackage
+          this.$router.push({
+            name: 'auspicious',
+            query: { set }
+
+          })
+        } else {
+          this.$router.push('/menu')
+        }
+      } else {
+        this.step--
+      }
+    },
+    next () {
+      if (this.step === 2 && (!this.$store.state.users.name || !this.$store.state.users.phone)) {
+        this.isModalinfo = true
+      }
+      this.step++
+    },
+    async  setsummary () {
       let setPrice = this.optionprice.find(x => x.value === this.setPrice)
       let setBuffet = this.guestBuffet.find(x => x.value === this.setbuffet)
       let setMonk = this.monkBuffet.find(x => x.value === this.setStyle)
@@ -401,32 +428,172 @@ export default {
           subPackage: ''
         })
       }
+      // this.$store.dispatch('setSummary', summary)
+      this.summary = summary
       this.$store.dispatch('setSummary', summary)
-      this.$router.push('/summary')
-    },
-    back () {
-      if (this.step === 0) {
-        if (this.$route.query.morepackage) {
-          let set = this.$route.query.morepackage
-          this.$router.push({
-            name: 'auspicious',
-            query: { set }
+      let colum1 = [
+        [{ text: 'เเพ็กเกจหลัก', style: 'orderId' }, { text: this.summary.mainPackage, style: 'orderId', alignment: 'right' }]
+      ]
 
-          })
-        } else {
-          this.$router.push('/menu')
+      if (this.summary.subPackage) {
+        colum1.push([{ text: 'แพ็คเกจรอง', style: 'orderId' }, { text: this.summary.subPackage, alignment: 'right', style: 'orderId' }])
+      }
+
+      colum1.push([{ text: 'จำนวนแขก (รวมพระสงฆ์):', style: 'orderId' }, { text: this.summary.guest, style: 'orderId', alignment: 'right' }],
+        [{ text: 'จำนวนพระสงฆ์', style: 'orderId' }, { text: this.summary.monk, style: 'orderId', alignment: 'right' }])
+
+      if (this.summary.accessories) {
+        colum1.push([{ text: 'อุปกรณ์เสริม', style: 'orderId' }, { text: this.summary.accessories, alignment: 'right', style: 'orderId' }])
+      }
+      if (this.$store.state.users.is_morepackage || this.summary.is_churchwarden) {
+        colum1.push([{ text: 'บริการมัคนายก / มัคนายิกา', style: 'orderId' }, { text: this.summary.is_churchwarden, alignment: 'right', style: 'orderId' }])
+      }
+
+      if (this.$store.state.users.is_morepackage || this.summary.is_monk) {
+        colum1.push([{ text: 'บริการนิมนต์พระสงฆ์', style: 'orderId' }, { text: this.summary.is_monk, alignment: 'right', style: 'orderId' }])
+      }
+
+      if (this.summary.style_buffet) {
+        colum1.push([{ text: 'รูปแบบการจัดเลี้ยง', style: 'orderId' }, { text: this.summary.style_buffet, alignment: 'right', style: 'orderId' }])
+      }
+
+      if (this.summary.result) {
+        colum1.push([{ text: 'สรุปรายการ', style: 'orderId' }, { text: this.summary.result, alignment: 'right', style: 'orderId' }])
+      }
+
+      let colum2 = [
+        [{ text: 'วันที่จัดงาน:', style: 'orderId' }, { text: this.summary.date, style: 'orderId', alignment: 'right' }],
+        [{ text: 'เวลาพร้อมทาน:', style: 'orderId' }, { text: this.summary.time_for_lunch, style: 'orderId', alignment: 'right' }],
+        [{ text: 'รายละเอียดที่อยู่', style: 'orderId' }, { text: this.summary.address, alignment: 'right', style: 'orderId' }],
+        [{ text: 'ลิฟท์ขนของ:', style: 'orderId' }, { text: this.summary.lift, alignment: 'right', style: 'orderId' }]
+      ]
+
+      if (this.summary.time_for_monk_lunch) {
+        colum2.push([{ text: 'เวลาถวายข้าวพระ:', style: 'orderId' }, { text: this.summary.time_for_monk_lunch, style: 'orderId', alignment: 'right' }])
+      }
+
+      let content = {
+        columns: [
+          {
+            stack: [
+              { text: 'ใบสรุปรายการ', style: 'anotherStyle' },
+              { text: 'Order ID: ' + this.summary.orderid, style: 'textRight' },
+              { text: 'วันที่รับออเดอร์: ' + this.$moment(new Date()).format('L'), style: 'textRight' },
+              { text: 'ชื่อลูกค้า: ' + this.$store.state.users.name, style: 'information' },
+              { text: 'เบอร์ติดต่อ: ' + this.$store.state.users.phone, style: 'information' },
+              { text: 'เบอร์ติดต่อ (สำรอง): ' + this.summary.backupPhone, style: 'information' },
+              { text: 'อีเมล์: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
+              {
+                table: {
+                  widths: ['*'],
+                  body: [[{
+                    columns: [
+                      {
+                        stack: [{
+                          layout: 'noBorders',
+                          table: {
+                            widths: [185, '*'],
+                            body: colum1
+                          }
+                        },
+                        {
+                          text: '--------------------------------------------------------------------------------------------------------------',
+                          alignment: 'center'
+                        },
+                        {
+                          layout: 'noBorders',
+                          table: {
+                            widths: [185, '*'],
+                            body: colum2
+                          }
+                        },
+                        {
+                          text: '--------------------------------------------------------------------------------------------------------------',
+                          alignment: 'center'
+                        },
+                        {
+                          layout: 'noBorders',
+                          table: {
+                            widths: ['*'],
+                            body: [[{ text: 'โน้ตเพิ่มเติม:', style: 'orderId' }], [{ text: this.summary.note }]]
+                          }
+                        }
+                        ]
+                      }
+                    ]
+                  }]]
+                }
+              }, {
+                margin: 10,
+                columns: [{
+                  text: '(                                             )',
+                  alignment: 'center'
+                },
+                {
+                  text: 'ราคารวม ' + `${this.summary.totalprice ? this.summary.totalprice.toLocaleString() : this.summary.totalprice}` + ' บาท',
+                  alignment: 'center'
+                }]
+              },
+              {
+                text: 'หมายเหตุ: ราคาในใบสรุปรายการนี้เป็นราคาประเมินเบื้องต้นซึ่งยังไม่รวมค่าจัดส่งตามระยะทาง',
+                alignment: 'center',
+                style: 'orderId'
+              }
+            ]
+
+          }
+        ]
+      }
+      this.$store.dispatch('setPdf', content)
+      let pdfMake = require('pdfmake/build/pdfmake')
+      // const Printer = require('pdfmake');
+      pdfMake.fonts = {
+        Roboto: {
+          normal: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew-webfont.ttf',
+          bold: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf',
+          italics: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf',
+          bolditalics: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf'
         }
-      } else {
-        this.step--
       }
-    },
-    next () {
-      if (this.step === 2 && (!this.$store.state.users.name || !this.$store.state.users.phone)) {
-        this.isModalinfo = true
+
+      let data = []
+      data.push(content)
+
+      const docDefinition = {
+        content: data,
+        styles: {
+          anotherStyle: {
+            alignment: 'center',
+            fontSize: 20,
+            bold: true
+          },
+          textRight: {
+            alignment: 'right'
+          },
+          orderId: {
+            fontSize: 10
+          },
+          information: {
+            alignment: 'left'
+          }
+        }
       }
-      this.step++
+      // await pdfMake.createPdf(docDefinition).open()
+      let orderid = this.fields['Order ID'].toString()
+      const link = 'https://firebasestorage.googleapis.com/v0/b/horapa-b6ee7.appspot.com/o/' + orderid + '?alt=media'
+      Object.assign(this.fields, {
+        ใบสรุปรายการ: link
+      })
+      const pdfDocGenerator = pdfMake.createPdf(docDefinition)
+      await pdfDocGenerator.getBlob((blob) => {
+        this.$storage.ref(orderid).put(blob).then((snapshot) => {
+          this.createAirtable()
+        }).catch((error) => {
+          console.log('One failed upload logo :', error.message)
+        })
+      })
     },
-    submit (data) {
+    async submit (data) {
       this.$store.dispatch('handleLoading', true)
       let setPrice = this.optionprice.find(x => x.value === this.setPrice)
       let setBuffet = this.guestBuffet.find(x => x.value === this.setbuffet)
@@ -500,9 +667,33 @@ export default {
         'Last Contact': this.$moment(new Date()).format('L'),
         'Sales Stage': 'New Lead'
       })
+      await this.setsummary()
 
+      // let Airtable = require('airtable')
+      // let base = new Airtable({ apiKey: 'keyt0HxfGGJGs7yGh' }).base('app8GE6tvKpt6fwj5')
+      // const createRecord = async () => {
+      //   try {
+      //     await base('Sales Deals').create([
+      //       {
+      //         fields: this.fields
+      //       }
+
+      //     ])
+      //     this.isFinish = true
+      //   } catch (err) {
+      //     console.log(err)
+      //     this.isError = true
+      //     this.$store.dispatch('handleLoading', false)
+      //   } finally {
+      //     this.$store.dispatch('handleLoading', false)
+      //   }
+      // }
+      // createRecord()
+    },
+    createAirtable () {
       let Airtable = require('airtable')
       let base = new Airtable({ apiKey: 'keyt0HxfGGJGs7yGh' }).base('app8GE6tvKpt6fwj5')
+
       const createRecord = async () => {
         try {
           await base('Sales Deals').create([
@@ -513,7 +704,6 @@ export default {
           ])
           this.isFinish = true
         } catch (err) {
-          console.log(err)
           this.isError = true
           this.$store.dispatch('handleLoading', false)
         } finally {
