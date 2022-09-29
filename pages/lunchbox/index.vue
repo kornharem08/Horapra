@@ -34,7 +34,14 @@
           class="swiper mt-4"
         >
           <div v-if="selectBox.value === 3" class="swiper-wrapper">
-            <div v-for="(item, key , index) in lunchboxmenu" :key="index" class="swiper-slide " @click="selectListMenu = index">
+            <div v-for="(item, key , index) in boxset39" :key="index" class="swiper-slide " @click="selectListMenu = index">
+              <div class="p-2 h-8 flex text-[10pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
+                {{ key }}
+              </div>
+            </div>
+          </div>
+          <div v-if="selectBox.value === 4" class="swiper-wrapper">
+            <div v-for="(item, key , index) in boxset49" :key="index" class="swiper-slide " @click="selectListMenu = index">
               <div class="p-2 h-8 flex text-[10pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
                 {{ key }}
               </div>
@@ -60,12 +67,12 @@
             class="overflow-hidden border border-gray-100 rounded-lg grid  group grid-cols-3"
             href=""
           >
-            <div class="relative">
-              <!-- <img
-                class="absolute inset-0 object-cover w-22 h-22"
-                src="https://www.hyperui.dev/photos/activity-1.jpeg"
-                alt=""
-              > -->
+            <div class="relative flex items-center justify-center">
+              <img
+                v-if="list.url"
+                class="absolute h-[69pt] w-full  object-cover"
+                :src="require(`~/assets/img${list.url}`)"
+              >
             </div>
 
             <div class="p-2 col-span-2">
@@ -173,8 +180,11 @@
 
     <section v-if="step === 1 && setNumber === 2" class="step1 ">
       <div class="px-[24pt]">
-        <div class="flex justify-center items-center bg-white rounded-[10pt] my-4 h-[223pt] ">
-          รูปภาพ
+        <div class=" flex flex-col justify-center items-center  w-full  aspect-video  cursor-pointer mt-6 mb-4 " @click="selectImage ='/boxset/set/banner.jpg',isImages = true">
+          <img
+            class="rounded-[10pt] aspect-video object-cover"
+            :src="require(`~/assets/img/boxset/set/banner.jpg`)"
+          >
         </div>
       </div>
       <div class="text-center px-[24pt] text-[14pt]">
@@ -196,7 +206,7 @@
       >
         <div class="swiper-wrapper  " @click.stop="">
           <div v-for="(image,idx) in 4" :key="idx" class="swiper-slide ">
-            <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4 px-[24pt]">
+            <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4 px-[24pt]" @click="selectImage =`/Pinto/${idx}.jpg`,isImages = true">
               <img
                 class="rounded-[10pt] object-cover"
                 :src="require(`~/assets/img/Pinto/${idx}.jpg`)"
@@ -356,6 +366,7 @@
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
     <modalerror v-if="isError" @close="handelfinish" />
+    <ModalImages v-if="isImages" :img="selectImage" @close="isImages = false,selectImage = ''" />
   </div>
 </template>
 
@@ -365,6 +376,7 @@ import BaseButtonBack from '../../components/Base/BaseButtonBack.vue'
 import modalfinish from '../../components/Modal/finish.vue'
 import ModalguestInformation from '../../components/Modal/modalguestInformation.vue'
 import Modalerror from '../../components/Modal/modalerror.vue'
+import ModalImages from '../../components/Modal/images.vue'
 import boxset from '@/static/json/boxset.json'
 import boxsetmenu from '@/static/json/boxset/menu.json'
 import lunchset from '@/static/json/lunchset.json'
@@ -375,15 +387,22 @@ import luchTriomenu from '@/static/json/lunchmenu/lunchboxtrioset.json'
 import pinto1 from '@/static/json/lunchmenu/pintoset1.json'
 import pinto2 from '@/static/json/lunchmenu/pintoset2.json'
 import pinto3 from '@/static/json/lunchmenu/pintoset3.json'
+import boxset49 from '@/static/json/boxset/boxset49.json'
+import boxset39 from '@/static/json/boxset/boxset39.json'
 export default {
   components: {
     BaseButtonBack,
     modalfinish,
     ModalguestInformation,
-    Modalerror
+    Modalerror,
+    ModalImages
   },
   data () {
     return {
+      isImages: false,
+      selectImage: '',
+      boxset49,
+      boxset39,
       pinto1,
       pinto2,
       pinto3,
@@ -475,6 +494,7 @@ export default {
       console.log(value)
     },
     selectMorePackage (item) {
+      console.log(item)
       this.setNumber = item.value
       if (item.value !== 2) {
         this.lists = Object.keys(this.lunchboxmenu).map(k => this.lunchboxmenu[k].map((el) => {
@@ -812,7 +832,16 @@ export default {
         }
 
         if (value === 3) {
-          this.lists = Object.keys(this.lunchboxmenu).map(k => this.lunchboxmenu[k].map((el) => {
+          this.lists = Object.keys(this.boxset39).map(k => this.boxset39[k].map((el) => {
+            return {
+              ...el,
+              count: 0
+            }
+          }))
+        }
+
+        if (value === 4) {
+          this.lists = Object.keys(this.boxset49).map(k => this.boxset49[k].map((el) => {
             return {
               ...el,
               count: 0

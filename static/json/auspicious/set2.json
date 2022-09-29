@@ -6,17 +6,21 @@
         {
             "name": "สิริสุขA",
             "value" : 1,
-            "price" : 10499
+            "price" : 10499,
+            "url" : "/auspicious/Menu/2/1/A.jpg"
         },
         {
             "name": "สิริสุขB",
             "value" : 2,
-            "price" : 11499
+            "price" : 11499,
+            "url" : "/auspicious/Menu/2/1/B.jpg"
+            
         },
         {
             "name": "สิริสุขC",
             "value" : 3,
-            "price" : 19999
+            "price" : 19999,
+            "url" : "/auspicious/Menu/2/1/B.jpg"
         }
     ]
     },
@@ -27,17 +31,20 @@
         {
             "name": "มงคลชัยA",
             "value" : 1,
-            "price" : 13499
+            "price" : 13499,
+            "url" : "/auspicious/Menu/2/2/A.jpg"
         },
         {
             "name": "มงคลชัยB",
             "value" : 2,
-            "price" : 14499
+            "price" : 14499,
+            "url" : "/auspicious/Menu/2/2/B.jpg"
         },
         {
             "name": "มงคลชัยC",
             "value" : 3,
-            "price" : 17999
+            "price" : 17999,
+            "url" : "/auspicious/Menu/2/2/C.jpg"
         }
     ]
         }

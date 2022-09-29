@@ -17,18 +17,39 @@
       <div v-if="!isSelectPackage">
         <div>
           <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
-          <div class="mx-auto flex flex-col justify-center items-center  w-full rounded-[10pt] aspect-video  bg-white  cursor-pointer mt-3 mb-4 ">
-            รูปภาพ
+          <div
+            v-swiper:pintoIamge="swiperOptionsimage"
+            class="swiper "
+          >
+            <div class="swiper-wrapper">
+              <div v-for="(image,idx) in pacakgex" :key="idx" class="swiper-slide ">
+                <div v-if="image?.url" class="mx-auto flex flex-col justify-center items-center  w-full bg-white  aspect-video cursor-pointer mt-3 mb-4" @click="image?.url ? showimage(image.url) : null">
+                  <img
+
+                    class="rounded-[10pt] object-cover aspect-video"
+                    :src="require(`~/assets/img${image.url}`)"
+                  >
+                </div>
+                <div v-else class="bg-white rounded-[10pt] aspect-video" />
+              </div>
+            </div>
+            <div class="swiper-pagination swiper-pagination-bullets" />
           </div>
         </div>
         <div>
           <div class="mt-2 ">
-            Package
+            แพ็คเกจ
           </div>
 
           <div class="grid gap-6 mb-6 grid-cols-2 mt-[25pt]">
             <div v-for="(item,idx) in pacakgex" :key="idx" class="text-center" @click="selectpackage(item.value)">
-              <card :name="item.name" />
+              <img
+                v-if="item.url"
+                class="rounded-[10pt] object-cover aspect-square "
+                :src="require(`~/assets/img${item.url}`)"
+              >
+              <div v-else class="rounded-[10pt] object-cover aspect-square bg-white" />
+              <!-- <card :name="item.name" :picture="item.url" /> -->
               <div class="mt-2 text-[15px]">
                 {{ item.name }}
               </div>
@@ -39,7 +60,10 @@
       <div v-else>
         <div class="grid gap-6 mb-6 grid-cols-2 ">
           <div v-for="(item,idx) in secoundPackage" :key="idx" class="text-center" @click="selectSecondpackage(item)">
-            <card :name="item.name" />
+            <img
+              class="rounded-[10pt] object-cover aspect-square "
+              :src="require(`~/assets/img${item.url}`)"
+            >
             <div class="mt-2 text-[15px]">
               {{ item.name }}
             </div>
@@ -52,8 +76,11 @@
       <section v-if="step === 2 && Number(setNumber) !== 2" class="pb-12">
         <div class="px-[24pt]">
           <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
-          <div class="aspect-video  w-full text-center   rounded-[10pt]  bg-white flex items-center justify-center">
-            รูปภาพ
+          <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="showimage()">
+            <img
+              class="rounded-[10pt] object-cover aspect-video"
+              :src="require(`~/assets/img${imagesSelected}`)"
+            >
           </div>
         </div>
         <div class="px-[24pt]">
@@ -153,8 +180,11 @@
       <section v-if="step === 2 && setNumber === 2" class=" pt-3 pb-6">
         <div class="px-[24pt]">
           <span v-if="setName" class=""> {{ setName }}</span>
-          <div class="aspect-video w-full text-center rounded-[10pt] bg-white flex items-center justify-center">
-            รูปภาพ
+          <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="showimage()">
+            <img
+              class="rounded-[10pt] object-cover aspect-video"
+              :src="require(`~/assets/img${imagesSelected}`)"
+            >
           </div>
         </div>
         <div class="px-[24pt] mb-4">
@@ -165,23 +195,6 @@
             รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
           </p>
         </div>
-
-        <!-- <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
-          <ValidPro v-slot="{ errors }" rules="required|minquantity:1" name="จำนวนพระสงฆ์">
-            <label for="จำนวนพระสงฆ์" class="label_base">จำนวนพระสงฆ์</label>
-            <input
-              v-model="packages.monk"
-              class="input_base w-24"
-              type="number"
-              name="จำนวนพระสงฆ์"
-              placeholder="จำนวนพระสงฆ์"
-              @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
-              @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
-            >
-
-            <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-          </ValidPro>
-        </div> -->
         <div class="grid gap-0 mb-6 grid-cols-2 px-[24pt] mt-4">
           <label for="จำนวนพระสงฆ์" class="text-[12pt] mt-2">ระบุจำนวนพระสงฆ์</label>
           <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
@@ -446,12 +459,14 @@
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
     <modalerror v-if="isError" @close="handelfinish" />
+    <ModalImages v-if="isImages" :img="selectImage" @close="isImages = false,selectImage = ''" />
   </div>
 </template>
 
 <script>
 import BaseButtonBack from '../../components/Base/BaseButtonBack.vue'
 import modalfinish from '../../components/Modal/finish.vue'
+import ModalImages from '../../components/Modal/images.vue'
 import ModalguestInformation from '../../components/Modal/modalguestInformation.vue'
 import Modalerror from '../../components/Modal/modalerror.vue'
 import auspiciouset from '@/static/json/auspiciouset.json'
@@ -466,7 +481,8 @@ export default {
     BaseButtonBack,
     modalfinish,
     ModalguestInformation,
-    Modalerror
+    Modalerror,
+    ModalImages
   },
 
   data () {
@@ -497,6 +513,17 @@ export default {
       setNumber: null,
       note: '',
       pacakgex: [],
+      swiperOptionsimage: {
+        slidesPerView: 1,
+        freeMode: true,
+        pagination: {
+          el: '.swiper-pagination',
+          dynamicBullets: true,
+          clickable: true
+        }
+      },
+      isImages: false,
+      selectImage: '',
       moreMenu: [
         {
           name: 'บุฟเฟ่ต์',
@@ -565,6 +592,16 @@ export default {
     })
   },
   methods: {
+    showimage (img) {
+      if (img) {
+        this.selectImage = img
+      } else {
+        this.selectImage = this.imagesSelected
+      }
+
+      this.isImages = true
+      console.log(img)
+    },
     handleSubmitNext () {
       if ((!this.$store.state.users.name || !this.$store.state.users.phone)) {
         this.isModalinfo = true
@@ -580,7 +617,8 @@ export default {
           return {
             name: x.name,
             price: x.price,
-            value: x.value
+            value: x.value,
+            url: x.url
           }
         })
         this.step = 1
@@ -591,7 +629,8 @@ export default {
             name: x.name,
             price: 0,
             value: x.value,
-            set: x.set
+            set: x.set,
+            url: x.url
           }
         })
         this.step = 1
@@ -847,6 +886,7 @@ export default {
     selectSecondpackage (value) {
       this.packages.price = value.price
       this.packages.name = `${this.packages.name} ${value.name}`
+      this.imagesSelected = value.url
       this.step++
     },
     selectpackage (value) {
@@ -858,6 +898,7 @@ export default {
       this.packages.price = packageMain.price
       if (this.setNumber !== 2) {
         this.step++
+        this.imagesSelected = packageMain.url
       } else {
         if (packageMain.set) {
           this.secoundPackage.push(...packageMain.set)

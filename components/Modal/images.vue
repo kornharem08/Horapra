@@ -22,8 +22,8 @@
 export default {
   props: {
     img: {
-      type: Number,
-      default: null
+      type: String,
+      default: ''
     },
     type: {
       type: String,
@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     images () {
-      return require(`@/assets/img/${this.type}/set/${this.img}.jpg`)
+      return require(`@/assets/img${this.img}`)
     }
   },
   methods: {

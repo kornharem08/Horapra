@@ -3,13 +3,31 @@
     <base-button-back :title="step === 0 ? 'กลับหน้าหลัก' : 'Wedding@Home'" class="mb-2" @back="back" />
     <section v-if="step === 0">
       <div class=" mb-[10pt] px-[24pt]">
-        <div class="mx-auto flex flex-col justify-center items-center  w-full rounded-[10pt] aspect-video  bg-white  cursor-pointer mt-3 mb-4 ">
-          รูปภาพ
+        <div
+          v-swiper:pintoIamge="swiperOptionsimage"
+          class="swiper "
+        >
+          <div class="swiper-wrapper  " @click.stop="">
+            <div v-for="(image,idx) in weddingSet" :key="idx" class="swiper-slide ">
+              <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4 " @click="selectImage =`${image.url}`,isImages = true">
+                <img
+                  class="rounded-[10pt] aspect-video object-cover"
+                  :src="require(`~/assets/img${image.url}`)"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination swiper-pagination-bullets" />
         </div>
         เลือกแพ็คเกจ
         <div class="grid gap-2 mb-6 grid-cols-2 mt-2">
           <div v-for="(item,idx) in weddingSet" :key="idx" @click="selectPackage(item)">
-            <card :show-detail="false" />
+            <div class=" flex flex-col justify-center items-center  w-full  cursor-pointer mt-6 mb-4 ">
+              <img
+                class="rounded-[10pt] aspect-square object-cover"
+                :src="require(`~/assets/img${item.url}`)"
+              >
+            </div>
             <div class="text-center text-[15px]  mt-2">
               {{ item.name }}
             </div>
@@ -162,6 +180,7 @@
     <modalfinish v-if="isFinish" @close="handelfinish" />
     <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
     <modalerror v-if="isError" @close="handelfinish" />
+    <ModalImages v-if="isImages" :img="selectImage" @close="isImages = false,selectImage = ''" />
   </div>
 </template>
 
@@ -169,15 +188,19 @@
 import modalfinish from '../../components/Modal/finish.vue'
 import ModalguestInformation from '../../components/Modal/modalguestInformation.vue'
 import Modalerror from '../../components/Modal/modalerror.vue'
+import ModalImages from '../../components/Modal/images'
 import weddingSet from '@/static/json/wedding.json'
 export default {
   components: {
     ModalguestInformation,
     modalfinish,
-    Modalerror
+    Modalerror,
+    ModalImages
   },
   data () {
     return {
+      isImages: false,
+      selectImage: '',
       step: 0,
       weddingSet,
       fields: {},
@@ -192,7 +215,16 @@ export default {
       isModalinfo: false,
       isFinish: false,
       isError: false,
-      note: ''
+      note: '',
+      swiperOptionsimage: {
+        slidesPerView: 1,
+        freeMode: true,
+        pagination: {
+          el: '.swiper-pagination',
+          dynamicBullets: true,
+          clickable: true
+        }
+      }
     }
   },
   methods: {

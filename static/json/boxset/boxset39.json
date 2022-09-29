@@ -1,0 +1,119 @@
+{
+    "เมนูแนะนำ" : [
+        {
+            "name" : "ข้าวผัดหมูสับ",
+            "price" : 39,
+            "value" : 1,
+            "url" : "/luchbox/spacial/39/เมนูแนะนำ/1.JPG"
+        },
+        {
+            "name" : "ข้าวราดไก่ผัดใบโหระพาเต้าเจี้ยว",
+            "price" : 39,
+            "value" : 2,
+            "url" : "/luchbox/spacial/39/เมนูแนะนำ/2.JPG"
+        },
+        {
+            "name" : "ข้าวราดคั่วกลิ้งไก่",
+            "price" : 39,
+            "value" : 3,
+            "url" : "/luchbox/spacial/39/เมนูแนะนำ/3.JPG"
+        },
+        {
+            "name" : "ข้าวราดพริกแกงไก่",
+            "price" : 39,
+            "value" : 4,
+            "url" : "/luchbox/spacial/39/เมนูแนะนำ/4.JPG"
+        },
+        {
+            "name" : "ข้าวราดสเต็กไก่น้ำจิ้มแจ่ว",
+            "price" : 39,
+            "value" : 5,
+            "url" : "/luchbox/spacial/39/เมนูแนะนำ/5.JPG"
+        }
+    ],
+    "ประเภทข้าวราด"  : [
+        {
+            "name" : "ข้าวราดไก่ผัดใบโหระพาเต้าเจี้ยว",
+            "price" : 39,
+            "value" : 1,
+            "url" : "/luchbox/spacial/39/ประเภทข้าวราด/1.JPG"
+        },
+        {
+            "name" : "ข้าวราดคั่วกลิ้งไก่",
+            "price" : 39,
+            "value" : 2,
+            "url" : "/luchbox/spacial/39/ประเภทข้าวราด/2.JPG"
+        },
+        {
+            "name" : "ข้าวราดดอกกะหล่ำผัดไข่",
+            "price" : 39,
+            "value" : 3,
+            "url" : "/luchbox/spacial/39/ประเภทข้าวราด/3.JPG"
+        },
+        {
+            "name" : "ข้าวราดปลาผัดขึ้นฉ่าย",
+            "price" : 39,
+            "value" : 4,
+            "url" : "/luchbox/spacial/39/ประเภทข้าวราด/4.JPG"
+        },
+        {
+            "name" : "ข้าวราดปลาผัดซอสเปรี้ยวหวาน",
+            "price" : 39,
+            "value" : 5,
+            "url" : "/luchbox/spacial/39/ประเภทข้าวราด/5.JPG"
+        },
+        {
+            "name" : "ข้าวราดปลาผัดพริกไทยดำ",
+            "price" : 39,
+            "value" : 6,
+            "url" : "/luchbox/spacial/39/ประเภทข้าวราด/6.JPG"
+        },
+        {
+            "name" : "ข้าวราดพริกแกงไก่",
+            "price" : 39,
+            "value" : 7,
+            "url" : "/luchbox/spacial/39/ประเภทข้าวราด/7.JPG"
+        },
+        {
+            "name" : "ข้าวราดสเต็กไก่น้ำจิ้มแจ่ว",
+            "price" : 39,
+            "value" : 8,
+            "url" : "/luchbox/spacial/39/ประเภทข้าวราด/8.JPG"
+        }
+    ],
+    "ประเภทเส้น"  : [
+        {
+            "name" : "มักกะโรนีไก่",
+            "price" : 39,
+            "value" : 1,
+            "url" : "/luchbox/spacial/39/ประเภทเส้น/1.JPG"
+        },
+        {
+            "name" : "มักกะโรนีไส้กรอก",
+            "price" : 39,
+            "value" : 2,
+            "url" : "/luchbox/spacial/39/ประเภทเส้น/2.JPG"
+        }
+    ],
+    "ประเภทข้าวผัด"  : [
+        {
+            "name" : "ข้าวผัดไก่",
+            "price" : 39,
+            "value" : 1,
+            "url" : "/luchbox/spacial/39/ประเภทข้าวผัด/1.JPG"
+        },
+        {
+            "name" : "ข้าวผัดไส้กรอก",
+            "price" : 39,
+            "value" : 2,
+            "url" : "/luchbox/spacial/39/ประเภทข้าวผัด/2.JPG"
+        },
+        {
+            "name" : "ข้าวผัดหมูสับ",
+            "price" : 39,
+            "value" : 3,
+            "url" : "/luchbox/spacial/39/ประเภทข้าวผัด/3.JPG"
+        }
+    ]
+
+    }
