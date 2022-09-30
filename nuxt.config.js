@@ -23,11 +23,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/global.css',
-    '@/assets/css/main.css',
-    'swiper/css',
-    'swiper/css/pagination',
-    'swiper/css/navigation',
-    'swiper/css/bundle'
+    '@/assets/css/main.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
