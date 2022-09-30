@@ -18,6 +18,6 @@ if (!firebase.apps.length) {
 }
 const storage = firebase.storage()
 export default (ctx, inject) => {
-  inject('firebase', firebase)
+  // inject('firebase', firebase)
   inject('storage', storage)
 }
