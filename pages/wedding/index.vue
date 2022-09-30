@@ -9,9 +9,9 @@
         >
           <div class="swiper-wrapper  " @click.stop="">
             <div v-for="(image,idx) in weddingSet" :key="idx" class="swiper-slide ">
-              <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4 " @click="selectImage =`${image.url}`,isImages = true">
+              <div class="mx-auto flex flex-col justify-center items-center  w-full overflow-hidden  aspect-video cursor-pointer mt-3 mb-4 " @click="selectImage =`${image.url}`,isImages = true">
                 <img
-                  class="rounded-[10pt] aspect-video object-cover"
+                  class="rounded-[10pt] object-cover h-full w-full"
                   :src="require(`~/assets/img${image.url}`)"
                 >
               </div>
@@ -19,12 +19,20 @@
           </div>
           <div class="swiper-pagination swiper-pagination-bullets" />
         </div>
-        เลือกแพ็คเกจ
+        <div class="text-[15px] mb-[10pt]">
+          เลือกแพ็คเกจ
+        </div>
         <div class="grid gap-2 mb-6 grid-cols-2 mt-2">
           <div v-for="(item,idx) in weddingSet" :key="idx" @click="selectPackage(item)">
-            <div class=" flex flex-col justify-center items-center  w-full  cursor-pointer mt-6 mb-4 ">
+            <!-- <div class=" flex flex-col justify-center items-center  w-full  cursor-pointer mt-6 mb-4 ">
               <img
                 class="rounded-[10pt] aspect-square object-cover"
+                :src="require(`~/assets/img${item.url}`)"
+              >
+            </div> -->
+            <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
+              <img
+                class="rounded-[10pt] object-cover  h-full w-full"
                 :src="require(`~/assets/img${item.url}`)"
               >
             </div>
@@ -38,18 +46,15 @@
     <ValidObs ref="validator3">
       <section v-if="step ===1">
         <div class="px-[24pt]">
-          <div class="text-[15px] mb-[10pt]">
-            เลือกแพ็คเกจ
-          </div>
+          <p v-if="step > 0" class="mb-2 text-[15px]">
+            {{ packages.name }}
+          </p>
           <!-- <span v-if="setName" class="text-[14pt]"> {{ setName }}</span> -->
           <div class="aspect-video w-full text-center   rounded-[10pt]  bg-white flex items-center justify-center">
             รูปภาพ
           </div>
         </div>
         <div class="px-[24pt]">
-          <p class="mt-4 text-[15px]">
-            {{ packages.name }}
-          </p>
           <p class="text-[12pt] mt-2">
             รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
           </p>

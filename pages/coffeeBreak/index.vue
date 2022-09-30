@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-button-back :title="step === 0 ? $route.query.morepackage ? setName : 'กลับหน้าหลัก' : 'คอฟฟี่เบรค/สแน็คบ็อกซ์/ข้าวต้ม'" class="mb-2" @back="back" />
+    <base-button-back title="ย้อนกลับ" class="mb-2" @back="back" />
 
     <section v-if=" step === 0">
       <div class="grid gap-6 mb-6 grid-cols-2  px-[24pt]">

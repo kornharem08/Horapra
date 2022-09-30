@@ -1,8 +1,8 @@
 <template>
   <div>
-    <base-button-back :title="setName" @back="back" />
-    <div class="text-14pt px-[24pt]">
-      {{ selectedSet ? selectedSet.name : null }}
+    <base-button-back title="ย้อนกลับ" @back="back" />
+    <div v-if="step !== 1" class="text-14pt px-[24pt]">
+      {{ setName }}
     </div>
     <section v-if="step === 0">
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
@@ -230,19 +230,6 @@
         </div>
       </div>
     </section>
-    <!--
-    <section v-if="step === 2 && setNumber === 3">
-      <div>
-        3
-      </div>
-      <the-footer-button>
-        <template #button>
-          <button type="button" class="button_base " @click="step++">
-            ถัดไป
-          </button>
-        </template>
-      </the-footer-button>
-    </section> -->
 
     <section v-if="step === 4" class="step4">
       <div class="px-[24pt]">
@@ -464,14 +451,9 @@ export default {
     },
     setName () {
       if (this.step === 0) {
-        if (!this.$route.query.morepackage) {
-          return 'ย้อนกลับ'
-          // return 'กลับหน้าหลัก'
-        } else {
-          return 'สิริมงคล'
-        }
+        return 'สิริมงคล'
       } else {
-        return this.selectBox.name ? this.selectBox.name : 'ย้อนกลับ'
+        return this.selectBox.name && this.step > 1 ? this.selectBox.name : ''
       }
     },
     listMenu () {

@@ -4,7 +4,8 @@
       "price":250,
       "accessories":[
       ],
-      "detail":""
+      "detail":"",
+      "url" : "/accessorie/1.jpg"
   },
   {
       "name":"โต๊ะชุดแบบผ้าคลุมโต๊ะ+เก้าอี้",
@@ -12,31 +13,26 @@
       "accessories":[
           
       ],
-      "detail":""
-  },
-  {
-      "name":"โต๊ะชุดแบบผ้าคลุมโต๊ะ+เก้าอี้ธรรมดา",
-      "price":250,
-      "accessories":[
-          
-      ],
-      "detail":""
+      "detail":"",
+      "url" : "/accessorie/2.jpg"
   },
   {
       "name":"พัดลมสนาม",
+      "price":500,
+      "accessories":[
+          
+      ],
+      "detail":"",
+      "url" : "/accessorie/3.jpg"
+  },
+  {
+      "name":"พัดลมไอน้ำ",
       "price":900,
       "accessories":[
           
       ],
-      "detail":""
-  },
-  {
-      "name":"พัดลมไอน้ำ",
-      "price":250,
-      "accessories":[
-          
-      ],
-      "detail":""
+      "detail":"",
+      "url" : "/accessorie/4.jpg"
   },
   {
       "name":"พัดลมไอเย็น",
@@ -44,15 +40,8 @@
       "accessories":[
           
       ],
-      "detail":""
-  },
-  {
-      "name":"โต๊ะชุดแบบผ้าคลุมโต๊ะ+เก้าอี้ธรรมดา",
-      "price":250,
-      "accessories":[
-          
-      ],
-      "detail":""
+      "detail":"",
+      "url" : "/accessorie/5.jpg"
   },
   {
       "name":"เต้นท์ 3*3 เมตร",
@@ -60,7 +49,8 @@
       "accessories":[
           
       ],
-      "detail":""
+      "detail":"",
+      "url" : "/accessorie/6.jpg"
   },
   {
       "name":"เต้นท์ 4*8 เมตร",
@@ -68,7 +58,8 @@
       "accessories":[
           
       ],
-      "detail":""
+      "detail":"",
+      "url" : "/accessorie/7.jpg"
   },
   {
       "name":"เต้นท์ 5*12 เมตร",
@@ -76,15 +67,8 @@
       "accessories":[
           
       ],
-      "detail":""
-  },
-  {
-      "name":"โต๊ะชุดแบบผ้าคลุมโต๊ะ+เก้าอี้ธรรมดา",
-      "price":250,
-      "accessories":[
-          
-      ],
-      "detail":""
+      "detail":"",
+      "url" : "/accessorie/8.jpg"
   },
   {
       "name":"Set A",
@@ -103,7 +87,8 @@
               "count":"1 ตัว"
           }
       ],
-      "detail":"จัดก่อนวันงาน 1 วัน"
+      "detail":"จัดก่อนวันงาน 1 วัน",
+      "url" : "/accessorie/9.jpg"
   },
   {
       "name":"Set B",
@@ -122,7 +107,8 @@
               "count":"2 ตัว"
           }
       ],
-      "detail":"จัดก่อนวันงาน 1 วัน"
+      "detail":"จัดก่อนวันงาน 1 วัน",
+      "url" : "/accessorie/10.jpg"
   },
   {
       "name":"Set C",
@@ -141,7 +127,8 @@
               "count":"1 ตัว"
           }
       ],
-      "detail":"จัดก่อนวันงาน 1 วัน"
+      "detail":"จัดก่อนวันงาน 1 วัน",
+      "url" : "/accessorie/11.jpg"
   },
   {
       "name":"ประหยัด Set A",
@@ -160,7 +147,8 @@
               "count":"1 ตัว"
           }
       ],
-      "detail":"จัดก่อนวันงาน 1 วัน"
+      "detail":"จัดก่อนวันงาน 1 วัน",
+      "url" : "/accessorie/12.jpg"
   },
   {
       "name":"ประหยัด Set B",
@@ -179,7 +167,8 @@
               "count":"1 ตัว"
           }
       ],
-      "detail":"จัดก่อนวันงาน 1 วัน"
+      "detail":"จัดก่อนวันงาน 1 วัน",
+      "url" : "/accessorie/13.jpg"
   },
   {
       "name":"ประหยัด Set C",
@@ -198,6 +187,7 @@
               "count":"1 ตัว"
           }
       ],
-      "detail":"จัดก่อนวันงาน 1 วัน"
+      "detail":"จัดก่อนวันงาน 1 วัน",
+      "url" : "/accessorie/14.jpg"
   }
 ]

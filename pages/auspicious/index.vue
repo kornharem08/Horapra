@@ -1,6 +1,6 @@
 <template>
   <div class=" pb-10">
-    <base-button-back :title="step === 0 ? 'กลับหน้าหลัก' : 'สิริมงคล'" @back="back" />
+    <base-button-back title="ย้อนกลับ" @back="back" />
 
     <section v-if="step === 0">
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
@@ -26,7 +26,7 @@
                 <div v-if="image?.url" class="mx-auto flex flex-col justify-center items-center  w-full bg-white  aspect-video cursor-pointer mt-3 mb-4" @click="image?.url ? showimage(image.url) : null">
                   <img
 
-                    class="rounded-[10pt] object-cover aspect-video"
+                    class="rounded-[10pt] object-cover h-full w-full"
                     :src="require(`~/assets/img${image.url}`)"
                   >
                 </div>
@@ -43,11 +43,17 @@
 
           <div class="grid gap-6 mb-6 grid-cols-2 mt-[25pt]">
             <div v-for="(item,idx) in pacakgex" :key="idx" class="text-center" @click="selectpackage(item.value)">
-              <img
+              <div v-if="item.url" class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
+                <img
+                  class="rounded-[10pt] object-cover  h-full w-full"
+                  :src="require(`~/assets/img${item.url}`)"
+                >
+              </div>
+              <!-- <img
                 v-if="item.url"
                 class="rounded-[10pt] object-cover aspect-square "
                 :src="require(`~/assets/img${item.url}`)"
-              >
+              > -->
               <div v-else class="rounded-[10pt] object-cover aspect-square bg-white" />
               <!-- <card :name="item.name" :picture="item.url" /> -->
               <div class="mt-2 text-[15px]">
@@ -60,10 +66,16 @@
       <div v-else>
         <div class="grid gap-6 mb-6 grid-cols-2 ">
           <div v-for="(item,idx) in secoundPackage" :key="idx" class="text-center" @click="selectSecondpackage(item)">
-            <img
+            <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
+              <img
+                class="rounded-[10pt] object-cover  h-full w-full"
+                :src="require(`~/assets/img${item.url}`)"
+              >
+            </div>
+            <!-- <img
               class="rounded-[10pt] object-cover aspect-square "
               :src="require(`~/assets/img${item.url}`)"
-            >
+            > -->
             <div class="mt-2 text-[15px]">
               {{ item.name }}
             </div>
@@ -75,7 +87,7 @@
     <ValidObs ref="validator4">
       <section v-if="step === 2 && Number(setNumber) !== 2" class="pb-12">
         <div class="px-[24pt]">
-          <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
+          <span class="text-[14pt]"> {{ packages.name }}</span>
           <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="showimage()">
             <img
               class="rounded-[10pt] object-cover aspect-video"
@@ -84,9 +96,9 @@
           </div>
         </div>
         <div class="px-[24pt]">
-          <p class="mt-4 text-[16pt]">
+          <!-- <p class="mt-4 text-[16pt]">
             ชื่อแพ็คเกจ {{ packages.name }}
-          </p>
+          </p> -->
           <p class="text-[12pt] mt-2">
             รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
           </p>
@@ -179,7 +191,8 @@
     <ValidObs ref="validator3">
       <section v-if="step === 2 && setNumber === 2" class=" pt-3 pb-6">
         <div class="px-[24pt]">
-          <span v-if="setName" class=""> {{ setName }}</span>
+          <span class="text-[14pt]"> {{ packages.name }}</span>
+          <!-- <span v-if="packaged.name" class=""> {{ setName }}</span> -->
           <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="showimage()">
             <img
               class="rounded-[10pt] object-cover aspect-video"
@@ -188,9 +201,9 @@
           </div>
         </div>
         <div class="px-[24pt] mb-4">
-          <p class="mt-4 ">
+          <!-- <p class="mt-4 ">
             ชื่อแพ็คเกจ
-          </p>
+          </p> -->
           <p class="text-sm mt-2">
             รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
           </p>
@@ -307,9 +320,12 @@
     </section>
 
     <section v-if="step === 4" class="step2 ">
+      <span class="text-[14pt] px-[24pt]"> {{ packages.name }}</span>
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(item,idx) in setAccessories" :key="idx" class="grid-cols-2">
-          <card :price="Number(item.price)" :show-detail="true" />
+          <div class="w-full aspect-square overflow-hidden  rounded-[10pt] flex items-center justify-center border bg-white">
+            <img :src="require(`~/assets/img${item.url}`)" alt="">
+          </div>
           <div class="block product-count-button-position mt-2">
             <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-full">
               <button class="flex items-center text=black justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="item.count > 0 ? item.count-- : 0">
@@ -330,7 +346,10 @@
               </button>
             </div>
           </div>
-          <div class="text-[#142917] text-[12pt] text-center mt-2">
+          <div class="text-[#142917] text-[10pt] text-center mt-2">
+            {{ item.price.toLocaleString() }} บาท
+          </div>
+          <div class="text-[#142917] text-[12pt] text-center mt-1">
             {{ item.name }}
           </div>
         </div>
@@ -588,7 +607,8 @@ export default {
         price: x.price,
         count: 0,
         accessories: x.accessories,
-        detail: x.detail
+        detail: x.detail,
+        url: x.url
       }
     })
   },
@@ -601,7 +621,6 @@ export default {
       }
 
       this.isImages = true
-      console.log(img)
     },
     handleSubmitNext () {
       if ((!this.$store.state.users.name || !this.$store.state.users.phone)) {
@@ -1100,8 +1119,9 @@ export default {
       }
     },
     selectSecondpackage (value) {
+      // let name = `${this.packages.name} ${value.name}`
       this.packages.price = value.price
-      this.packages.name = `${this.packages.name} ${value.name}`
+      this.packages.name = value.name
       this.imagesSelected = value.url
       this.step++
     },

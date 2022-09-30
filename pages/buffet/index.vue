@@ -85,7 +85,10 @@
       </div>
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(item,idx) in setAccessories" :key="idx">
-          <card :price="Number(item.price)" :show-detail="true" />
+          <div class="w-full aspect-square overflow-hidden  rounded-[10pt] flex items-center justify-center border bg-white">
+            <img :src="require(`~/assets/img${item.url}`)" alt="">
+          </div>
+          <!-- <card :price="Number(item.price)" :show-detail="true" /> -->
           <div class="block product-count-button-position mt-2">
             <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-full">
               <button class="flex items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="item.count > 0 ? item.count-- : 0">
@@ -106,7 +109,10 @@
               </button>
             </div>
           </div>
-          <div class="text-[#142917] text-[12pt] text-center mt-2">
+          <div class="text-[#142917] text-[10pt] text-center mt-2">
+            {{ item.price.toLocaleString() }} บาท
+          </div>
+          <div class="text-[#142917] text-[12pt] text-center mt-1">
             {{ item.name }}
           </div>
         </div>
@@ -261,7 +267,6 @@
 
 <script>
 import BaseInput from '../../components/Base/BaseInput.vue'
-import Card from '../../components/Card.vue'
 import TheQuotation from '../../components/TheQuotation.vue'
 import BaseButtonBack from '../../components/Base/BaseButtonBack.vue'
 import modalfinish from '../../components/Modal/finish.vue'
@@ -273,7 +278,7 @@ import monkBuffet from '@/static/json/monkBuffet.json'
 import accessories from '@/static/json/accessories.json'
 
 export default {
-  components: { BaseInput, Card, TheQuotation, BaseButtonBack, modalfinish, ModalguestInformation, Modalerror },
+  components: { BaseInput, TheQuotation, BaseButtonBack, modalfinish, ModalguestInformation, Modalerror },
   data () {
     return {
       step: 0,
@@ -341,7 +346,8 @@ export default {
         price: x.price,
         count: 0,
         accessories: x.accessories,
-        detail: x.detail
+        detail: x.detail,
+        url: x.url
       }
     })
 
