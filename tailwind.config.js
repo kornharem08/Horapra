@@ -5,8 +5,8 @@ module.exports = {
     './layouts/**/*.vue',
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
-    './nuxt.config.{js,ts}',
-    './node_modules/flowbite/**/*.js'
+    './nuxt.config.{js,ts}'
+    // './node_modules/flowbite/**/*.js'
   ],
   theme: {
     extend: {
@@ -19,6 +19,6 @@ module.exports = {
         Opun: ['Opun', 'sans-serif']
       }
     }
-  },
-  plugins: [require('flowbite/plugin')]
+  }
+  // plugins: [require('flowbite/plugin')]
 }
