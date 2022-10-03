@@ -3,24 +3,28 @@
     "name" : "DUO SET (2 เมนู)",
     "price" : 69,
     "maxmenu" : 2,
-    "value" : 1
+    "value" : 1,
+    "url" : "/button/Button/2/Boxset_Duo.jpg"
     },
     {
     "name" : "TRIO SET (3 เมนู)",
     "price" : 109,
     "maxmenu" : 3,
-    "value" : 2
+    "value" : 2,
+    "url" : "/button/Button/2/Boxset_Trio.jpg"
         },
     {
-    "name" : "ข้าวกล่อง ราคาพิเศษ 39บาท",
+    "name" : "ข้าวกล่อง ราคาพิเศษ  39บาท",
     "price" : 39,
     "maxmenu" : 5,
-    "value" : 3
+    "value" : 3,
+    "url" : "/button/Button/2/Boxset_ข้าวกล่องราคาพิเศษ39.jpg"
     },
     {
-        "name" : "ข้าวกล่อง ราคาพิเศษ 49 บาท",
+        "name" : "ข้าวกล่อง ราคาพิเศษ  49บาท",
         "price" : 49,
         "maxmenu" : 5,
-        "value" : 4
+        "value" : 4,
+        "url" : "/button/Button/2/Boxset_ข้าวกล่องราคาพิเศษ49.jpg"
         }
 ]

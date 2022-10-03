@@ -8,11 +8,11 @@
           class="swiper "
         >
           <div class="swiper-wrapper  " @click.stop="">
-            <div v-for="(image,idx) in weddingSet" :key="idx" class="swiper-slide ">
-              <div class="mx-auto flex flex-col justify-center items-center  w-full overflow-hidden  aspect-video cursor-pointer mt-3 mb-4 " @click="selectImage =`${image.url}`,isImages = true">
+            <div class="swiper-slide ">
+              <div class="mx-auto flex flex-col justify-center items-center  w-full overflow-hidden  aspect-video cursor-pointer mt-3 mb-4 " @click="selectImage =`/button/Button/5/Wedding@Home-Banner.jpg`,isImages = true">
                 <img
                   class="rounded-[10pt] object-cover h-full w-full"
-                  :src="require(`~/assets/img${image.url}`)"
+                  :src="require(`~/assets/img/button/Button/5/Wedding@Home-Banner.jpg`)"
                 >
               </div>
             </div>
@@ -24,12 +24,6 @@
         </div>
         <div class="grid gap-2 mb-6 grid-cols-2 mt-2">
           <div v-for="(item,idx) in weddingSet" :key="idx" @click="selectPackage(item)">
-            <!-- <div class=" flex flex-col justify-center items-center  w-full  cursor-pointer mt-6 mb-4 ">
-              <img
-                class="rounded-[10pt] aspect-square object-cover"
-                :src="require(`~/assets/img${item.url}`)"
-              >
-            </div> -->
             <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
               <img
                 class="rounded-[10pt] object-cover  h-full w-full"
@@ -251,23 +245,6 @@ export default {
     submit (data) {
       this.$store.dispatch('handleLoading', true)
 
-      // if (data.time_for_lunch) {
-      //   const times = {
-      //     1: 'เช้า',
-      //     2: 'เพล',
-      //     3: 'กำหนดเวลาเอง'
-      //   }
-      //   if (data.time_for_lunch !== 3) {
-      //     Object.assign(this.fields, {
-      //       เวลาถวายข้าวพระ: times[data.time_for_lunch]
-      //     })
-      //   } else {
-      //     Object.assign(this.fields, {
-      //       เวลาถวายข้าวพระ: ` ${times[data.time_for_lunch]} : ${data.timeLunch}`
-      //     })
-      //   }
-      // }
-
       Object.assign(this.fields, {
         Name: this.$store.state.users.name,
         เบอร์โทร: this.$store.state.users.phone,
@@ -336,7 +313,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

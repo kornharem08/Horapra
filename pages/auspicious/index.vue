@@ -1,11 +1,12 @@
 <template>
   <div class=" pb-10">
     <base-button-back title="ย้อนกลับ" @back="back" />
-
     <section v-if="step === 0">
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(item,idx) in auspiciouset" :key="idx" @click="selectMorePackage(item)">
-          <card :show-detail="false" />
+          <div class="w-full aspect-square overflow-hidden  rounded-[10pt] flex items-center justify-center border bg-white">
+            <img :src="require(`~/assets/img${item.url}`)" alt="">
+          </div>
           <div class="text-center text-[15px]  mt-2">
             {{ item.name }}
           </div>
@@ -22,12 +23,12 @@
             class="swiper "
           >
             <div class="swiper-wrapper">
-              <div v-for="(image,idx) in pacakgex" :key="idx" class="swiper-slide ">
-                <div v-if="image?.url" class="mx-auto flex flex-col justify-center items-center  w-full bg-white  aspect-video cursor-pointer mt-3 mb-4" @click="image?.url ? showimage(image.url) : null">
+              <div v-for="(image,idx) in imageCover" :key="idx" class="swiper-slide ">
+                <div v-if="image" class="mx-auto flex flex-col justify-center items-center rounded-[10pt]   w-full bg-white  aspect-video cursor-pointer mt-3 mb-4" @click="image ? showimage(image) : null">
                   <img
 
                     class="rounded-[10pt] object-cover h-full w-full"
-                    :src="require(`~/assets/img${image.url}`)"
+                    :src="require(`~/assets/img${image}`)"
                   >
                 </div>
                 <div v-else class="bg-white rounded-[10pt] aspect-video" />
@@ -494,6 +495,8 @@ import set2 from '@/static/json/auspicious/set2.json'
 import set3 from '@/static/json/auspicious/set3.json'
 import accessories from '@/static/json/accessories.json'
 import monkBuffet from '@/static/json/monkBuffet.json'
+import images1 from '@/static/json/auspicious/images1.json'
+import images2 from '@/static/json/auspicious/images2.json'
 
 export default {
   components: {
@@ -510,6 +513,9 @@ export default {
       set2,
       set3,
       step: 0,
+      images1,
+      images2,
+      imageCover: [],
       auspiciouset,
       isSelectPackage: false,
       accessories,
@@ -641,6 +647,7 @@ export default {
             url: x.url
           }
         })
+        this.imageCover = this.images1
         this.step = 1
       }
       if (item.value === 2) {
@@ -654,6 +661,7 @@ export default {
           }
         })
         this.step = 1
+        this.imageCover = this.images2
       }
       if (item.value === 3) {
         console.log('1')
@@ -1126,7 +1134,6 @@ export default {
       this.step++
     },
     selectpackage (value) {
-      console.log(value)
       this.secoundPackage = []
       this.packages.package = value
       let packageMain = this.pacakgex.find(x => x.value === value)

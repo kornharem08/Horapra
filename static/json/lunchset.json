@@ -2,17 +2,19 @@
     {
         "name":"ข้าวกล่อง",
         "img":"",
-        "value" : 1
-        
+        "value" : 1,
+        "url" : "/button/Button/2/Boxset_ข้าวกล่อง.jpg"
     },
     {
         "name":"Box Set รักษ์โลก",
         "img":"",
-        "value" : 2
+        "value" : 2,
+        "url" : "/button/Button/2/Boxset_รักษ์โลก.jpg"
     },
     {
         "name":"ปิ่นโตอิ่มบุญ",
         "img":"",
-        "value" : 3
+        "value" : 3,
+        "url" : "/button/Button/2/Boxset_ปิ่นโตอิ่มบุญ.jpg"
     }
 ]

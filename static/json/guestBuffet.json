@@ -2,31 +2,37 @@
     {
         "name":"10-19 ท่าน",
         "value":1,
-        "max" : 19
+        "max" : 19,
+        "url" : "/button/Button/1/Buffet_10-19.jpg"
     },
     {
         "name":"20-29 ท่าน",
         "value":2,
-        "max" : 29
+        "max" : 29,
+        "url" : "/button/Button/1/Buffet_20-29.jpg"
     },
     {
         "name":"30-49 ท่าน",
         "value":3,
-        "max" : 49
+        "max" : 49,
+        "url" : "/button/Button/1/Buffet_30-49.jpg"
     },
     {
         "name":"50-99 ท่าน",
         "value":4,
-        "max" : 99
+        "max" : 99,
+        "url" : "/button/Button/1/Buffet_50-99.jpg"
     },
     {
         "name":"100-149 ท่าน",
         "value":5,
-        "max" : 149
+        "max" : 149,
+        "url" : "/button/Button/1/Buffet_100-149.jpg"
     },
     {
         "name":"150 ท่านขึ้นไป",
         "value":6,
-        "max" : 999999
+        "max" : 999999,
+        "url" : "/button/Button/1/Buffet_150.jpg"
     }
 ]

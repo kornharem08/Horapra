@@ -5,7 +5,12 @@
     <section v-if=" step === 0">
       <div class="grid gap-6 mb-6 grid-cols-2  px-[24pt]">
         <div v-for="(item,idx) in coffeebreak" :key="idx" @click="selectMorePackage(item)">
-          <card :show-detail="false" />
+          <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
+            <img
+              class="rounded-[10pt]"
+              :src="require(`~/assets/img${item.url}`)"
+            >
+          </div>
           <div class="text-center text-[15px] mt-2">
             {{ item.name }}
           </div>

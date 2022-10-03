@@ -2,49 +2,51 @@
     {
     "name" : "สิริสุขพร้อมอาหาร",
     "value" : 1,
+    "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_พิธีสงฆ์พร้อมอาหาร-สิริสุข.jpg",
     "set" : [
         {
             "name": "สิริสุขA",
             "value" : 1,
             "price" : 10499,
-            "url" : "/auspicious/Menu/2/1/A.jpg"
+            "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สิริสุขA.jpg"
         },
         {
             "name": "สิริสุขB",
             "value" : 2,
             "price" : 11499,
-            "url" : "/auspicious/Menu/2/1/B.jpg"
+            "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สิริสุขB.jpg"
             
         },
         {
             "name": "สิริสุขC",
             "value" : 3,
             "price" : 19999,
-            "url" : "/auspicious/Menu/2/1/B.jpg"
+            "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สิริสุขC.jpg"
         }
     ]
     },
     {
     "name" : "มงคลชัยพร้อมอาหาร",
+    "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_พิธีสงฆ์พร้อมอาหาร-มงคลชัย.jpg",
     "value" : 2,
     "set" : [
         {
             "name": "มงคลชัยA",
             "value" : 1,
             "price" : 13499,
-            "url" : "/auspicious/Menu/2/2/A.jpg"
+            "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_มงคลชัยA.jpg"
         },
         {
             "name": "มงคลชัยB",
             "value" : 2,
             "price" : 14499,
-            "url" : "/auspicious/Menu/2/2/B.jpg"
+            "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_มงคลชัยB.jpg"
         },
         {
             "name": "มงคลชัยC",
             "value" : 3,
             "price" : 17999,
-            "url" : "/auspicious/Menu/2/2/C.jpg"
+            "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_มงคลชัยC.jpg"
         }
     ]
         }

@@ -4,8 +4,11 @@
     <section v-if="step === 0" class="step1 ">
       <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
         <div v-for="(menu,idx) in guestBuffet" :key="idx" class="flex items-center flex-col justify-start" @click="selectSet(menu)">
-          <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border bg-white">
-            รูปภาพ
+          <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
+            <img
+              class="rounded-[10pt]"
+              :src="require(`~/assets/img${menu.url}`)"
+            >
           </div>
           <div class="text-center text-[15px] mt-[10pt]">
             {{ menu.name }}
