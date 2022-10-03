@@ -23,7 +23,7 @@
           เลือกแพ็คเกจ
         </div>
         <div class="grid gap-2 mb-6 grid-cols-2 mt-2">
-          <div v-for="(item,idx) in weddingSet" :key="idx" @click="selectPackage(item)">
+          <div v-for="(item,idx) in weddingSet" :key="idx" @click="selectPackage(item,idx)">
             <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
               <img
                 class="rounded-[10pt] object-cover  h-full w-full"
@@ -43,9 +43,11 @@
           <p v-if="step > 0" class="mb-2 text-[15px]">
             {{ packages.name }}
           </p>
-          <!-- <span v-if="setName" class="text-[14pt]"> {{ setName }}</span> -->
-          <div class="aspect-video w-full text-center   rounded-[10pt]  bg-white flex items-center justify-center">
-            รูปภาพ
+          <div class="mx-auto flex flex-col justify-center items-center  w-full overflow-hidden  aspect-video cursor-pointer mt-3 mb-4 " @click="selectImage =`/wedding/images/${imagesindex}.jpg`,isImages = true">
+            <img
+              class="rounded-[10pt] object-cover h-full w-full"
+              :src="require(`~/assets/img/wedding/images/${imagesindex}.jpg`)"
+            >
           </div>
         </div>
         <div class="px-[24pt]">
@@ -211,6 +213,7 @@ export default {
         guest: 0,
         style: true
       },
+      imagesindex: 1,
       isModalinfo: false,
       isFinish: false,
       isError: false,
@@ -296,7 +299,9 @@ export default {
         console.log(res)
       })
     },
-    selectPackage (value) {
+    selectPackage (value, index) {
+      console.log(index)
+      this.imagesindex = Number(index + 1)
       this.packages.name = value.name
       this.packages.price = value.price
       this.packages.value = value.value
