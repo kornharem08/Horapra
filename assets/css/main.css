@@ -24,11 +24,11 @@ html {
 }
 
 .input_base {
-  @apply block py-[0.5rem] px-[1rem] w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
+  @apply block py-[0.625rem] px-[1rem] w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
 }
 
 .input_base_textarea {
-  @apply block py-[0.5rem] px-[1rem] w-full text-[#142917] bg-gray-50 rounded-md border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
+  @apply block py-[0.625rem] px-[1rem] w-full text-[#142917] bg-gray-50 rounded-md border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
 }
 
 .label_base {
@@ -115,7 +115,7 @@ select,option {
   border-right: 16px solid transparent;
   background-repeat: no-repeat;
   background-position-x: 100%;
-  background-position-y: 5px;
+  background-position-y: 10px;
   display: block;
   width: 100%;
   border-radius: 9999px;
@@ -130,18 +130,24 @@ select,option {
   box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
 }
 
-/* input {
+input {
   margin-top: 0.5rem;
   display: block;
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
   width: 100%;
   border-radius: 9999px;
   background-color: rgb(249 250 251/1);
-  padding: 0.5rem 1rem;
+  -webkit-padding: 0.625rem 1rem;
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
   color: #142917;
   outline: 2px solid transparent;
   outline-offset: 2px;
   box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
-} */
+}
 
 /* select {
   @apply block py-2 px-4 w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
