@@ -35,11 +35,11 @@ export default {
 </script>
 
 <style>
-input {
+/* input {
     @apply block py-2.5 px-4 w-full text-gray-900 bg-gray-50 rounded-full outline-none shadow-lg  sm:text-xs focus:border focus:ring-main focus:border-main
   }
 
 button {
       @apply cursor-pointer
-  }
+  } */
 </style>

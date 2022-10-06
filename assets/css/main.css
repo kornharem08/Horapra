@@ -104,8 +104,10 @@ button {
   padding: 10px 10px 10px 10px;
 }
 
-/* 
+
 select,option {
+  -webkit-padding: 0.5rem 1rem;
+  -webkit-appearance: none;
   border-right: 16px solid transparent;
   margin-top: 0.5rem;
   display: block;
@@ -117,7 +119,7 @@ select,option {
   outline: 2px solid transparent;
   outline-offset: 2px;
   box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
-} */
+}
 
 input {
   margin-top: 0.5rem;
