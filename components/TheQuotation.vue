@@ -8,7 +8,7 @@
 
             <input
               v-model="quotation.date"
-              class="shadow-main w-full block  px-[1rem]  h-[44px] text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
+              class="input_base"
               type="date"
               name="วันที่จัดงาน"
             >
@@ -22,7 +22,7 @@
 
               <input
                 v-model="quotation.time"
-                class="shadow-main w-full block  px-[1rem]  h-[44px] text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
+                class="input_base"
                 type="time"
                 name="เวลาพร้อมทาน"
               >
