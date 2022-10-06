@@ -589,7 +589,7 @@ export default {
       }
       // await pdfMake.createPdf(docDefinition).open()
       let orderid = this.fields['Order ID'].toString()
-      const link = 'https://firebasestorage.googleapis.com/v0/b/horapa-b6ee7.appspot.com/o/' + orderid + '?alt=media'
+      const link = 'https://firebasestorage.googleapis.com/v0/b/botio-horapa.appspot.com/o/' + orderid + '?alt=media'
       Object.assign(this.fields, {
         ใบสรุปรายการ: link
       })

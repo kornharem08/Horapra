@@ -447,7 +447,7 @@ export default {
         lift: this.fields['ลิฟท์ขนของ'],
         totalprice: this.fields['ยอดเงิน'],
         monk: this.fields['จำนวนพระสงฆ์'],
-        guest: this.fields['จำนวนแขก (รวมพระ)'],
+        guest: 0,
         is_churchwarden: this.fields.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
         is_monk: this.fields.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
         address: this.fields['สถานที่จัดงาน (ที่อยู่)'],
@@ -628,7 +628,7 @@ export default {
       }
       // await pdfMake.createPdf(docDefinition).open()
       let orderid = this.fields['Order ID'].toString()
-      const link = 'https://firebasestorage.googleapis.com/v0/b/horapa-b6ee7.appspot.com/o/' + orderid + '?alt=media'
+      const link = 'https://firebasestorage.googleapis.com/v0/b/botio-horapa.appspot.com/o/' + orderid + '?alt=media'
       Object.assign(this.fields, {
         ใบสรุปรายการ: link
       })

@@ -53,7 +53,7 @@
             {{ summary['date'] }}
           </p>
         </div>
-        <div class="flex flex-row justify-between mb-2 label_base">
+        <div v-if="Number(summary['guest']) > 0" class="flex flex-row justify-between mb-2 label_base">
           <p class="">
             จำนวนแขก (รวมพระ)
           </p>

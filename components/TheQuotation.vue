@@ -4,11 +4,11 @@
       <div class="px-[24pt]">
         <div class="grid gap-2  grid-cols-2">
           <ValidPro v-slot="{ errors }" rules="required" name="วันที่จัดงาน">
-            <label for="วันที่จัดงาน" class="label_base">วันที่จัดงาน</label>
+            <label for="วันที่จัดงาน" class="label_base">วันที่จัดงาน</label><br>
 
             <input
               v-model="quotation.date"
-              class="input_base"
+              style="height:44px;border-radius: 999px;padding-left: 0.5rem;padding-right:0.5rem;width: 100%;margin-top: 00.5rem;outline: none;"
               type="date"
               name="วันที่จัดงาน"
             >
@@ -18,11 +18,11 @@
           </ValidPro>
           <div class="">
             <ValidPro v-slot="{ errors }" rules="required" name="เวลาพร้อมทาน">
-              <label for="เวลาพร้อมทาน" class="label_base">เวลาพร้อมทาน</label>
+              <label for="เวลาพร้อมทาน" class="label_base">เวลาพร้อมทาน</label><br>
 
               <input
                 v-model="quotation.time"
-                class="input_base"
+                style="height:44px;border-radius: 999px;padding-left: 0.5rem;padding-right:0.5rem;width: 100%;margin-top: 0.5rem;outline: none;"
                 type="time"
                 name="เวลาพร้อมทาน"
               >
