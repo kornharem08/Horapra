@@ -106,9 +106,18 @@ button {
 
 
 select {
-  border-right: 16px solid transparent
+  border-right: 16px solid transparent;
+  margin-top: 0.5rem;
+  display: block;
+  width: 100%;
+  border-radius: 9999px;
+  background-color: rgb(249 250 251/1);
+  padding: 0.5rem 1rem;
+  color: #142917;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
-select {
+/* select {
   @apply block py-2 px-4 w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
-}
+} */
