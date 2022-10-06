@@ -28,7 +28,7 @@
           <div>
             <label class="label_base">เลือกจำนวนลูกค้า</label>
             <ValidPro v-slot="{ errors }" rules="required" name="เลือกจำนวนลูกค้า">
-              <select v-model="setbuffet" class="w-full input_base" @change="setPrice = 1">
+              <select v-model="setbuffet" class="" @change="setPrice = 1">
                 <option v-for="(set,idx) in guestBuffet" :key="idx" :value="set.value">
                   {{ set.name }}
                 </option>
@@ -39,7 +39,7 @@
           <div class="mt-4">
             <label class="label_base">เลือกเซ็ทราคา</label>
             <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
-              <select v-model="setPrice" class=" w-full input_base">
+              <select v-model="setPrice" class="">
                 <option v-for="set in optionprice" :key="set.value" :value="set.value">
                   {{ set.name }} ({{ set.price }} บาท/ชุด)
                 </option>

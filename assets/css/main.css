@@ -108,3 +108,7 @@ button {
 select {
   border-right: 16px solid transparent
 }
+
+select {
+  @apply block py-2 px-4 w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
+}

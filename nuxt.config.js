@@ -1,6 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
+    target: 'static',
     title: 'horapa',
     htmlAttrs: {
       lang: 'en'
@@ -65,6 +66,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extractCSS: true,
     transpile: ['vee-validate/dist/rules'],
     postcss: {
       plugins: {

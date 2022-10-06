@@ -1,13 +1,12 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 let firebaseConfig = {
-  apiKey: 'AIzaSyB-HgVKluDaGvLjRbQ8XdO_V12WIeEhn78',
-  authDomain: 'horapa-b6ee7.firebaseapp.com',
-  projectId: 'horapa-b6ee7',
-  storageBucket: 'horapa-b6ee7.appspot.com',
-  messagingSenderId: '54992776228',
-  appId: '1:54992776228:web:0efb3b33ef531af1247cb1',
-  measurementId: 'G-4PF7NZFXK5'
+  apiKey: 'AIzaSyANj45zI-_V03-D-88Qv9o4UKZmehKj_vg',
+  authDomain: 'botio-horapa.firebaseapp.com',
+  projectId: 'botio-horapa',
+  storageBucket: 'botio-horapa.appspot.com',
+  messagingSenderId: '12680389108',
+  appId: '1:12680389108:web:bd227a8ecbe7850398d9a1'
 }
 // Initialize Firebase
 let app = null
