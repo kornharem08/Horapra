@@ -122,6 +122,11 @@ const list = [
     name: 'Wedding@Home',
     value: 5,
     url: '/button/Button/5/Wedding@Home_Cover.jpg'
+  },
+  {
+    name: 'SDGs',
+    value: 6,
+    url: '/sdg/SDGs_Cover.jpg'
   }
 ]
 export default {
@@ -196,7 +201,8 @@ export default {
         2: 'lunchbox',
         3: 'auspicious',
         4: 'coffeeBreak',
-        5: 'wedding'
+        5: 'wedding',
+        6: 'sdg'
       }
 
       this.$router.push(`/${menu[value]}`)

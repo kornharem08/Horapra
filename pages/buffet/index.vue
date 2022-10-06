@@ -28,7 +28,7 @@
           <div>
             <label class="label_base">เลือกจำนวนลูกค้า</label>
             <ValidPro v-slot="{ errors }" rules="required" name="เลือกจำนวนลูกค้า">
-              <select v-model="setbuffet" class="base_selectoption" @change="setPrice = 1">
+              <select v-model="setbuffet" class="base_selectoption" style=" padding: 0.5rem 1rem;" @change="setPrice = 1">
                 <option v-for="(set,idx) in guestBuffet" :key="idx" :value="set.value">
                   {{ set.name }}
                 </option>
@@ -727,14 +727,14 @@ export default {
 </script>
 
 <style>
-.base_selectoption{
+.base_selectoption {
   border-right: 16px solid transparent;
   margin-top: 0.5rem;
   display: block;
   width: 100%;
   border-radius: 9999px;
   background-color: rgb(249 250 251/1);
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem !important;
   color: #142917;
   outline: 2px solid transparent;
   outline-offset: 2px;
