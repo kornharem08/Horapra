@@ -3,12 +3,12 @@
     <div class="mt-4">
       <div class="px-[24pt]">
         <div class="grid gap-2  grid-cols-2">
-          <ValidPro v-slot="{ errors }" rules="required" name="วันที่จัดงาน">
+          <ValidPro v-slot="{ errors }" rules="required" name="วันที่จัดงาน" class="w-full">
             <label for="วันที่จัดงาน" class="label_base">วันที่จัดงาน</label><br>
 
             <input
               v-model="quotation.date"
-              style="height:44px;border-radius: 999px;padding-left: 0.5rem;padding-right:0.5rem;width: 100%;margin-top: 00.5rem;outline: none;"
+              style="height:44px;border-radius: 999px;padding-left: 0.5rem;padding-right:0.5rem;width: 100%;margin-top: 00.5rem;outline: none;background-color: white;box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;"
               type="date"
               name="วันที่จัดงาน"
             >
@@ -16,13 +16,13 @@
             <!-- <base-input v-model="quotation.date" type="date" placeholder="วันที่จัดงาน *" label="วันที่จัดงาน *" /> -->
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
-          <div class="">
-            <ValidPro v-slot="{ errors }" rules="required" name="เวลาพร้อมทาน">
+          <div class="w-full">
+            <ValidPro v-slot="{ errors }" rules="required" name="เวลาพร้อมทาน" class="w-full">
               <label for="เวลาพร้อมทาน" class="label_base">เวลาพร้อมทาน</label><br>
 
               <input
                 v-model="quotation.time"
-                style="height:44px;border-radius: 999px;padding-left: 0.5rem;padding-right:0.5rem;width: 100%;margin-top: 0.5rem;outline: none;"
+                style="height:44px;border-radius: 999px;padding-left: 0.5rem;padding-right:0.5rem;width: 100%;margin-top: 0.5rem;outline: none;background-color: white;box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;"
                 type="time"
                 name="เวลาพร้อมทาน"
               >
@@ -167,7 +167,7 @@
         <div class="mt-[21px]">
           <label for="last_name" class="label_base">เบอร์โทรสำรอง</label>
           <ValidPro v-slot="{ errors }" rules="required|phone_th" name="เบอร์โทรสำรอง">
-            <input v-model="quotation.phone_backup" type="number" class="input_base shadow-main">
+            <input v-model="quotation.phone_backup" type="number" class="input_base shadow-main" style="box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;">
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
         </div>
