@@ -28,7 +28,7 @@
           <div>
             <label class="label_base">เลือกจำนวนลูกค้า</label>
             <ValidPro v-slot="{ errors }" rules="required" name="เลือกจำนวนลูกค้า">
-              <select v-model="setbuffet" class="base_selectoption block py-2 px-4 w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]" style="padding: 0.5rem 1rem;" @change="setPrice = 1">
+              <select v-model="setbuffet" class="base_selectoption " style="padding: 0.5rem 1rem;" @change="setPrice = 1">
                 <option v-for="(set,idx) in guestBuffet" :key="idx" :value="set.value">
                   {{ set.name }}
                 </option>
@@ -39,7 +39,7 @@
           <div class="mt-4">
             <label class="label_base">เลือกเซ็ทราคา</label>
             <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
-              <select v-model="setPrice" class="base_selectoption block py-2 px-4 w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]">
+              <select v-model="setPrice" class="base_selectoption">
                 <option v-for="set in optionprice" :key="set.value" :value="set.value">
                   {{ set.name }} ({{ set.price }} บาท/ชุด)
                 </option>
@@ -727,7 +727,7 @@ export default {
 </script>
 
 <style>
-.base_selectoption {
+/* .base_selectoption {
   border-right: 16px solid transparent;
   margin-top: 0.5rem;
   display: block;
@@ -739,6 +739,6 @@ export default {
   outline: 2px solid transparent;
   outline-offset: 2px;
   box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
-}
+} */
 
 </style>

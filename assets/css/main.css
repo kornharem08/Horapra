@@ -24,11 +24,11 @@ html {
 }
 
 .input_base {
-  @apply block py-2 px-4 w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
+  @apply block py-[0.5rem] px-[1rem] w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
 }
 
 .input_base_textarea {
-  @apply block py-2 px-4 w-full text-[#142917] bg-gray-50 rounded-md border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
+  @apply block py-[0.5rem] px-[1rem] w-full text-[#142917] bg-gray-50 rounded-md border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
 }
 
 .label_base {
@@ -107,21 +107,30 @@ button {
 
 select,option {
   -webkit-padding: 0.5rem 1rem;
-  -webkit-appearance: none;
-  border-right: 16px solid transparent;
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
   margin-top: 0.5rem;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  border-right: 16px solid transparent;
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 5px;
   display: block;
   width: 100%;
   border-radius: 9999px;
   background-color: rgb(249 250 251/1);
-  padding: 0.5rem 1rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   color: #142917;
   outline: 2px solid transparent;
   outline-offset: 2px;
   box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
 }
 
-input {
+/* input {
   margin-top: 0.5rem;
   display: block;
   width: 100%;
@@ -132,7 +141,7 @@ input {
   outline: 2px solid transparent;
   outline-offset: 2px;
   box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
-}
+} */
 
 /* select {
   @apply block py-2 px-4 w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
