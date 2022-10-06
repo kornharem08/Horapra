@@ -24,7 +24,11 @@ html {
 }
 
 .input_base {
-  @apply block py-[0.625rem] px-[1rem] h-[44px] w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
+  @apply block py-[0.625rem] px-[1rem] h-[44px] w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2   text-[12pt]  placeholder:text-[#EEDAB9]
+}
+
+.input_base {
+  box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
 }
 
 .input_base_textarea {
@@ -36,7 +40,7 @@ html {
 }
 
 .label_error {
-  @apply text-red-500 text-sm mt-2 ml-2
+  @apply text-red-500 text-sm mt-[4px] ml-2
 }
 
 .button_optional {
@@ -132,25 +136,19 @@ select,option {
   box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
 }
 
-input {
+
+
+/* input {
   margin-top: 0.5rem;
   display: block;
-  -moz-appearance:none; /* Firefox */
-  -webkit-appearance:none; /* Safari and Chrome */
-  appearance:none;
   width: 100%;
-  height: 44px;
   border-radius: 9999px;
   background-color: rgb(249 250 251/1);
-  -webkit-padding: 0.625rem 1rem;
-  -moz-appearance:none; /* Firefox */
-  -webkit-appearance:none; /* Safari and Chrome */
-  appearance:none;
   color: #142917;
   outline: 2px solid transparent;
   outline-offset: 2px;
   box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
-}
+} */
 
 /* select {
   @apply block py-2 px-4 w-full text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]
