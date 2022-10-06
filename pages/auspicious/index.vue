@@ -290,7 +290,7 @@
           <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
             <select v-model="setStyle" class=" w-full input_base">
               <option v-for="set in monkBuffet" :key="set.value" :value="set.value">
-                {{ set.name }} ({{ set.price }} บาท)
+                {{ set.name }} ({{ set.price }} บาท/ชุด)
               </option>
             </select>
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
