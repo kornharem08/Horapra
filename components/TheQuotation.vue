@@ -4,16 +4,25 @@
       <div class="px-[24pt]">
         <div class="grid gap-2  grid-cols-2">
           <ValidPro v-slot="{ errors }" rules="required" name="วันที่จัดงาน">
-            <base-input v-model="quotation.date" type="date" placeholder="วันที่จัดงาน *" label="วันที่จัดงาน *" />
+            <label for="วันที่จัดงาน" class="label_base">วันที่จัดงาน</label>
+
+            <input
+              v-model="quotation.date"
+              class="shadow-main w-full block  px-[1rem]  h-[44px] text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
+              type="date"
+              name="วันที่จัดงาน"
+            >
+
+            <!-- <base-input v-model="quotation.date" type="date" placeholder="วันที่จัดงาน *" label="วันที่จัดงาน *" /> -->
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
-          <div class="mt-[21px]">
+          <div class="">
             <ValidPro v-slot="{ errors }" rules="required" name="เวลาพร้อมทาน">
               <label for="เวลาพร้อมทาน" class="label_base">เวลาพร้อมทาน</label>
 
               <input
                 v-model="quotation.time"
-                class="shadow-main w-full block py-[0.625rem] px-[1rem]  h-[44px] text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
+                class="shadow-main w-full block  px-[1rem]  h-[44px] text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
                 type="time"
                 name="เวลาพร้อมทาน"
               >
@@ -63,7 +72,7 @@
         <div class="mt-[21px]">
           <label for="last_name" class="label_base">รายละเอียดที่อยู่</label>
           <ValidPro v-slot="{ errors }" rules="required" name="รายละเอียดที่อยู่">
-            <textarea v-model="quotation.address" rows="4" type="text" class="input_base_textarea" />
+            <textarea v-model="quotation.address" rows="4" type="text" class="input_base_textarea shadow-main" />
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
         </div>
@@ -158,7 +167,7 @@
         <div class="mt-[21px]">
           <label for="last_name" class="label_base">เบอร์โทรสำรอง</label>
           <ValidPro v-slot="{ errors }" rules="required|phone_th" name="เบอร์โทรสำรอง">
-            <input v-model="quotation.phone_backup" type="number" class="input_base">
+            <input v-model="quotation.phone_backup" type="number" class="input_base shadow-main">
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
         </div>
