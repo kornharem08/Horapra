@@ -138,12 +138,12 @@
           <div v-for="(item,index) in menu" :key="index" class="bg-white rounded mb-3">
             <ValidPro v-slot="{ errors }" :rules="item.min ? `morethan:${item.min}` : 'morethan:5'" :name="item.menu">
               <div class="flex justify-between items-center">
-                <div class="p-2 flex flex-col">
+                <div class="p-2 flex flex-col w-1/2">
                   <span class="text-[14px]">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
                   <span class="text-[14px]">   ({{ item.menu }})</span>
                 </div>
-                <div class="block product-count-button-position mt-2 px-2">
-                  <div class="flex items-center border-[#5A7F52] border justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-32">
+                <div class="block product-count-button-position mt-2 px-2 w-1/2">
+                  <div class="flex items-center border-[#5A7F52] border justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl ">
                     <button class="flex text-[#5A7F52]  items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="minus(item,index)">
                       <span class="sr-only">button-minus</span>
                       <svg
@@ -155,7 +155,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                       ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
                     </button>
-                    <input v-model.number="item.count" :min="0" type="number" class="border-none  text-black text-center focus:outline-none focus:ring-0  text-sm " @change="(item.count === '' || item.count === null) ? item.count = 1 : item.count">
+                    <input v-model.number="item.count" :min="0" type="number" class="border-none w-[20px]  text-black text-center focus:outline-none focus:ring-0  text-sm " @change="(item.count === '' || item.count === null) ? item.count = 1 : item.count">
 
                     <!-- <span class="font-semibold text-black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span> -->
                     <button class="group flex text-[#5A7F52] items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
