@@ -105,7 +105,7 @@ button {
 }
 
 
-select {
+select,option {
   border-right: 16px solid transparent;
   margin-top: 0.5rem;
   display: block;
@@ -116,6 +116,20 @@ select {
   color: #142917;
   outline: 2px solid transparent;
   outline-offset: 2px;
+  box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
+}
+
+input {
+  margin-top: 0.5rem;
+  display: block;
+  width: 100%;
+  border-radius: 9999px;
+  background-color: rgb(249 250 251/1);
+  padding: 0.5rem 1rem;
+  color: #142917;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
 }
 
 /* select {
