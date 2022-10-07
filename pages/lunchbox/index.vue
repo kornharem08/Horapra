@@ -231,7 +231,7 @@
           <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
             <img
               class="rounded-[10pt] object-cover object-left h-full w-full"
-              :src="require(`~/assets/img/Pinto/${pinto.value}.jpg`)"
+              :src="require(`~/assets/img/Pinto/${pinto.value}x.jpg`)"
             >
           </div>
           <div class="text-center text-[15px] mt-[10pt]">
