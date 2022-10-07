@@ -2,8 +2,8 @@
   <ValidObs ref="form" v-slot="{ handleSubmit }">
     <div class="mt-4">
       <div class="px-[24pt]">
-        <div class="grid gap-2  grid-cols-2">
-          <ValidPro v-slot="{ errors }" rules="required" name="วันที่จัดงาน" class="w-full">
+        <div class="grid gap-2  grid-cols-2" style="width: 100%;">
+          <ValidPro v-slot="{ errors }" rules="required" name="วันที่จัดงาน" style="width: 100%;">
             <label for="วันที่จัดงาน" class="label_base">วันที่จัดงาน</label><br>
 
             <input
@@ -16,8 +16,8 @@
             <!-- <base-input v-model="quotation.date" type="date" placeholder="วันที่จัดงาน *" label="วันที่จัดงาน *" /> -->
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
           </ValidPro>
-          <div class="w-full">
-            <ValidPro v-slot="{ errors }" rules="required" name="เวลาพร้อมทาน" class="w-full">
+          <div style="width: 100%;">
+            <ValidPro v-slot="{ errors }" rules="required" name="เวลาพร้อมทาน" style="width: 100%;">
               <label for="เวลาพร้อมทาน" class="label_base">เวลาพร้อมทาน</label><br>
 
               <input
