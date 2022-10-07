@@ -5,7 +5,11 @@ module.exports = {
     './layouts/**/*.vue',
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
-    './nuxt.config.{js,ts}'
+    './nuxt.config.{js,ts}',
+    './pages/**/*.{html,js}',
+    './components/**/*.{html,js}',
+    './index.html',
+    './src/**/*.{html,js}'
     // './node_modules/flowbite/**/*.js'
   ],
   theme: {
