@@ -644,7 +644,8 @@ export default {
             name: x.name,
             price: x.price,
             value: x.value,
-            url: x.url
+            url: x.url,
+            banner: x.banner
           }
         })
         this.imageCover = this.images1
@@ -658,6 +659,7 @@ export default {
             value: x.value,
             set: x.set,
             url: x.url
+
           }
         })
         this.step = 1
@@ -677,6 +679,7 @@ export default {
     async  setsummary () {
       let x = this.setAccessories.filter(x => x.count > 0)
       let sum = x.map((el) => { return `${el.name} x ${el.count}` })
+      let sharelink = 'https://firebasestorage.googleapis.com/v0/b/botio-horapa.appspot.com/o/' + this.fields['Order ID'] + '?alt=media'
       let summary = {
         fullname: this.fields.Name,
         phone: this.fields['เบอร์โทร'],
@@ -696,7 +699,8 @@ export default {
         time_for_monk_lunch: this.fields['เวลาถวายข้าวพระ'],
         time_for_lunch: this.fields['เวลาพร้อมทาน'],
         note: this.fields.Notes,
-        date: this.fields['วันส่งสินค้า']
+        date: this.fields['วันส่งสินค้า'],
+        link: sharelink
       }
 
       if (this.setNumber === 2) {
@@ -1130,7 +1134,7 @@ export default {
       // let name = `${this.packages.name} ${value.name}`
       this.packages.price = value.price
       this.packages.name = value.name
-      this.imagesSelected = value.url
+      this.imagesSelected = value.banner
       this.step++
     },
     selectpackage (value) {
@@ -1141,7 +1145,7 @@ export default {
       this.packages.price = packageMain.price
       if (this.setNumber !== 2) {
         this.step++
-        this.imagesSelected = packageMain.url
+        this.imagesSelected = packageMain.banner
       } else {
         if (packageMain.set) {
           this.secoundPackage.push(...packageMain.set)

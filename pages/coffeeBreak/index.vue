@@ -24,7 +24,12 @@
       </div>
       <div class="grid gap-6 mb-6 grid-cols-2">
         <div v-for="(item,idx) in coffeeMenu" :key="idx" @click="selectPacakge(item)">
-          <card :name="item.name" :price="Number(item.price)" :show-detail="true" />
+          <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white" @click="selectImage =`${item.url}`,isImages = true">
+            <img
+              class="rounded-[10pt] object-cover  h-full w-full"
+              :src="require(`~/assets/img${item.url}`)"
+            >
+          </div>
           <div class="text-center text-[15px]   mt-2">
             {{ item.name }} <br> {{ item.price }} บาท
           </div>
@@ -37,8 +42,11 @@
         {{ setName }} >  {{ packselected.name }}  {{ packselected.price }}
       </div>
       <div class=" px-[24pt] ">
-        <div class="flex justify-center items-center rounded-[10pt] my-4 aspect-video  bg-white ">
-          รูปภาพ
+        <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="selectImage =`${imageBanner}`,isImages = true">
+          <img
+            class="rounded-[10pt] object-cover aspect-video"
+            :src="require(`~/assets/img${imageBanner}`)"
+          >
         </div>
       </div>
 
@@ -53,9 +61,11 @@
       <div v-if="setNumber === 2" class=" text-[14px]  px-[24pt] ">
         เงื่อนไข:<br> 1. ลูกค้าจะได้รับน้ำผลไม้ 1 กล่อง (คละแบบ)<br> 2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)<br> 3. จำนวนขั้นต่ำ 50 ชุด<br> 4. มีค่าขนส่งตามระยะทาง
       </div>
-      <div v-if="setNumber === 3" class="text-[14px]  px-[24pt] ">
-        *หมายเหตุ:<br> แขกจำนวน 1 - 30 ท่าน ราคา 62 บาท/ท่าน <br> แขกจำนวน 30 ท่านขึ้นไป ราคา 59 บาท/ท่าน
+      <div v-if="setNumber === 3 " class="text-[14px]  px-[24pt] ">
+        *หมายเหตุ:<br>
+        -รับจำนวนขั้นต่ำ 30 ท่านขึ้นไป <br> - ให้บริการ 2ชม.นับจากเวลาเริ่มทาน
       </div>
+
       <div class="px-[24pt]">
         <div class="block product-count-button-position mt-4 flex justify-center">
           <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-42">
@@ -268,12 +278,14 @@ const coffeeSet = [
   {
     name: 'ขนม 1 ชิ้น',
     value: 1,
-    price: 40
+    price: 40,
+    url: '/coffeebreak/1/1-40.jpg'
   },
   {
     name: 'ขนม 2 ชิ้น',
     value: 2,
-    price: 55
+    price: 55,
+    url: '/coffeebreak/1/2-55.jpg'
   }
 ]
 
@@ -281,12 +293,14 @@ const snackSet = [
   {
     name: 'ขนม 1 ชิ้น',
     value: 1,
-    price: 45
+    price: 45,
+    url: '/coffeebreak/2/1-45.jpg'
   },
   {
     name: 'ขนม 2 ชิ้น',
     value: 2,
-    price: 55
+    price: 55,
+    url: '/coffeebreak/2/2-55.jpg'
   }
 ]
 
@@ -294,12 +308,14 @@ const boiledRice = [
   {
     name: 'ข้าวต้มทรงเครื่องหมู',
     value: 1,
-    price: 62
+    price: 59,
+    url: '/coffeebreak/3/ข้าวต้มหมู.jpg'
   },
   {
     name: 'ข้าวต้มทรงเครื่องทะเล',
     value: 2,
-    price: 72
+    price: 62,
+    url: '/coffeebreak/3/ข้าวต้มทะเล.jpg'
   }
 ]
 export default {
@@ -332,7 +348,8 @@ export default {
       isFinish: false,
       fields: {},
       isModalinfo: false,
-      isError: false
+      isError: false,
+      imageBanner: ''
     }
   },
   computed: {
@@ -358,15 +375,14 @@ export default {
     },
     totalPrice () {
       if (this.setNumber === 3) {
-        let price = 0
-        if (this.totalMenu <= 30) {
-          price = 62
-        } else {
-          price = 59
-        }
-        return Number(this.orders.reduce((sum, current) => sum + price * current.count, 0))
+        // if (this.totalMenu <= 30) {
+        //   price = 62
+        // } else {
+        //   price = 59
+        // }
+        return Number(this.orders.reduce((sum, current) => sum + this.menu.price * current.count, 0))
       } else {
-        return Number(this.orders.reduce((sum, current) => sum + current.price * current.count, 0))
+        return Number(this.orders.reduce((sum, current) => sum + this.menu.price * current.count, 0))
       }
     },
     setName () {
@@ -419,11 +435,14 @@ export default {
       // this.step = 1
     },
     selectPacakge (item) {
+      console.log(item)
+      console.log(this.setNumber)
       this.selectMenu = item.value
       this.menu.value = item.value
       this.menu.name = item.name
       this.menu.price = item.price
       this.menu.count = 0
+      this.imageBanner = `/coffeebreak/${this.setNumber}/banner${item.value}.jpg`
 
       this.step++
     },
@@ -439,6 +458,7 @@ export default {
         sumaccess = this.accessories.map((el) => { return `${el.name} x ${el.count}` }).toString()
       }
 
+      let sharelink = 'https://firebasestorage.googleapis.com/v0/b/botio-horapa.appspot.com/o/' + this.fields['Order ID'] + '?alt=media'
       let summary = {
         fullname: this.fields.Name,
         phone: this.fields['เบอร์โทร'],
@@ -457,6 +477,7 @@ export default {
         date: this.fields['วันส่งสินค้า'],
         note: this.fields.Notes,
         orderid: this.fields['Order ID'],
+        link: sharelink,
         result
       }
 

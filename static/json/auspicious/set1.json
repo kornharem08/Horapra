@@ -3,24 +3,28 @@
     "name" : "สิริสุข",
     "price" : 4999,
     "value" : 1,
-    "url" : "/button/Button/3/พิธีสงฆ์/สิริมงคล_พิธีสงฆ์-สิริสุข.jpg"
+    "url" : "/button/Button/3/พิธีสงฆ์/สิริมงคล_พิธีสงฆ์-สิริสุข.jpg",
+    "banner" : "/auspicious/Menu/1/images1.jpg"
     },
     {
     "name" : "มงคลชัย",
     "price" : 7999,
     "value" : 2,
-    "url" : "/button/Button/3/พิธีสงฆ์/สิริมงคล_พิธีสงฆ์-มงคลชัย.jpg"
-        },
+    "url" : "/button/Button/3/พิธีสงฆ์/สิริมงคล_พิธีสงฆ์-มงคลชัย.jpg",
+    "banner" : "/auspicious/Menu/1/images2.jpg"
+    },
     {
     "name" : "8 มงคล",
     "price" : 8900,
     "value" : 3,
-    "url" : "/button/Button/3/พิธีสงฆ์/สิริมงคล_พิธีสงฆ์-8มงคล.jpg"
+    "url" : "/button/Button/3/พิธีสงฆ์/สิริมงคล_พิธีสงฆ์-8มงคล.jpg",
+    "banner" : "/auspicious/Menu/1/images3.jpg"
     },
     {
-        "name" : "9 มงคล",
-        "price" : 14999,
-        "value" : 4,
-        "url" : "/button/Button/3/พิธีสงฆ์/สิริมงคล_พิธีสงฆ์-9มงคล.jpg"
-        }
+    "name" : "9 มงคล",
+    "price" : 14999,
+    "value" : 4,
+    "url" : "/button/Button/3/พิธีสงฆ์/สิริมงคล_พิธีสงฆ์-9มงคล.jpg",
+    "banner" : "/auspicious/Menu/1/images4.jpg"
+    }
 ]

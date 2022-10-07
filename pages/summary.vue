@@ -159,7 +159,7 @@
     </div>
     <the-footer-button>
       <template #button>
-        <button type="button" class="button_base " @click="pdf">
+        <button type="button" class="button_base " @click="genpdg">
           ดูใบเสนอราคา
         </button>
         <button type="button" class="button_optional " @click="$router.push('/menu')">
@@ -170,15 +170,20 @@
         </button>
       </template>
     </the-footer-button>
+    <modalsharelink v-if="isModalSharelink" :link="links" @close="isModalSharelink = false" />
   </div>
 </template>
 
 <script>
+import modalsharelink from '../components/Modal/modalsharelink.vue'
 export default {
+  components: { modalsharelink },
   layout: 'withOutNavbar',
   data () {
     return {
-      test: 'dsdfsd'
+      isModalSharelink: false,
+      test: 'dsdfsd',
+      links: ''
     }
   },
   computed: {
@@ -190,6 +195,10 @@ export default {
     }
   },
   methods: {
+    genpdg () {
+      this.links = this.summary.link
+      this.isModalSharelink = true
+    },
     async  pdf () {
       let pdfMake = require('pdfmake/build/pdfmake')
       pdfMake.fonts = {

@@ -11,7 +11,7 @@
                 v-model="quotation.date"
                 type="date"
                 name="วันที่จัดงาน"
-                class="input_base"
+                class="input_base text-left"
               >
 
               <!-- <base-input v-model="quotation.date" type="date" placeholder="วันที่จัดงาน *" label="วันที่จัดงาน *" /> -->
@@ -26,7 +26,7 @@
                 v-model="quotation.time"
                 type="time"
                 name="เวลาพร้อมทาน"
-                class="input_base"
+                class="input_base text-left"
               >
 
               <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>

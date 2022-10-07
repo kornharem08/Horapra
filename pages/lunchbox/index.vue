@@ -623,7 +623,7 @@ export default {
       if (this.accessories && this.accessories.length) {
         sumaccess = this.accessories.map((el) => { return `${el.name} x ${el.count}` }).join('\r\n')
       }
-
+      let sharelink = 'https://firebasestorage.googleapis.com/v0/b/botio-horapa.appspot.com/o/' + this.fields['Order ID'] + '?alt=media'
       let summary = {
         fullname: this.fields.Name,
         phone: this.fields['เบอร์โทร'],
@@ -642,7 +642,8 @@ export default {
         date: this.fields['วันส่งสินค้า'],
         note: this.fields.Notes,
         orderid: this.fields['Order ID'],
-        result: result.join('\r\n')
+        result: result.join('\r\n'),
+        link: sharelink
       }
 
       if (Number(this.$route.query.morepackage) === 2) {

@@ -405,6 +405,7 @@ export default {
       let setMonk = this.monkBuffet.find(x => x.value === this.setStyle)
       let x = this.setAccessories.filter(x => x.count > 0)
       let sum = x.map((el) => { return `${el.name} x ${el.count}` })
+      let sharelink = 'https://firebasestorage.googleapis.com/v0/b/botio-horapa.appspot.com/o/' + this.fields['Order ID'] + '?alt=media'
       let summary = {
         fullname: this.fields.Name,
         phone: this.fields['เบอร์โทร'],
@@ -422,6 +423,7 @@ export default {
         time_for_monk_lunch: this.fields['เวลาถวายข้าวพระ'],
         time_for_lunch: this.fields['เวลาพร้อมทาน'],
         note: this.fields.Notes,
+        link: sharelink,
         orderid: this.fields['Order ID'],
         date: this.fields['วันส่งสินค้า']
       }
