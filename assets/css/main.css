@@ -137,12 +137,13 @@ select,option {
   box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
 }
 
-input {
+
+
+input[type=date],input[type=text],input[type=time],input[type=email],input[type=number]     {
   -moz-appearance:none; /* Firefox */
   -webkit-appearance:none; /* Safari and Chrome */
   appearance:none;
 }
-
 /* input {
   margin-top: 0.5rem;
   display: block;
