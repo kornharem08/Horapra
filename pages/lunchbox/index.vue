@@ -190,9 +190,9 @@
 
     <section v-if="step === 1 && setNumber === 2" class="step1 ">
       <div class="px-[24pt]">
-        <div class=" flex flex-col justify-center items-center  w-full  aspect-video  cursor-pointer mt-6 mb-4 " @click="selectImage ='/boxset/set/banner.jpg',isImages = true">
+        <div class="flex flex-col justify-center items-center  w-full  aspect-video  cursor-pointer mt-6 mb-4" @click="selectImage ='/boxset/set/banner.jpg',isImages = true">
           <img
-            class="rounded-[10pt] aspect-video object-cover"
+            class="rounded-[10pt] object-cover"
             :src="require(`~/assets/img/boxset/set/banner.jpg`)"
           >
         </div>

@@ -109,7 +109,7 @@
           <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
             <input
               v-model="packages.monk"
-              style="box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;"
+              style="box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px;"
               class="shadow-main block py-[0.625rem] px-[1rem]  h-[44px] text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
               type="number"
               name="จำนวนพระสงฆ์"
@@ -313,7 +313,12 @@
       </div>
       <div class="grid gap-6 mb-6 grid-cols-2">
         <div v-for="(item,idx) in handleMoreMenu(moreMenu)" :key="idx" class="text-center" @click="selectMenu(item.value)">
-          <card :name="item.name" />
+          <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
+            <img
+              class="rounded-[10pt]"
+              :src="require(`~/assets/img${item.url}`)"
+            >
+          </div>
           <div class="mt-2 text-[15px]">
             {{ item.name }}
           </div>
@@ -553,15 +558,19 @@ export default {
       moreMenu: [
         {
           name: 'บุฟเฟ่ต์',
-          value: 1
+          value: 1,
+          url: '/button/Button/1/Buffet_Cover.jpg'
+
         },
         {
-          name: 'ข้าวกล่อง/รักษ์โลก ชุดปิ่นโตอิ่มบุญ',
-          value: 2
+          name: 'ข้าวกล่อง/รักษ์โลก/ชุดปิ่นโตอิ่มบุญ',
+          value: 2,
+          url: '/button/Button/2/Boxset_Cover.jpg'
         },
         {
-          name: 'คอฟฟี่เบรค สแน็กบ็ออกซ์/ข้าวต้ม',
-          value: 3
+          name: 'คอฟฟี่เบรค/สแน็กบ็ออกซ์/ข้าวต้ม',
+          value: 3,
+          url: '/button/Button/4/CoffeeBreak_Cover.jpg'
         }
       ],
       summary: {}
