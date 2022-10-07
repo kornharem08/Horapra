@@ -2,33 +2,31 @@
   <ValidObs ref="form" v-slot="{ handleSubmit }">
     <div class="mt-4">
       <div class="px-[24pt]">
-        <div class="grid gap-2  grid-cols-2" style="width: 100%;">
-          <div style="width: 100%;">
+        <div class="grid gap-2  grid-cols-2 w-full" style="width: 100%;">
+          <div class="flex flex-col w-full">
             <ValidPro v-slot="{ errors }" rules="required" name="วันที่จัดงาน" style="width: 100%;">
               <label for="วันที่จัดงาน" class="label_base">วันที่จัดงาน</label><br>
 
               <input
                 v-model="quotation.date"
-                style="height:44px;border-radius: 999px;padding-left: 0.5rem;padding-right:0.5rem;width: 100%;margin-top: 00.5rem;outline: none;background-color: white;box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;"
                 type="date"
                 name="วันที่จัดงาน"
-                class="my_input_date"
+                class="input_base"
               >
 
               <!-- <base-input v-model="quotation.date" type="date" placeholder="วันที่จัดงาน *" label="วันที่จัดงาน *" /> -->
               <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
             </ValidPro>
           </div>
-          <div style="width: 100%;">
+          <div class="flex flex-col w-full">
             <ValidPro v-slot="{ errors }" rules="required" name="เวลาพร้อมทาน" style="width: 100%;">
               <label for="เวลาพร้อมทาน" class="label_base">เวลาพร้อมทาน</label><br>
 
               <input
                 v-model="quotation.time"
-                style="height:44px;border-radius: 999px;padding-left: 0.5rem;padding-right:0.5rem;width: 100%;margin-top: 0.5rem;outline: none;background-color: white;box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;"
                 type="time"
                 name="เวลาพร้อมทาน"
-                class="my_input_date"
+                class="input_base"
               >
 
               <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
@@ -245,7 +243,13 @@ export default {
 }
 </script>
 
-<style >
+<style scoped>
+
+input {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+}
 /* .my_input_date::-webkit-calendar-picker-indicator {
     height: 44px;
     -moz-appearance: none;

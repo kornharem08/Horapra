@@ -12,6 +12,7 @@ html {
     color: #142917;
   }
 
+
 * {
   touch-action: manipulation;
     scroll-behavior: smooth;
@@ -136,7 +137,11 @@ select,option {
   box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;
 }
 
-
+input {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+}
 
 /* input {
   margin-top: 0.5rem;
