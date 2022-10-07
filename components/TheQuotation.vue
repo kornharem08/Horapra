@@ -3,7 +3,7 @@
     <div class="mt-4">
       <div class="px-[24pt]">
         <div class="grid gap-2  grid-cols-2" style="width: 100%;">
-          <div>
+          <div style="width: 100%;">
             <ValidPro v-slot="{ errors }" rules="required" name="วันที่จัดงาน" style="width: 100%;">
               <label for="วันที่จัดงาน" class="label_base">วันที่จัดงาน</label><br>
 
@@ -270,24 +270,5 @@ export default {
     outline-offset: 2px;
     box-shadow: rgb(19 41 104 / 10%) 0px 4px 8px;
 } */
-input[type="time"],input[type="date"] {
-    height: 44px;
-    /* -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none; */
-    margin-top: 0.5rem;
-    display: block;
-    width: 100%;
-    border-radius: 9999px;
-    background-color: rgb(249 250 251/1);
-    padding-top: 0.625rem;
-    padding-bottom: 0.625rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    font-size: 12pt;
-    color: #142917;
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    box-shadow: rgb(19 41 104 / 10%) 0px 4px 8px;
-}
+
 </style>

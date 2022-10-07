@@ -12,6 +12,9 @@ module.exports = {
     './src/**/*.{html,js}'
     // './node_modules/flowbite/**/*.js'
   ],
+  variants: {
+    display: ['responsive']
+  },
   theme: {
     extend: {
       colors: {
