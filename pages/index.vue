@@ -19,7 +19,8 @@ export default {
         2: 'lunchbox',
         3: 'auspicious',
         4: 'wedding',
-        5: 'coffeeBreak'
+        5: 'coffeeBreak',
+        6: 'sdg'
       }
 
       this.$router.push({
@@ -35,7 +36,8 @@ export default {
           2: 'lunchbox',
           3: 'auspicious',
           4: 'wedding',
-          5: 'coffeeBreak'
+          5: 'coffeeBreak',
+          6: 'sdg'
         }
 
         this.$router.push({

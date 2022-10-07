@@ -109,6 +109,7 @@
           <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
             <input
               v-model="packages.monk"
+              style="box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;"
               class="shadow-main block py-[0.625rem] px-[1rem]  h-[44px] text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
               type="number"
               name="จำนวนพระสงฆ์"
@@ -677,6 +678,17 @@ export default {
       }
     },
     async  setsummary () {
+      let pdfMake = require('pdfmake/build/pdfmake')
+      // const Printer = require('pdfmake');
+      pdfMake.fonts = {
+        Roboto: {
+          normal: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew-webfont.ttf',
+          bold: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf',
+          italics: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf',
+          bolditalics: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf'
+        }
+      }
+
       let x = this.setAccessories.filter(x => x.count > 0)
       let sum = x.map((el) => { return `${el.name} x ${el.count}` })
       let sharelink = 'https://firebasestorage.googleapis.com/v0/b/botio-horapa.appspot.com/o/' + this.fields['Order ID'] + '?alt=media'
@@ -824,16 +836,6 @@ export default {
         ]
       }
       this.$store.dispatch('setPdf', content)
-      let pdfMake = require('pdfmake/build/pdfmake')
-      // const Printer = require('pdfmake');
-      pdfMake.fonts = {
-        Roboto: {
-          normal: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew-webfont.ttf',
-          bold: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf',
-          italics: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf',
-          bolditalics: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf'
-        }
-      }
 
       let data = []
       data.push(content)

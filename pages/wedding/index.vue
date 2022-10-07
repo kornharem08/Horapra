@@ -87,6 +87,7 @@
             <label for="ระบุจำนวนแขก" class="text-[12pt]">ระบุจำนวนแขก</label>
             <input
               v-model="packages.guest"
+              style="box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;"
               class="block py-2.5 px-4 w-1/2 text-[#142917] bg-gray-50 rounded-full border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
               type="number"
               name="ระบุจำนวนแขก"
