@@ -335,6 +335,7 @@ export default {
       coffeeMenu: [],
       coffeeSet,
       snackSet,
+      orderIdByfirebase: 0,
       note: '',
       summary: {},
       menu: {
@@ -395,6 +396,7 @@ export default {
     }
   },
   mounted () {
+    this.countFirebase()
     this.coffeeMenu = []
     this.setNumber = Number(this.$route.query.set)
     if (this.setNumber === 1) {
@@ -662,6 +664,17 @@ export default {
         })
       })
     },
+    countFirebase () {
+      let listRef = this.$storage.ref()
+
+      // Find all the prefixes and items.
+      listRef.listAll()
+        .then((res) => {
+          this.orderIdByfirebase = res.items.length + 1
+        }).catch(() => {
+          this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
+        })
+    },
     createAirtable () {
       let Airtable = require('airtable')
       let base = new Airtable({ apiKey: 'keyt0HxfGGJGs7yGh' }).base('app8GE6tvKpt6fwj5')
@@ -763,7 +776,7 @@ export default {
         รหัสไปรษณีย์: Number(data.post_code),
         'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
         Notes: this.note,
-        'Order ID': Math.floor(100000 + Math.random() * 900000),
+        'Order ID': this.orderIdByfirebase,
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
         วันรับออเดอร์: this.$moment(new Date()).format('L'),
         'Last Contact': this.$moment(new Date()).format('L'),

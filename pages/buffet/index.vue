@@ -59,7 +59,34 @@
               <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
             </ValidPro>
           </div>
-          <div class="mt-4">
+          <div class="mt-4 ">
+            <span class="label_base">บริการจัดเลี้ยงพระสงฆ์</span>
+            <div class="flex">
+              <div class="flex items-center">
+                <input
+                  id="bordered-checkbox-1"
+                  v-model="isBuffetMonk"
+                  type="radio"
+                  :value="true"
+                  name="bordered-checkbox"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[15px] flex ">มีจัดเลี้ยงพระสงฆ์</label>
+              </div>
+              <div class="flex items-center pl-4 ">
+                <input
+                  id="bordered-checkbox-2"
+                  v-model="isBuffetMonk"
+                  type="radio"
+                  :value="false"
+                  name="bordered-checkbox"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[15px] flex ">ไม่มีจัดเลี้ยงพระสงฆ์</label>
+              </div>
+            </div>
+          </div>
+          <div v-if="isBuffetMonk" class="mt-4">
             <label class="label_base">เลือกรูปแบบการจัดเลี้ยงพระสงฆ์</label>
             <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
               <select v-model="setStyle" class=" w-full input_base">
@@ -215,7 +242,7 @@
               รูปแบบการจัดเลี้ยงพระสงฆ์
             </p>
             <p class="text-right w-1/2 text-right">
-              {{ setStyleMonk }}
+              {{ isBuffetMonk ? setStyleMonk : 'ไม่มีจัดเลี้ยงพระสงฆ์' }}
             </p>
           </div>
           <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
@@ -286,6 +313,7 @@ export default {
     return {
       step: 0,
       priceBuffet,
+      orderIdByfirebase: 0,
       accessories,
       guestBuffet,
       monkBuffet,
@@ -301,6 +329,7 @@ export default {
       username: '',
       lastname: '',
       isError: false,
+      isBuffetMonk: true,
       fields: {
 
       },
@@ -343,6 +372,7 @@ export default {
 
   },
   mounted () {
+    this.countFirebase()
     this.setAccessories = this.accessories.map((x) => {
       return {
         name: x.name,
@@ -418,7 +448,7 @@ export default {
         is_churchwarden: this.fields.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
         is_monk: this.fields.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
         address: this.fields['สถานที่จัดงาน (ที่อยู่)'],
-        style_buffet: `${setMonk.name}: ${setMonk.price} บาท`,
+        style_buffet: this.isBuffetMonk ? `${setMonk.name}: ${setMonk.price} บาท` : 'ไม่มีจัดเลี้ยงพระสงฆ์',
         accessories: sum.toString(),
         time_for_monk_lunch: this.fields['เวลาถวายข้าวพระ'],
         time_for_lunch: this.fields['เวลาพร้อมทาน'],
@@ -465,7 +495,7 @@ export default {
       }
 
       if (this.summary.style_buffet) {
-        colum1.push([{ text: 'รูปแบบการจัดเลี้ยง', style: 'orderId' }, { text: this.summary.style_buffet, alignment: 'right', style: 'orderId' }])
+        colum1.push([{ text: 'รูปแบบการจัดเลี้ยง', style: 'orderId' }, { text: this.isBuffetMonk ? this.summary.style_buffet : 'ไม่มีจัดเลี้ยงพระสงฆ์', alignment: 'right', style: 'orderId' }])
       }
 
       if (this.summary.result) {
@@ -604,8 +634,20 @@ export default {
         })
       })
     },
+    countFirebase () {
+      let listRef = this.$storage.ref()
+
+      // Find all the prefixes and items.
+      listRef.listAll()
+        .then((res) => {
+          this.orderIdByfirebase = res.items.length + 1
+        }).catch(() => {
+          this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
+        })
+    },
     async submit (data) {
       this.$store.dispatch('handleLoading', true)
+      console.log(this.orderIdByfirebase, 'this.orderIdByfirebase')
       let setPrice = this.optionprice.find(x => x.value === this.setPrice)
       let setBuffet = this.guestBuffet.find(x => x.value === this.setbuffet)
       let setMonk = this.monkBuffet.find(x => x.value === this.setStyle)
@@ -614,7 +656,7 @@ export default {
       if (this.$route.query.morepackage) {
         let pricePackage = this.$store.state.auspicious_packages.price ? Number(this.$store.state.auspicious_packages.price) : 0
         let priceBuffetGuest = (Number(setPrice.price) * Number(this.guests))
-        let priceMonk = (Number(setMonk.price) * Number(this.monk))
+        let priceMonk = this.isBuffetMonk ? (Number(setMonk.price) * Number(this.monk)) : 0
         let priceAccess = x.reduce((sum, current) => sum + current.count * current.price, 0)
         Object.assign(this.fields, {
           'Rich Menu': [
@@ -667,10 +709,10 @@ export default {
         ลิฟท์ขนของ: data.cargo_lift ? 'มี' : 'ไม่มี',
         รหัสไปรษณีย์: Number(data.post_code),
         'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
-        สรุปรายการ: `${setBuffet.name}\n` + `${setMonk.name}: ${setMonk.price} บาท`,
+        สรุปรายการ: `${this.isBuffetMonk ? setBuffet.name : 'ไม่มีจัดเลี้ยงพระสงฆ์'}\n` + `${setMonk.name}: ${setMonk.price} บาท`,
         อุปกรณ์เสริม: sum.toString(),
         จำนวนพระสงฆ์: this.monk.toString(),
-        'Order ID': Math.floor(100000 + Math.random() * 900000),
+        'Order ID': this.orderIdByfirebase,
         Notes: this.note,
         'จำนวนแขก (รวมพระ)': (Number(this.monk) + Number(this.guests)).toString(),
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,

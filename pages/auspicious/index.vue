@@ -568,7 +568,7 @@ export default {
           url: '/button/Button/2/Boxset_Cover.jpg'
         },
         {
-          name: 'คอฟฟี่เบรค/สแน็กบ็ออกซ์/ข้าวต้ม',
+          name: 'คอฟฟี่เบรค/สแน็คบ็อค/ข้าวต้ม',
           value: 3,
           url: '/button/Button/4/CoffeeBreak_Cover.jpg'
         }
@@ -617,6 +617,7 @@ export default {
     }
   },
   mounted () {
+    this.countFirebase()
     this.setAccessories = this.accessories.map((x) => {
       return {
         name: x.name,
@@ -773,9 +774,11 @@ export default {
       }
 
       let content = {
+
         columns: [
           {
             stack: [
+              { text: 'ให้ทุกรสชาติอาหารของเรา อยู่ในทุกเรื่องราวของคุณ', style: 'slogan' },
               { text: 'ใบสรุปรายการ', style: 'anotherStyle' },
               { text: 'Order ID: ' + this.summary.orderid, style: 'textRight' },
               { text: 'วันที่รับออเดอร์: ' + this.$moment(new Date()).format('L'), style: 'textRight' },
@@ -852,6 +855,10 @@ export default {
       const docDefinition = {
         content: data,
         styles: {
+          slogan: {
+            alignment: 'center',
+            fontSize: 12
+          },
           anotherStyle: {
             alignment: 'center',
             fontSize: 20,
@@ -883,61 +890,72 @@ export default {
         })
       })
     },
-    exportPdf (content) {
-      let pdfMake = require('pdfmake/build/pdfmake')
-      // const Printer = require('pdfmake');
-      pdfMake.fonts = {
-        Roboto: {
-          normal: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew-webfont.ttf',
-          bold: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf',
-          italics: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf',
-          bolditalics: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf'
-        }
-      }
+    // exportPdf (content) {
+    //   let pdfMake = require('pdfmake/build/pdfmake')
+    //   // const Printer = require('pdfmake');
+    //   pdfMake.fonts = {
+    //     Roboto: {
+    //       normal: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew-webfont.ttf',
+    //       bold: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf',
+    //       italics: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf',
+    //       bolditalics: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf'
+    //     }
+    //   }
 
-      let data = []
-      data.push(content)
-      console.log(content, 'content')
+    //   let data = []
+    //   data.push(content)
+    //   console.log(content, 'content')
 
-      const docDefinition = {
-        content: data,
-        styles: {
-          anotherStyle: {
-            alignment: 'center',
-            fontSize: 20,
-            bold: true
-          },
-          textRight: {
-            alignment: 'right'
-          },
-          orderId: {
-            fontSize: 10
-          },
-          information: {
-            alignment: 'left'
-          }
-        }
-      }
-      // await pdfMake.createPdf(docDefinition).open()
-      let orderid = this.fields['Order ID']
-      const pdfDocGenerator = pdfMake.createPdf(docDefinition)
-      const link = 'https://firebasestorage.googleapis.com/v0/b/botio-horapa.appspot.com/o/' + orderid + '?alt=media'
-      console.log(link)
-      Object.assign(this.fields, {
-        ใบสรุปรายการ: link.toString()
-      })
-      pdfDocGenerator.getBlob((blob) => {
-        this.$storage.ref(orderid).put(blob).then(function (snapshot) {
-          this.createAirtable()
-        }).catch((error) => {
-          console.log('One failed upload logo :', error.message)
-        })
-      })
-    },
+    //   const docDefinition = {
+    //     content: data,
+    //     styles: {
+    //       anotherStyle: {
+    //         alignment: 'center',
+    //         fontSize: 20,
+    //         bold: true
+    //       },
+    //       textRight: {
+    //         alignment: 'right'
+    //       },
+    //       orderId: {
+    //         fontSize: 10
+    //       },
+    //       information: {
+    //         alignment: 'left'
+    //       }
+    //     }
+    //   }
+    //   // await pdfMake.createPdf(docDefinition).open()
+    //   let orderid = this.fields['Order ID']
+    //   const pdfDocGenerator = pdfMake.createPdf(docDefinition)
+    //   const link = 'https://firebasestorage.googleapis.com/v0/b/botio-horapa.appspot.com/o/' + orderid + '?alt=media'
+    //   console.log(link)
+    //   Object.assign(this.fields, {
+    //     ใบสรุปรายการ: link.toString()
+    //   })
+    //   pdfDocGenerator.getBlob((blob) => {
+    //     this.$storage.ref(orderid).put(blob).then(function (snapshot) {
+    //       this.createAirtable()
+    //     }).catch((error) => {
+    //       console.log('One failed upload logo :', error.message)
+    //     })
+    //   })
+    // },
     handelfinish () {
       this.isFinish = false
       this.isError = false
       this.$router.push('/summary')
+    },
+    countFirebase () {
+      let listRef = this.$storage.ref()
+
+      // Find all the prefixes and items.
+      listRef.listAll()
+        .then((res) => {
+          this.orderIdByfirebase = res.items.length + 1
+        }).catch(() => {
+          this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
+        })
     },
     async submit (data) {
       this.$store.dispatch('handleLoading', true)
@@ -991,7 +1009,7 @@ export default {
         'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
         อุปกรณ์เสริม: sum.toString(),
         Notes: this.note,
-        'Order ID': Math.floor(100000 + Math.random() * 900000),
+        'Order ID': this.orderIdByfirebase,
         จำนวนพระสงฆ์: this.packages.monk.toString(),
         'จำนวนแขก (รวมพระ)': (Number(this.packages.monk)).toString(),
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
@@ -1024,8 +1042,9 @@ export default {
       createRecord()
     },
     next (value) {
-      if (this.step === 5 && (!this.$store.state.users.name || !this.$store.state.users.phone)) {
+      if (this.step === 5 && (!this.$store.state.users.name || !this.$store.state.users.phone) && value === 1) {
         this.isModalinfo = true
+        return
       }
       if (Number(this.setNumber) === 2) {
         this.$refs.validator3.validate().then((res) => {

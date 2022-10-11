@@ -14,6 +14,9 @@
         </div>
       </div>
     </div>
+    <!-- <button @click="countFirebase">
+      asdasds
+    </button> -->
   </div>
 
   <!-- <div class="px-3">
@@ -114,7 +117,7 @@ const list = [
     url: '/button/Button/3/สิริมงคล-Cover.jpg'
   },
   {
-    name: 'คอฟฟี่เบรค/ข้าวต้ม/สแน็คบ็อค',
+    name: 'คอฟฟี่เบรค/สแน็คบ็อค/ข้าวต้ม',
     value: 4,
     url: '/button/Button/4/CoffeeBreak_Cover.jpg'
   },
@@ -149,6 +152,17 @@ export default {
     this.$store.dispatch('setAccessories', null)
   },
   methods: {
+    // countFirebase () {
+    //   let listRef = this.$storage.ref()
+
+    //   // Find all the prefixes and items.
+    //   listRef.listAll()
+    //     .then((res) => {
+    //       return res.items.length
+    //     }).catch(() => {
+    //       return Math.floor(100000 + Math.random() * 900000)
+    //     })
+    // },
     test () {
       let Airtable = require('airtable')
       let base = new Airtable({ apiKey: 'keyt0HxfGGJGs7yGh' }).base('app8GE6tvKpt6fwj5')

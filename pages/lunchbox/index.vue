@@ -416,6 +416,7 @@ export default {
       isFinish: false,
       selectListMenu: 0,
       lists: [],
+      orderIdByfirebase: 0,
       selectBox: {},
       swiperOptions: {
         slidesPerView: 3,
@@ -472,6 +473,7 @@ export default {
     }
   },
   mounted () {
+    this.countFirebase()
     if (this.$route.query.set) {
       this.setNumber = Number(this.$route.query.set)
     }
@@ -827,6 +829,17 @@ export default {
         })
       })
     },
+    countFirebase () {
+      let listRef = this.$storage.ref()
+
+      // Find all the prefixes and items.
+      listRef.listAll()
+        .then((res) => {
+          this.orderIdByfirebase = res.items.length + 1
+        }).catch(() => {
+          this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
+        })
+    },
     async submit (data) {
       this.$store.dispatch('handleLoading', true)
       const newStuff = this.menu.reduce((a, currentValue) =>
@@ -907,7 +920,7 @@ export default {
         รหัสไปรษณีย์: Number(data.post_code),
         'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
         Notes: this.note,
-        'Order ID': Math.floor(100000 + Math.random() * 900000),
+        'Order ID': this.orderIdByfirebase,
         'จำนวนแขก (รวมพระ)': '-',
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
         วันรับออเดอร์: this.$moment(new Date()).format('L'),
