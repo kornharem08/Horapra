@@ -234,7 +234,7 @@
               จำนวนพระสงฆ์
             </p>
             <p class="">
-              {{ Number(monk).toString() }}
+              {{ isBuffetMonk ? Number(monk).toString() : 0 }}
             </p>
           </div>
           <div class="flex flex-row justify-between mb-2 label_base">
@@ -711,7 +711,7 @@ export default {
         'สถานที่จัดงาน (ที่อยู่)': `${data.address} เขต/อำเภอ ${data.subdistrict} แขวง/ตำบล ${data.district} จังหวัด${data.province}`,
         สรุปรายการ: `${this.isBuffetMonk ? setBuffet.name : 'ไม่มีจัดเลี้ยงพระสงฆ์'}\n` + `${setMonk.name}: ${setMonk.price} บาท`,
         อุปกรณ์เสริม: sum.toString(),
-        จำนวนพระสงฆ์: this.monk.toString(),
+        จำนวนพระสงฆ์: this.isBuffetMonk ? this.monk.toString() : 0,
         'Order ID': this.orderIdByfirebase,
         Notes: this.note,
         'จำนวนแขก (รวมพระ)': (Number(this.monk) + Number(this.guests)).toString(),
