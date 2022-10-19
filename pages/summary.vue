@@ -23,7 +23,7 @@
         </div>
         <div class="flex flex-row justify-between mb-2 label_base">
           <p class="   ">
-            อีเมล์
+            ชื่อ Facebook
           </p>
           <p class="">
             {{ $store.state.users.email ? $store.state.users.email : '-' }}

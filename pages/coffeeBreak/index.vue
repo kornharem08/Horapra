@@ -1,271 +1,272 @@
 <template>
   <div>
     <base-button-back title="ย้อนกลับ" class="mb-2" @back="back" />
-
-    <section v-if=" step === 0">
-      <div class="grid gap-6 mb-6 grid-cols-2  px-[24pt]">
-        <div v-for="(item,idx) in coffeebreak" :key="idx" @click="selectMorePackage(item)">
-          <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
-            <img
-              class="rounded-[10pt]"
-              :src="require(`~/assets/img${item.url}`)"
-            >
-          </div>
-          <div class="text-center text-[15px] mt-2">
-            {{ item.name }}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section v-if="step === 1" class="step1  px-[24pt]">
-      <div class="text-[14pt] w-fit">
-        {{ setName }}
-      </div>
-      <div class="grid gap-6 mb-6 grid-cols-2">
-        <div v-for="(item,idx) in coffeeMenu" :key="idx" @click="selectPacakge(item)">
-          <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white" @click="selectImage =`${item.url}`,isImages = true">
-            <img
-              class="rounded-[10pt] object-cover  h-full w-full"
-              :src="require(`~/assets/img${item.url}`)"
-            >
-          </div>
-          <div class="text-center text-[15px]   mt-2">
-            {{ item.name }} <br> {{ item.price }} บาท
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section v-if="step === 2" class="step1 ">
-      <div class=" w-fit  px-[24pt] ">
-        {{ setName }} >  {{ packselected.name }}  {{ packselected.price }}
-      </div>
-      <div class=" px-[24pt] ">
-        <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="selectImage =`${imageBanner}`,isImages = true">
-          <img
-            class="rounded-[10pt] object-cover aspect-video"
-            :src="require(`~/assets/img${imageBanner}`)"
-          >
-        </div>
-      </div>
-
-      <div v-if="setNumber === 1" class=" text-[14px]  px-[24pt]">
-        เงื่อนไข:<br>
-        1. ลูกค้าจะได้รับ ชา, กาแฟ, โอวัลติน คละแบบ <br>
-        2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)  <br>
-        3. จำนวนไม่ถึง 100 ชุด จะมีค่าจัดเบรค 400 บาท  <br>
-        4. ระยะเวลาให้บริการ 2 ชั่วโมง <br>
-        5. มีค่าขนส่งตามระยะทาง
-      </div>
-      <div v-if="setNumber === 2" class=" text-[14px]  px-[24pt] ">
-        เงื่อนไข:<br> 1. ลูกค้าจะได้รับน้ำผลไม้ 1 กล่อง (คละแบบ)<br> 2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)<br> 3. จำนวนขั้นต่ำ 50 ชุด<br> 4. มีค่าขนส่งตามระยะทาง
-      </div>
-      <div v-if="setNumber === 3 " class="text-[14px]  px-[24pt] ">
-        *หมายเหตุ:<br>
-        -รับจำนวนขั้นต่ำ 30 ท่านขึ้นไป <br> - ให้บริการ 2ชม.นับจากเวลาเริ่มทาน
-      </div>
-
-      <div class="px-[24pt]">
-        <div class="block product-count-button-position mt-4 flex justify-center">
-          <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-42">
-            <button class="flex items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="menu.count > 0 ? menu.count-- : 0">
-              <span class="sr-only">button-minus</span>
-              <svg
-                class="transition-all"
-                width="14"
-                height="14"
-                viewBox="0 0 22 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-            </button>
-            <input
-              v-model.number="menu.count"
-              type="number"
-              class="font-semibold flex items-center justify-center h-full border-none text-center focus:ring-0 transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-20"
-              min="0"
-              @focus="menu.count === 0 ? menu.count = null : menu.count"
-              @blur="menu.count === null ? menu.count = 0 : menu.count"
-            >
-            <!-- <span class="font-semibold text-brand-dark flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ menu.count }}</span> -->
-            <button class="group flex items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="menu.count++">
-              <span class="sr-only">button-plus</span>
-              <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-            </button>
-          </div>
-        </div>
-      </div>
-      <the-footer-button>
-        <template #button>
-          <button type="button" class="button_base" @click="next">
-            ถัดไป
-          </button>
-        </template>
-      </the-footer-button>
-    </section>
-
-    <section v-if="step === 3" class="step1  ">
-      <div class="flex justify-between items-center px-[24pt] mb-3" @click.stop="">
-        <div class="text-[18px] w-fit" @click.stop="">
-          สรุปรายการอาหาร
-        </div>
-        <div v-if="orders.length < coffeeMenu.length" class="text-[#5A7F52] text-[18px]" @click="addmore">
-          เพิ่มรายการ
-        </div>
-      </div>
-      <div class="px-[24pt]">
-        <div v-for="(item,index) in orders" :key="index" class="bg-white rounded mb-3">
-          <div class="flex justify-between items-center py-3">
-            <div class="p-2 flex flex-col  w-2/3">
-              <span class="text-[14px]">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
+    <div class="pt-10">
+      <section v-if=" step === 0">
+        <div class="grid gap-6 mb-6 grid-cols-2  px-[24pt]">
+          <div v-for="(item,idx) in coffeebreak" :key="idx" @click="selectMorePackage(item)">
+            <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
+              <img
+                class="rounded-[10pt]"
+                :src="require(`~/assets/img${item.url}`)"
+              >
             </div>
-            <div class="block product-count-button-position mt-2 px-2   w-1/3">
-              <div class="flex items-center border-[#5A7F52] border float-right justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-full">
-                <button class="flex text-[#5A7F52]  items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="minus(item,index)">
-                  <span class="sr-only">button-minus</span>
-                  <svg
-                    class="transition-all"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 22 22"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-                </button>
-                <input v-model.number="item.count " type="number" class="border-none w-full  text-black text-center focus:outline-none focus:ring-0  text-sm ">
+            <div class="text-center text-[15px] mt-2">
+              {{ item.name }}
+            </div>
+          </div>
+        </div>
+      </section>
 
-                <!-- <span class="font-semibold text-black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span> -->
-                <button class="group flex text-[#5A7F52] items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
-                  <span class="sr-only">button-plus</span>
-                  <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-                </button>
+      <section v-if="step === 1" class="step1  px-[24pt]">
+        <div class="text-[14pt] w-fit">
+          {{ setName }}
+        </div>
+        <div class="grid gap-6 mb-6 grid-cols-2">
+          <div v-for="(item,idx) in coffeeMenu" :key="idx" @click="selectPacakge(item)">
+            <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white" @click="selectImage =`${item.url}`,isImages = true">
+              <img
+                class="rounded-[10pt] object-cover  h-full w-full"
+                :src="require(`~/assets/img${item.url}`)"
+              >
+            </div>
+            <div class="text-center text-[15px]   mt-2">
+              {{ item.name }} <br> {{ item.price }} บาท
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section v-if="step === 2" class="step1 ">
+        <div class=" w-fit  px-[24pt] ">
+          {{ setName }} >  {{ packselected.name }}  {{ packselected.price }}
+        </div>
+        <div class=" px-[24pt] ">
+          <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="selectImage =`${imageBanner}`,isImages = true">
+            <img
+              class="rounded-[10pt] object-cover aspect-video"
+              :src="require(`~/assets/img${imageBanner}`)"
+            >
+          </div>
+        </div>
+
+        <div v-if="setNumber === 1" class=" text-[14px]  px-[24pt]">
+          เงื่อนไข:<br>
+          1. ลูกค้าจะได้รับ ชา, กาแฟ, โอวัลติน คละแบบ <br>
+          2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)  <br>
+          3. จำนวนไม่ถึง 100 ชุด จะมีค่าจัดเบรค 400 บาท  <br>
+          4. ระยะเวลาให้บริการ 2 ชั่วโมง <br>
+          5. มีค่าขนส่งตามระยะทาง
+        </div>
+        <div v-if="setNumber === 2" class=" text-[14px]  px-[24pt] ">
+          เงื่อนไข:<br> 1. ลูกค้าจะได้รับน้ำผลไม้ 1 กล่อง (คละแบบ)<br> 2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)<br> 3. จำนวนขั้นต่ำ 50 ชุด<br> 4. มีค่าขนส่งตามระยะทาง
+        </div>
+        <div v-if="setNumber === 3 " class="text-[14px]  px-[24pt] ">
+          *หมายเหตุ:<br>
+          -รับจำนวนขั้นต่ำ 30 ท่านขึ้นไป <br> - ให้บริการ 2ชม.นับจากเวลาเริ่มทาน
+        </div>
+
+        <div class="px-[24pt]">
+          <div class="block product-count-button-position mt-4 flex justify-center">
+            <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-42">
+              <button class="flex items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="menu.count > 0 ? menu.count-- : 0">
+                <span class="sr-only">button-minus</span>
+                <svg
+                  class="transition-all"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 22 22"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+              </button>
+              <input
+                v-model.number="menu.count"
+                type="number"
+                class="font-semibold flex items-center justify-center h-full border-none text-center focus:ring-0 transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-20"
+                min="0"
+                @focus="menu.count === 0 ? menu.count = null : menu.count"
+                @blur="menu.count === null ? menu.count = 0 : menu.count"
+              >
+              <!-- <span class="font-semibold text-brand-dark flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ menu.count }}</span> -->
+              <button class="group flex items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="menu.count++">
+                <span class="sr-only">button-plus</span>
+                <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <the-footer-button>
+          <template #button>
+            <button type="button" class="button_base" @click="next">
+              ถัดไป
+            </button>
+          </template>
+        </the-footer-button>
+      </section>
+
+      <section v-if="step === 3" class="step1  ">
+        <div class="flex justify-between items-center px-[24pt] mb-3" @click.stop="">
+          <div class="text-[18px] w-fit" @click.stop="">
+            สรุปรายการอาหาร
+          </div>
+          <div v-if="orders.length < coffeeMenu.length" class="text-[#5A7F52] text-[18px]" @click="addmore">
+            เพิ่มรายการ
+          </div>
+        </div>
+        <div class="px-[24pt]">
+          <div v-for="(item,index) in orders" :key="index" class="bg-white rounded mb-3">
+            <div class="flex justify-between items-center py-3">
+              <div class="p-2 flex flex-col  w-2/3">
+                <span class="text-[14px]">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
+              </div>
+              <div class="block product-count-button-position mt-2 px-2   w-1/3">
+                <div class="flex items-center border-[#5A7F52] border float-right justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-full">
+                  <button class="flex text-[#5A7F52]  items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="minus(item,index)">
+                    <span class="sr-only">button-minus</span>
+                    <svg
+                      class="transition-all"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 22 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                  </button>
+                  <input v-model.number="item.count " type="number" class="border-none w-full  text-black text-center focus:outline-none focus:ring-0  text-sm ">
+
+                  <!-- <span class="font-semibold text-black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span> -->
+                  <button class="group flex text-[#5A7F52] items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
+                    <span class="sr-only">button-plus</span>
+                    <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="mt-[50pt] px-[24pt]">
-        <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
-        <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
-      </div>
-      <div class="mt-[15pt] px-[24pt]">
-        <div class="flex justify-between text-[20pt]">
-          <span>รวมทั้งหมด</span>  <span>{{ totalMenu }} ชิ้น </span>
+        <div class="mt-[50pt] px-[24pt]">
+          <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
+          <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
         </div>
-      </div>
-      <the-footer-button>
-        <template #button>
-          <button type="button" class="button_base" @click="handleListOrder">
-            ถัดไป
-          </button>
-        </template>
-      </the-footer-button>
-    </section>
-
-    <section v-if="step === 4">
-      <div class="px-[24pt]">
-        <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
-          <div class="text-[16pt] font-medium text-center mb-[10pt]">
-            สรุปรายการ
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium">
-              ชื่อ-นามสกุล
-            </p>
-            <p class=" ">
-              {{ $store.state.users.name }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium">
-              เบอร์โทร
-            </p>
-            <p class="">
-              {{ $store.state.users.phone }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   ">
-              อีเมล์
-            </p>
-            <p class="">
-              {{ $store.state.users.email }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium    w-1/2">
-              เเพ็กเกจหลัก
-            </p>
-            <p class="text-right w-1/2">
-              {{ `สิริมงคล ${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="w-1/2">
-              บริการนิมนต์พระสงฆ์*
-            </p>
-            <p class="text-right w-1/2">
-              {{ $store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ', }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="w-1/2">
-              บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
-            </p>
-            <p class="text-right w-1/2">
-              {{ $store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ', }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="w-1/2">
-              จำนวนพระสงฆ์
-            </p>
-            <p class="text-right w-1/2 text-right">
-              {{ $store.state.auspicious_packages.monk }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage && $route.query.morepackage === 2" class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   w-2/3">
-              รูปแบบการจัดเลี้ยงพระสงฆ์
-            </p>
-            <p class="w-1/3 text-right">
-              {{ `${$store.state.auspicious_packages.style_buffet.name}: ${$store.state.auspicious_packages.style_buffet.price} บาท` }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage && accessories && accessories.length" class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   w-2/3">
-              อุปกรณ์เพิ่มเติม
-            </p>
-            <p class="w-1/3 text-right">
-              {{ sumAccessories.toString() }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium  w-1/2">
-              แพ็คเกจที่เลือก
-            </p>
-            <p class="w-1/2 text-right">
-              {{ resultOrder.join(',') }}
-            </p>
+        <div class="mt-[15pt] px-[24pt]">
+          <div class="flex justify-between text-[20pt]">
+            <span>รวมทั้งหมด</span>  <span>{{ totalMenu }} ชิ้น </span>
           </div>
         </div>
-      </div>
-      <the-footer-button>
-        <template #button>
-          <button type="button" class="button_base" @click="handleSubmitNext">
-            ถัดไป
-          </button>
-        </template>
-      </the-footer-button>
-    </section>
+        <the-footer-button>
+          <template #button>
+            <button type="button" class="button_base" @click="handleListOrder">
+              ถัดไป
+            </button>
+          </template>
+        </the-footer-button>
+      </section>
 
-    <section v-if="step === 5" class="step4 ">
-      <the-quotation @handleSubmitInformation="submit" />
-    </section>
-    <modalfinish v-if="isFinish" @close="handelfinish" />
-    <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
-    <modalerror v-if="isError" @close="handelfinish" />
+      <section v-if="step === 4">
+        <div class="px-[24pt]">
+          <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
+            <div class="text-[16pt] font-medium text-center mb-[10pt]">
+              สรุปรายการ
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium">
+                ชื่อ-นามสกุล
+              </p>
+              <p class=" ">
+                {{ $store.state.users.name }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium">
+                เบอร์โทร
+              </p>
+              <p class="">
+                {{ $store.state.users.phone }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   ">
+                ชื่อ Facebook
+              </p>
+              <p class="">
+                {{ $store.state.users.email }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium    w-1/2">
+                เเพ็กเกจหลัก
+              </p>
+              <p class="text-right w-1/2">
+                {{ `สิริมงคล ${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+              <p class="w-1/2">
+                บริการนิมนต์พระสงฆ์*
+              </p>
+              <p class="text-right w-1/2">
+                {{ $store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ', }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+              <p class="w-1/2">
+                บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
+              </p>
+              <p class="text-right w-1/2">
+                {{ $store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ', }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+              <p class="w-1/2">
+                จำนวนพระสงฆ์
+              </p>
+              <p class="text-right w-1/2 text-right">
+                {{ $store.state.auspicious_packages.monk }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage && $route.query.morepackage === 2" class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   w-2/3">
+                รูปแบบการจัดเลี้ยงพระสงฆ์
+              </p>
+              <p class="w-1/3 text-right">
+                {{ `${$store.state.auspicious_packages.style_buffet.name}: ${$store.state.auspicious_packages.style_buffet.price} บาท` }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage && accessories && accessories.length" class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   w-2/3">
+                อุปกรณ์เพิ่มเติม
+              </p>
+              <p class="w-1/3 text-right">
+                {{ sumAccessories.toString() }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium  w-1/2">
+                แพ็คเกจที่เลือก
+              </p>
+              <p class="w-1/2 text-right">
+                {{ resultOrder.join(',') }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <the-footer-button>
+          <template #button>
+            <button type="button" class="button_base" @click="handleSubmitNext">
+              ถัดไป
+            </button>
+          </template>
+        </the-footer-button>
+      </section>
+
+      <section v-if="step === 5" class="step4 ">
+        <the-quotation @handleSubmitInformation="submit" />
+      </section>
+      <modalfinish v-if="isFinish" @close="handelfinish" />
+      <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
+      <modalerror v-if="isError" @close="handelfinish" />
+    </div>
   </div>
 </template>
 
@@ -396,7 +397,6 @@ export default {
     }
   },
   mounted () {
-    this.countFirebase()
     this.coffeeMenu = []
     this.setNumber = Number(this.$route.query.set)
     if (this.setNumber === 1) {
@@ -553,7 +553,7 @@ export default {
               { text: 'ชื่อลูกค้า: ' + this.$store.state.users.name, style: 'information' },
               { text: 'เบอร์ติดต่อ: ' + this.$store.state.users.phone, style: 'information' },
               { text: 'เบอร์ติดต่อ (สำรอง): ' + this.summary.backupPhone, style: 'information' },
-              { text: 'อีเมล์: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
+              { text: 'ชื่อ Facebook: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
               {
                 table: {
                   widths: ['*'],
@@ -596,14 +596,11 @@ export default {
                 }
               }, {
                 margin: 10,
-                columns: [{
-                  text: '(                                             )',
-                  alignment: 'center'
-                },
-                {
-                  text: 'ราคารวม ' + `${this.summary.totalprice ? this.summary.totalprice.toLocaleString() : this.summary.totalprice}` + ' บาท',
-                  alignment: 'center'
-                }]
+                columns: [
+                  {
+                    text: 'ราคารวม ' + `${this.summary.totalprice ? this.summary.totalprice.toLocaleString() : this.summary.totalprice}` + ' บาท',
+                    alignment: 'center'
+                  }]
               },
               {
                 text: 'หมายเหตุ: ราคาในใบสรุปรายการนี้เป็นราคาประเมินเบื้องต้นซึ่งยังไม่รวมค่าจัดส่งตามระยะทาง',
@@ -664,16 +661,20 @@ export default {
         })
       })
     },
-    countFirebase () {
-      let listRef = this.$storage.ref()
-
-      // Find all the prefixes and items.
-      listRef.listAll()
-        .then((res) => {
-          this.orderIdByfirebase = res.items.length + 1
-        }).catch(() => {
-          this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
-        })
+    async  countFirebase () {
+      let x = await this.$db.collection('cities').orderBy('timestamp', 'desc').limit(1).get()
+      if (x.size) {
+        const data = {
+          id: x.docs[x.size - 1].data().id + 1,
+          timestamp: this.$moment(new Date()).unix()
+        }
+        const res = await this.$db.collection('cities').add(data)
+        let runid = ('000000' + (x.docs[x.size - 1].data().id + 1))
+        let prefixtime = this.$moment(new Date()).format('YYYYMM')
+        this.orderIdByfirebase = prefixtime + runid
+      } else {
+        this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
+      }
     },
     createAirtable () {
       let Airtable = require('airtable')
@@ -698,6 +699,7 @@ export default {
       createRecord()
     },
     async   submit (data) {
+      await this.countFirebase()
       this.$store.dispatch('handleLoading', true)
       let totalPriceMonkPacakge = 0
       if (Number(this.$route.query.morepackage)) {

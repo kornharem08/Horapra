@@ -1,6 +1,6 @@
 <template>
-  <div style="background-color:rgba(0, 0, 0, 0.5);" class="py-12 h-full   transition duration-150 ease-in-out z-10 fixed top-0 right-0 bottom-0 left-0">
-    <div class="container mx-auto w-11/12  max-w-lg flex justify-center  ">
+  <div style="background-color:rgba(0, 0, 0, 0.5);" class="py-12 h-full   transition duration-150 ease-in-out z-50 fixed top-0 right-0 bottom-0 left-0">
+    <div class="container mx-auto w-11/12  max-w-lg flex justify-center z-50">
       <div class="relative w-11/12 bg-[#EDEAE7]  shadow pt-10 pb-8 relative rounded-[10pt] px-[24pt]">
         <guest-information title="กรุณากรอกข้อมูล" @submit="submit" />
         <button type="button" class="inline-flex items-center p-2 ml-3 text-sm  cursor-pointer focus:outline-none absolute top-2 right-2" aria-controls="navbar-default" @click="submit">

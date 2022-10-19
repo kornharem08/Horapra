@@ -1,150 +1,99 @@
 <template>
   <div>
     <base-button-back title="ย้อนกลับ" @back="back" />
-    <div v-if="step !== 1" class="text-14pt px-[24pt]">
-      {{ setName }}
-    </div>
-    <section v-if="step === 0">
-      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
-        <div v-for="(item,idx) in lunchset" :key="idx" @click="selectMorePackage(item)">
-          <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
-            <img
-              class="rounded-[10pt]"
-              :src="require(`~/assets/img${item.url}`)"
-            >
-          </div>
-          <div class="text-center text-[15px]  mt-2">
-            {{ item.name }}
-          </div>
-        </div>
+    <div class="pt-10">
+      <div v-if="step !== 1" class="text-14pt px-[24pt]">
+        {{ setName }}
       </div>
-    </section>
-
-    <section v-if="step === 1 && setNumber === 1" class="step1 ">
-      <div class="grid grid-cols-2 gap-3 px-[24pt]">
-        <div v-for="(box,index) in boxset" :key="index" class="mt-2" @click="selectBoxSet(box)">
-          <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
-            <img
-              class="rounded-[10pt]"
-              :src="require(`~/assets/img${box.url}`)"
-            >
-          </div>
-          <div class="flex items-center text-center text-[15px] justify-center mt-4">
-            {{ box.name }}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section v-if="step === 2 " class="step2  pb-10">
-      <div class="px-[24pt]">
-        <div
-          v-if="setNumber === 1"
-          v-swiper:mySwiper="swiperOptions"
-          class="swiper mt-4"
-        >
-          <div v-if="selectBox.value === 3" class="swiper-wrapper">
-            <div v-for="(item, key , index) in boxset39" :key="index" class="swiper-slide " @click="selectListMenu = index">
-              <div class="p-2 h-8 flex text-[10pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
-                {{ key }}
-              </div>
-            </div>
-          </div>
-          <div v-if="selectBox.value === 4" class="swiper-wrapper">
-            <div v-for="(item, key , index) in boxset49" :key="index" class="swiper-slide " @click="selectListMenu = index">
-              <div class="p-2 h-8 flex text-[10pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
-                {{ key }}
-              </div>
-            </div>
-          </div>
-          <div v-if="selectBox.value === 1" class="swiper-wrapper">
-            <div v-for="(item, key , index) in luchDuomenu" :key="index" class="swiper-slide " @click="selectListMenu = index">
-              <div class="p-2 h-8 flex text-[10pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
-                {{ key }}
-              </div>
-            </div>
-          </div>
-          <div v-if="selectBox.value === 2" class="swiper-wrapper">
-            <div v-for="(item, key , index) in luchTriomenu" :key="index" class="swiper-slide " @click="selectListMenu = index">
-              <div class="p-2 h-8 flex text-[10pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
-                {{ key }}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div v-for=" (list,i) in setNumber === 1 ? lists[selectListMenu] : lists" :key="i" class=" bg-white rounded  mt-4">
-          <div
-            class="overflow-hidden border border-gray-100 rounded-lg grid  group grid-cols-3"
-            href=""
-          >
-            <div class="relative flex items-center justify-center">
+      <section v-if="step === 0">
+        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
+          <div v-for="(item,idx) in lunchset" :key="idx" @click="selectMorePackage(item)">
+            <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
               <img
-                v-if="list.url"
-                class="absolute h-[69pt] w-full  object-cover"
-                :src="require(`~/assets/img${list.url}`)"
+                class="rounded-[10pt]"
+                :src="require(`~/assets/img${item.url}`)"
               >
             </div>
+            <div class="text-center text-[15px]  mt-2">
+              {{ item.name }}
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <div class="p-2 col-span-2">
-              <div class="text-[#142917] text-[10pt]">
-                {{ list.name }}
+      <section v-if="step === 1 && setNumber === 1" class="step1 ">
+        <div class="grid grid-cols-2 gap-3 px-[24pt]">
+          <div v-for="(box,index) in boxset" :key="index" class="mt-2" @click="selectBoxSet(box)">
+            <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
+              <img
+                class="rounded-[10pt]"
+                :src="require(`~/assets/img${box.url}`)"
+              >
+            </div>
+            <div class="flex items-center text-center text-[15px] justify-center mt-4">
+              {{ box.name }}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section v-if="step === 2 " class="step2  pb-10">
+        <div class="px-[24pt]">
+          <div
+            v-if="setNumber === 1"
+            v-swiper:mySwiper="swiperOptions"
+            class="swiper mt-4"
+          >
+            <div v-if="selectBox.value === 3" class="swiper-wrapper">
+              <div v-for="(item, key , index) in boxset39" :key="index" class="swiper-slide " @click="selectListMenu = index">
+                <div class="p-2 h-8 flex text-[10pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
+                  {{ key }}
+                </div>
               </div>
-
-              <div class="block product-count-button-position mt-2">
-                <div class="flex items-center border-[#5A7F52] border justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-32">
-                  <button class="flex text-[#5A7F52]  items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="list.count > 0 ? list.count-- : 0">
-                    <span class="sr-only">button-minus</span>
-                    <svg
-                      class="transition-all"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 22 22"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-                  </button>
-                  <span class="font-semibold text-black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ list.count }}</span>
-                  <button class="group flex text-[#5A7F52] items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="increse(list)">
-                    <span class="sr-only">button-plus</span>
-                    <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-                  </button>
+            </div>
+            <div v-if="selectBox.value === 4" class="swiper-wrapper">
+              <div v-for="(item, key , index) in boxset49" :key="index" class="swiper-slide " @click="selectListMenu = index">
+                <div class="p-2 h-8 flex text-[10pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
+                  {{ key }}
+                </div>
+              </div>
+            </div>
+            <div v-if="selectBox.value === 1" class="swiper-wrapper">
+              <div v-for="(item, key , index) in luchDuomenu" :key="index" class="swiper-slide " @click="selectListMenu = index">
+                <div class="p-2 h-8 flex text-[10pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
+                  {{ key }}
+                </div>
+              </div>
+            </div>
+            <div v-if="selectBox.value === 2" class="swiper-wrapper">
+              <div v-for="(item, key , index) in luchTriomenu" :key="index" class="swiper-slide " @click="selectListMenu = index">
+                <div class="p-2 h-8 flex text-[10pt]  items-center  justify-center text-center w-full" :class="index === selectListMenu ? 'border-b-2 border-[#5A7F52] text-[#142917]' : ''">
+                  {{ key }}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+          <div v-for=" (list,i) in setNumber === 1 ? lists[selectListMenu] : lists" :key="i" class=" bg-white rounded  mt-4">
+            <div
+              class="overflow-hidden border border-gray-100 rounded-lg grid  group grid-cols-3"
+              href=""
+            >
+              <div class="relative flex items-center justify-center">
+                <img
+                  v-if="list.url"
+                  class="absolute h-[69pt] w-full  object-cover"
+                  :src="require(`~/assets/img${list.url}`)"
+                >
+              </div>
 
-      <the-footer-button>
-        <template #button>
-          <button v-if="step === 2" type="button" class="button_base " @click="handleresulte">
-            ถัดไป
-          </button>
-        </template>
-      </the-footer-button>
-    </section>
-
-    <section v-if="step === 3 ">
-      <div class="flex justify-between items-center px-[24pt] mb-3">
-        <div class="text-[18px]">
-          สรุปรายการอาหาร
-        </div>
-        <div v-if="menu.length < 5" class="text-[#5A7F52] text-[18px]" @click="addmore">
-          เพิ่มรายการ
-        </div>
-      </div>
-      <div class="px-[24pt]">
-        <ValidObs ref="validator3">
-          <div v-for="(item,index) in menu" :key="index" class="bg-white rounded mb-3">
-            <ValidPro v-slot="{ errors }" :rules="item.min ? `morethan:${item.min}` : 'morethan:5'" :name="item.menu">
-              <div class="flex justify-between items-center">
-                <div class="p-2 flex flex-col w-1/2">
-                  <span class="text-[14px]">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
-                  <span class="text-[14px]">   ({{ item.menu }})</span>
+              <div class="p-2 col-span-2">
+                <div class="text-[#142917] text-[10pt]">
+                  {{ list.name }}
                 </div>
-                <div class="block product-count-button-position mt-2 px-2 w-1/2">
-                  <div class="flex items-center border-[#5A7F52] border justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl ">
-                    <button class="flex text-[#5A7F52]  items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="minus(item,index)">
+
+                <div class="block product-count-button-position mt-2">
+                  <div class="flex items-center border-[#5A7F52] border justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-32">
+                    <button class="flex text-[#5A7F52]  items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="list.count > 0 ? list.count-- : 0">
                       <span class="sr-only">button-minus</span>
                       <svg
                         class="transition-all"
@@ -155,123 +104,175 @@
                         xmlns="http://www.w3.org/2000/svg"
                       ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
                     </button>
-                    <input v-model.number="item.count" :min="0" type="number" class="border-none w-full text-black text-center focus:outline-none focus:ring-0  text-sm " @change="(item.count === '' || item.count === null) ? item.count = 1 : item.count">
-
-                    <!-- <span class="font-semibold text-black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span> -->
-                    <button class="group flex text-[#5A7F52] items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
+                    <span class="font-semibold text-black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ list.count }}</span>
+                    <button class="group flex text-[#5A7F52] items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="increse(list)">
                       <span class="sr-only">button-plus</span>
                       <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
                     </button>
                   </div>
                 </div>
               </div>
-              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-            </ValidPro>
-          </div>
-        </ValidObs>
-        <div class="mt-[50pt]">
-          <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
-          <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
-        </div>
-        <div class="mt-[15pt]">
-          <div class="flex justify-between text-[20pt]">
-            <span class="">รวมทั้งหมด</span>  <span>{{ totalMenu }} กล่อง </span>
-          </div>
-        </div>
-      </div>
-      <the-footer-button>
-        <template #button>
-          <button v-if="step === 3" type="button" class="button_base " @click="handleValidate">
-            ยืนยัน
-          </button>
-        </template>
-      </the-footer-button>
-    </section>
-
-    <section v-if="step === 1 && setNumber === 2" class="step1 ">
-      <div class="px-[24pt]">
-        <div class="flex flex-col justify-center items-center  w-full  aspect-video  cursor-pointer mt-6 mb-4" @click="selectImage ='/boxset/set/banner.jpg',isImages = true">
-          <img
-            class="rounded-[10pt] object-cover"
-            :src="require(`~/assets/img/boxset/set/banner.jpg`)"
-          >
-        </div>
-      </div>
-      <div class="text-center px-[24pt] text-[14pt]">
-        Box Set รักษ์โลกที่เหมาะกับทุกงานจัดเลี้ยง ที่โหระพาตั้งใจคัดสรรบรรจุภัณฑ์ที่ย่อยสลายได้เองตามธรรมชาติ
-      </div>
-      <the-footer-button>
-        <template #button>
-          <button v-if="(step === 1 && setNumber !== 1 ) || step === 4" type="button" class="button_base " @click="step++">
-            ถัดไป
-          </button>
-        </template>
-      </the-footer-button>
-    </section>
-
-    <section v-show="step === 1 && setNumber === 3" class="step1 ">
-      <div
-        v-swiper:pintoIamge="swiperOptionsimage"
-        class="swiper "
-      >
-        <div class="swiper-wrapper  " @click.stop="">
-          <div v-for="(image,idx) in 4" :key="idx" class="swiper-slide ">
-            <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4 px-[24pt]" @click="selectImage =`/Pinto/${idx}.jpg`,isImages = true">
-              <img
-                class="rounded-[10pt] object-cover"
-                :src="require(`~/assets/img/Pinto/${idx}.jpg`)"
-              >
             </div>
           </div>
         </div>
-        <div class="swiper-pagination swiper-pagination-bullets" />
-      </div>
-      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt] mt-[25pt]">
-        <div v-for="(pinto,idx) in pintoset" :key="idx" class="flex items-center flex-col justify-start" @click="selectBoxSet(pinto)">
-          <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
-            <img
-              class="rounded-[10pt] object-cover object-left h-full w-full"
-              :src="require(`~/assets/img/Pinto/${pinto.value}x.jpg`)"
-            >
+
+        <the-footer-button>
+          <template #button>
+            <button v-if="step === 2" type="button" class="button_base " @click="handleresulte">
+              ถัดไป
+            </button>
+          </template>
+        </the-footer-button>
+      </section>
+
+      <section v-if="step === 3 ">
+        <div class="flex justify-between items-center px-[24pt] mb-3">
+          <div class="text-[18px]">
+            สรุปรายการอาหาร
           </div>
-          <div class="text-center text-[15px] mt-[10pt]">
-            {{ pinto.name }}
+          <div v-if="menu.length < 5" class="text-[#5A7F52] text-[18px]" @click="addmore">
+            เพิ่มรายการ
           </div>
         </div>
-      </div>
-    </section>
+        <div class="px-[24pt]">
+          <ValidObs ref="validator3">
+            <div v-for="(item,index) in menu" :key="index" class="bg-white rounded mb-3">
+              <ValidPro v-slot="{ errors }" :rules="item.min ? `morethan:${item.min}` : 'morethan:5'" :name="item.menu">
+                <div class="flex justify-between items-center">
+                  <div class="p-2 flex flex-col w-1/2">
+                    <span class="text-[14px]">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
+                    <span class="text-[14px]">   ({{ item.menu }})</span>
+                  </div>
+                  <div class="block product-count-button-position mt-2 px-2 w-1/2">
+                    <div class="flex items-center border-[#5A7F52] border justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl ">
+                      <button class="flex text-[#5A7F52]  items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="minus(item,index)">
+                        <span class="sr-only">button-minus</span>
+                        <svg
+                          class="transition-all"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 22 22"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                      </button>
+                      <input v-model.number="item.count" :min="0" type="number" class="border-none w-full text-black text-center focus:outline-none focus:ring-0  text-sm " @change="(item.count === '' || item.count === null) ? item.count = 1 : item.count">
 
-    <section v-if="step === 4" class="step4">
-      <div class="px-[24pt]">
-        <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
-          <div class="text-[16pt] font-medium text-center mb-[10pt]">
-            สรุปรายการ
+                      <!-- <span class="font-semibold text-black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span> -->
+                      <button class="group flex text-[#5A7F52] items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
+                        <span class="sr-only">button-plus</span>
+                        <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+              </ValidPro>
+            </div>
+          </ValidObs>
+          <div class="mt-[50pt]">
+            <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
+            <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
           </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   ">
-              ชื่อ-นามสกุล
-            </p>
-            <p class=" ">
-              {{ $store.state.users.name }}
-            </p>
+          <div class="mt-[15pt]">
+            <div class="flex justify-between text-[20pt]">
+              <span class="">รวมทั้งหมด</span>  <span>{{ totalMenu }} กล่อง </span>
+            </div>
           </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium    ">
-              เบอร์โทร
-            </p>
-            <p class="">
-              {{ $store.state.users.phone }}
-            </p>
+        </div>
+        <the-footer-button>
+          <template #button>
+            <button v-if="step === 3" type="button" class="button_base " @click="handleValidate">
+              ยืนยัน
+            </button>
+          </template>
+        </the-footer-button>
+      </section>
+
+      <section v-if="step === 1 && setNumber === 2" class="step1 ">
+        <div class="px-[24pt]">
+          <div class="flex flex-col justify-center items-center  w-full  aspect-video  cursor-pointer mt-6 mb-4" @click="selectImage ='/boxset/set/banner.jpg',isImages = true">
+            <img
+              class="rounded-[10pt] object-cover"
+              :src="require(`~/assets/img/boxset/set/banner.jpg`)"
+            >
           </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium  leading-4  ">
-              อีเมล์
-            </p>
-            <p class="">
-              {{ $store.state.users.email ? $store.state.users.email : '-' }}
-            </p>
+        </div>
+        <div class="text-center px-[24pt] text-[14pt]">
+          Box Set รักษ์โลกที่เหมาะกับทุกงานจัดเลี้ยง ที่โหระพาตั้งใจคัดสรรบรรจุภัณฑ์ที่ย่อยสลายได้เองตามธรรมชาติ
+        </div>
+        <the-footer-button>
+          <template #button>
+            <button v-if="(step === 1 && setNumber !== 1 ) || step === 4" type="button" class="button_base " @click="step++">
+              ถัดไป
+            </button>
+          </template>
+        </the-footer-button>
+      </section>
+
+      <section v-show="step === 1 && setNumber === 3" class="step1 ">
+        <div
+          v-swiper:pintoIamge="swiperOptionsimage"
+          class="swiper "
+        >
+          <div class="swiper-wrapper  " @click.stop="">
+            <div v-for="(image,idx) in 4" :key="idx" class="swiper-slide ">
+              <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4 px-[24pt]" @click="selectImage =`/Pinto/${idx}.jpg`,isImages = true">
+                <img
+                  class="rounded-[10pt] object-cover"
+                  :src="require(`~/assets/img/Pinto/${idx}.jpg`)"
+                >
+              </div>
+            </div>
           </div>
-          <!-- <div v-if="!$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+          <div class="swiper-pagination swiper-pagination-bullets" />
+        </div>
+        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt] mt-[25pt]">
+          <div v-for="(pinto,idx) in pintoset" :key="idx" class="flex items-center flex-col justify-start" @click="selectBoxSet(pinto)">
+            <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
+              <img
+                class="rounded-[10pt] object-cover object-left h-full w-full"
+                :src="require(`~/assets/img/Pinto/${pinto.value}x.jpg`)"
+              >
+            </div>
+            <div class="text-center text-[15px] mt-[10pt]">
+              {{ pinto.name }}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section v-if="step === 4" class="step4">
+        <div class="px-[24pt]">
+          <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
+            <div class="text-[16pt] font-medium text-center mb-[10pt]">
+              สรุปรายการ
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   ">
+                ชื่อ-นามสกุล
+              </p>
+              <p class=" ">
+                {{ $store.state.users.name }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium    ">
+                เบอร์โทร
+              </p>
+              <p class="">
+                {{ $store.state.users.phone }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium  leading-4  ">
+                ชื่อ Facebook
+              </p>
+              <p class="">
+                {{ $store.state.users.email ? $store.state.users.email : '-' }}
+              </p>
+            </div>
+            <!-- <div v-if="!$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
             <p class="font-medium w-1/2">
               เเพ็กเกจที่เลือก
             </p>
@@ -279,91 +280,92 @@
               {{ `${selectedSet.name} ${setName} ` }}
             </p>
           </div> -->
-          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium w-1/2">
-              เเพ็กเกจหลัก
-            </p>
-            <p class="w-1/2  text-right">
-              {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium w-1/2 ">
-              {{ $route.query.morepackage ? 'เเพ็กเกจรอง' : 'เเพ็กเกจที่เลือก' }}
-            </p>
-            <p class="w-1/2  text-right">
-              {{ `${selectedSet.name} ${setName} ` }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="w-1/2">
-              บริการนิมนต์พระสงฆ์*
-            </p>
-            <p class="text-right w-1/2">
-              {{ $store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ', }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="w-1/2">
-              บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
-            </p>
-            <p class="text-right w-1/2">
-              {{ $store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ', }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="w-1/2">
-              จำนวนพระสงฆ์
-            </p>
-            <p class="text-right w-1/2 text-right">
-              {{ $store.state.auspicious_packages.monk }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage && $route.query.morepackage === 2" class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   w-2/3">
-              รูปแบบการจัดเลี้ยงพระสงฆ์
-            </p>
-            <p class="w-1/3 text-right">
-              {{ `${$store.state.auspicious_packages.style_buffet.name}: ${$store.state.auspicious_packages.style_buffet.price} บาท` }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage && accessories && accessories.length" class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   w-2/3">
-              อุปกรณ์เพิ่มเติม
-            </p>
-            <p class="w-1/3 text-right">
-              {{ sumAccessories.toString() }}
-            </p>
-          </div>
-          <div class="flex mb-2 label_base">
-            <p class="font-medium  w-1/2">
-              เมนูที่เลือก
-            </p>
-            <div class="flex flex-col w-1/2 text-right">
-              <div v-for="(menus,index) in listMenu" :key="index">
-                {{ index+1 }}.  {{ menus }}
+            <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium w-1/2">
+                เเพ็กเกจหลัก
+              </p>
+              <p class="w-1/2  text-right">
+                {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium w-1/2 ">
+                {{ $route.query.morepackage ? 'เเพ็กเกจรอง' : 'เเพ็กเกจที่เลือก' }}
+              </p>
+              <p class="w-1/2  text-right">
+                {{ `${selectedSet.name} ${setName} ` }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+              <p class="w-1/2">
+                บริการนิมนต์พระสงฆ์*
+              </p>
+              <p class="text-right w-1/2">
+                {{ $store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ', }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+              <p class="w-1/2">
+                บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
+              </p>
+              <p class="text-right w-1/2">
+                {{ $store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ', }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+              <p class="w-1/2">
+                จำนวนพระสงฆ์
+              </p>
+              <p class="text-right w-1/2 text-right">
+                {{ $store.state.auspicious_packages.monk }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage && $route.query.morepackage === 2" class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   w-2/3">
+                รูปแบบการจัดเลี้ยงพระสงฆ์
+              </p>
+              <p class="w-1/3 text-right">
+                {{ `${$store.state.auspicious_packages.style_buffet.name}: ${$store.state.auspicious_packages.style_buffet.price} บาท` }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage && accessories && accessories.length" class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   w-2/3">
+                อุปกรณ์เพิ่มเติม
+              </p>
+              <p class="w-1/3 text-right">
+                {{ sumAccessories.toString() }}
+              </p>
+            </div>
+            <div class="flex mb-2 label_base">
+              <p class="font-medium  w-1/2">
+                เมนูที่เลือก
+              </p>
+              <div class="flex flex-col w-1/2 text-right">
+                <div v-for="(menus,index) in listMenu" :key="index">
+                  {{ index+1 }}.  {{ menus }}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <the-footer-button>
-        <template #button>
-          <button type="button" class="button_base " @click="handleSubmitNext()">
-            ถัดไป
-          </button>
-        </template>
-      </the-footer-button>
-    </section>
+        <the-footer-button>
+          <template #button>
+            <button type="button" class="button_base " @click="handleSubmitNext()">
+              ถัดไป
+            </button>
+          </template>
+        </the-footer-button>
+      </section>
 
-    <section v-if="step === 5" class="step5">
-      <the-quotation @handleSubmitInformation="submit" />
-    </section>
+      <section v-if="step === 5" class="step5">
+        <the-quotation @handleSubmitInformation="submit" />
+      </section>
 
-    <modalfinish v-if="isFinish" @close="handelfinish" />
-    <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
-    <modalerror v-if="isError" @close="handelfinish" />
-    <ModalImages v-if="isImages" :img="selectImage" @close="isImages = false,selectImage = ''" />
+      <modalfinish v-if="isFinish" @close="handelfinish" />
+      <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
+      <modalerror v-if="isError" @close="handelfinish" />
+      <ModalImages v-if="isImages" :img="selectImage" @close="isImages = false,selectImage = ''" />
+    </div>
   </div>
 </template>
 
@@ -473,7 +475,6 @@ export default {
     }
   },
   mounted () {
-    this.countFirebase()
     if (this.$route.query.set) {
       this.setNumber = Number(this.$route.query.set)
     }
@@ -718,7 +719,7 @@ export default {
               { text: 'ชื่อลูกค้า: ' + this.$store.state.users.name, style: 'information' },
               { text: 'เบอร์ติดต่อ: ' + this.$store.state.users.phone, style: 'information' },
               { text: 'เบอร์ติดต่อ (สำรอง): ' + this.summary.backupPhone, style: 'information' },
-              { text: 'อีเมล์: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
+              { text: 'ชื่อ Facebook: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
               {
                 table: {
                   widths: ['*'],
@@ -761,14 +762,11 @@ export default {
                 }
               }, {
                 margin: 10,
-                columns: [{
-                  text: '(                                             )',
-                  alignment: 'center'
-                },
-                {
-                  text: 'ราคารวม ' + `${this.summary.totalprice ? this.summary.totalprice.toLocaleString() : this.summary.totalprice}` + ' บาท',
-                  alignment: 'center'
-                }]
+                columns: [
+                  {
+                    text: 'ราคารวม ' + `${this.summary.totalprice ? this.summary.totalprice.toLocaleString() : this.summary.totalprice}` + ' บาท',
+                    alignment: 'center'
+                  }]
               },
               {
                 text: 'หมายเหตุ: ราคาในใบสรุปรายการนี้เป็นราคาประเมินเบื้องต้นซึ่งยังไม่รวมค่าจัดส่งตามระยะทาง',
@@ -829,18 +827,23 @@ export default {
         })
       })
     },
-    countFirebase () {
-      let listRef = this.$storage.ref()
-
-      // Find all the prefixes and items.
-      listRef.listAll()
-        .then((res) => {
-          this.orderIdByfirebase = res.items.length + 1
-        }).catch(() => {
-          this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
-        })
+    async  countFirebase () {
+      let x = await this.$db.collection('cities').orderBy('timestamp', 'desc').limit(1).get()
+      if (x.size) {
+        const data = {
+          id: x.docs[x.size - 1].data().id + 1,
+          timestamp: this.$moment(new Date()).unix()
+        }
+        const res = await this.$db.collection('cities').add(data)
+        let runid = ('000000' + (x.docs[x.size - 1].data().id + 1))
+        let prefixtime = this.$moment(new Date()).format('YYYYMM')
+        this.orderIdByfirebase = prefixtime + runid
+      } else {
+        this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
+      }
     },
     async submit (data) {
+      await this.countFirebase()
       this.$store.dispatch('handleLoading', true)
       const newStuff = this.menu.reduce((a, currentValue) =>
         [...a, Number(this.setNumber) !== 2 ? `(${currentValue.name})${currentValue.menu} x ${currentValue.count}` : `${currentValue.menu} x ${currentValue.count}`], [])

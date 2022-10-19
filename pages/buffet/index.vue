@@ -1,211 +1,216 @@
 <template>
   <div>
-    <base-button-back :title="step === 0 ? $route.query.morepackage ? ' สิริมงคล' : 'กลับหน้าหลัก' : 'จัดเลี้ยงบุฟเฟ่ต์'" class="mb-2" @back="back" />
-    <section v-if="step === 0" class="step1 ">
-      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
-        <div v-for="(menu,idx) in guestBuffet" :key="idx" class="flex items-center flex-col justify-start" @click="selectSet(menu)">
-          <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
-            <img
-              class="rounded-[10pt]"
-              :src="require(`~/assets/img${menu.url}`)"
-            >
-          </div>
-          <div class="text-center text-[15px] mt-[10pt]">
-            {{ menu.name }}
-          </div>
-        </div>
-      </div>
-    </section>
-    <ValidObs ref="form" v-slot="{ handleSubmit }">
-      <section v-if="step === 1" class="step1 ">
-        <div class=" flex flex-col justify-center items-center  w-full  aspect-video  cursor-pointer mt-6 mb-4 px-[24pt]">
-          <img
-            class="rounded-[10pt]"
-            :src="require(`~/assets/img/buffet/set/${setbuffet}.jpg`)"
-          >
-        </div>
-        <div class="px-[24pt]">
-          <div>
-            <label class="label_base">เลือกจำนวนลูกค้า</label>
-            <ValidPro v-slot="{ errors }" rules="required" name="เลือกจำนวนลูกค้า">
-              <select v-model="setbuffet" class="base_selectoption " style="padding: 0.5rem 1rem;" @change="setPrice = 1">
-                <option v-for="(set,idx) in guestBuffet" :key="idx" :value="set.value">
-                  {{ set.name }}
-                </option>
-              </select>
-              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-            </ValidPro>
-          </div>
-          <div class="mt-4">
-            <label class="label_base">เลือกเซ็ทราคา</label>
-            <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
-              <select v-model="setPrice" class="base_selectoption">
-                <option v-for="set in optionprice" :key="set.value" :value="set.value">
-                  {{ set.name }} ({{ set.price }} บาท/ชุด)
-                </option>
-              </select>
-              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-            </ValidPro>
-          </div>
-          <div class="mt-4">
-            <ValidPro v-slot="{ errors }" rules="required|minquantity" name="จำนวนแขก">
-              <base-input v-model="guests" type="number" placeholder="จำนวนแขก" label="จำนวนแขก (รวมพระสงฆ์)" />
-              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-            </ValidPro>
-          </div>
-          <div class="mt-4">
-            <ValidPro v-slot="{ errors }" rules="required|minquantity" name="จำนวนพระสงฆ์">
-              <base-input v-model="monk" type="number" placeholder="จำนวนพระสงฆ์" label="จำนวนพระสงฆ์" />
-              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-            </ValidPro>
-          </div>
-          <div class="mt-4 ">
-            <span class="label_base">บริการจัดเลี้ยงพระสงฆ์</span>
-            <div class="flex">
-              <div class="flex items-center">
-                <input
-                  id="bordered-checkbox-1"
-                  v-model="isBuffetMonk"
-                  type="radio"
-                  :value="true"
-                  name="bordered-checkbox"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                >
-                <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[15px] flex ">มีจัดเลี้ยงพระสงฆ์</label>
-              </div>
-              <div class="flex items-center pl-4 ">
-                <input
-                  id="bordered-checkbox-2"
-                  v-model="isBuffetMonk"
-                  type="radio"
-                  :value="false"
-                  name="bordered-checkbox"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                >
-                <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[15px] flex ">ไม่มีจัดเลี้ยงพระสงฆ์</label>
-              </div>
+    <base-button-back :title="step === 0 ? $route.query.morepackage ? ' สิริมงคล' : 'กลับหน้าหลัก' : 'ย้อนกลับ'" class="mb-2" @back="back" />
+    <div class="pt-10">
+      <section v-if="step === 0" class="step1">
+        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
+          <div v-for="(menu,idx) in guestBuffet" :key="idx" class="flex items-center flex-col justify-start" @click="selectSet(menu)">
+            <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
+              <img
+                class="rounded-[10pt]"
+                :src="require(`~/assets/img${menu.url}`)"
+              >
+            </div>
+            <div class="text-center text-[15px] mt-[10pt]">
+              {{ menu.name }}
             </div>
           </div>
-          <div v-if="isBuffetMonk" class="mt-4">
-            <label class="label_base">เลือกรูปแบบการจัดเลี้ยงพระสงฆ์</label>
-            <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
-              <select v-model="setStyle" class=" w-full input_base">
-                <option v-for="set in monkBuffet" :key="set.value" :value="set.value">
-                  {{ set.name }} ({{ set.price }} บาท/ชุด)
-                </option>
-              </select>
-              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-            </ValidPro>
+        </div>
+      </section>
+      <ValidObs ref="form" v-slot="{ handleSubmit }">
+        <section v-if="step === 1" class="step1 ">
+          <div v-if="setStyleBuffet" class="text-[14pt] w-fit px-[24pt]">
+            {{ setStyleBuffet.name }}
+          </div>
+          <div class=" flex flex-col justify-center items-center  w-full  aspect-video  cursor-pointer  mb-4 px-[24pt]">
+            <img
+              class="rounded-[10pt]"
+              :src="require(`~/assets/img/buffet/set/${setbuffet}.jpg`)"
+            >
+          </div>
+          <div class="px-[24pt]">
+            <div>
+              <label class="label_base">เลือกจำนวนลูกค้า</label>
+              <ValidPro v-slot="{ errors }" rules="required" name="เลือกจำนวนลูกค้า">
+                <select v-model="setbuffet" class="base_selectoption " style="padding: 0.5rem 1rem;" @change="setPrice = 1">
+                  <option v-for="(set,idx) in guestBuffet" :key="idx" :value="set.value">
+                    {{ set.name }}
+                  </option>
+                </select>
+                <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+              </ValidPro>
+            </div>
+            <div class="mt-4">
+              <label class="label_base">เลือกเซ็ทราคา</label>
+              <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
+                <select v-model="setPrice" class="base_selectoption">
+                  <option v-for="set in optionprice" :key="set.value" :value="set.value">
+                    {{ set.name }} ({{ set.price }} บาท/ชุด)
+                  </option>
+                </select>
+                <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+              </ValidPro>
+            </div>
+            <div class="mt-4">
+              <ValidPro v-slot="{ errors }" rules="required|minquantity" name="จำนวนแขก">
+                <base-input v-model="guests" type="number" placeholder="จำนวนแขก" label="จำนวนแขก (รวมพระสงฆ์)" />
+                <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+              </ValidPro>
+            </div>
+            <div class="mt-4 ">
+              <span class="label_base">บริการจัดเลี้ยงพระสงฆ์</span>
+              <div class="flex">
+                <div class="flex items-center">
+                  <input
+                    id="bordered-checkbox-1"
+                    v-model="isBuffetMonk"
+                    type="radio"
+                    :value="true"
+                    name="bordered-checkbox"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  >
+                  <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[15px] flex ">มีจัดเลี้ยงพระสงฆ์</label>
+                </div>
+                <div class="flex items-center pl-4 ">
+                  <input
+                    id="bordered-checkbox-2"
+                    v-model="isBuffetMonk"
+                    type="radio"
+                    :value="false"
+                    name="bordered-checkbox"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  >
+                  <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[15px] flex ">ไม่มีจัดเลี้ยงพระสงฆ์</label>
+                </div>
+              </div>
+            </div>
+            <div v-if="isBuffetMonk" class="mt-2">
+              <ValidPro v-slot="{ errors }" rules="required|minquantity" name="จำนวนพระสงฆ์">
+                <base-input v-model="monk" type="number" placeholder="จำนวนพระสงฆ์" label="จำนวนพระสงฆ์" />
+                <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+              </ValidPro>
+            </div>
+
+            <div v-if="isBuffetMonk" class="mt-4">
+              <label class="label_base">เลือกรูปแบบการจัดเลี้ยงพระสงฆ์</label>
+              <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
+                <select v-model="setStyle" class=" w-full input_base">
+                  <option v-for="set in monkBuffet" :key="set.value" :value="set.value">
+                    {{ set.name }} ({{ set.price }} บาท/ชุด)
+                  </option>
+                </select>
+                <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+              </ValidPro>
+            </div>
+          </div>
+
+          <the-footer-button>
+            <template #button>
+              <button type="button" class="button_base" @click="handleSubmit(next)">
+                ถัดไป
+              </button>
+            </template>
+          </the-footer-button>
+        </section>
+      </ValidObs>
+
+      <section v-if="step === 2" class="step2 ">
+        <div class="text-[16pt] text-left px-[24pt]">
+          เลือกอุปกรณ์เพิ่มเติม
+        </div>
+        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
+          <div v-for="(item,idx) in setAccessories" :key="idx">
+            <div class="w-full aspect-square overflow-hidden  rounded-[10pt] flex items-center justify-center border bg-white">
+              <img :src="require(`~/assets/img${item.url}`)" alt="">
+            </div>
+            <!-- <card :price="Number(item.price)" :show-detail="true" /> -->
+            <div class="block product-count-button-position mt-2">
+              <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-full">
+                <button class="flex items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="item.count > 0 ? item.count-- : 0">
+                  <span class="sr-only">button-minus</span>
+                  <svg
+                    class="transition-all"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                </button>
+                <span class="font-semibold text-brand-dark flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span>
+                <button class="group flex items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
+                  <span class="sr-only">button-plus</span>
+                  <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                </button>
+              </div>
+            </div>
+            <div class="text-[#142917] text-[10pt] text-center mt-2">
+              {{ item.price.toLocaleString() }} บาท
+            </div>
+            <div class="text-[#142917] text-[12pt] text-center mt-1">
+              {{ item.name }}
+            </div>
           </div>
         </div>
-
         <the-footer-button>
           <template #button>
-            <button type="button" class="button_base" @click="handleSubmit(next)">
+            <button type="button" class="button_base" @click="next">
               ถัดไป
+            </button>
+            <button type="button" class="button_optional" @click="next">
+              ข้าม
             </button>
           </template>
         </the-footer-button>
       </section>
-    </ValidObs>
 
-    <section v-if="step === 2" class="step2 ">
-      <div class="text-[16pt] text-left px-[24pt]">
-        เลือกอุปกรณ์เพิ่มเติม
-      </div>
-      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
-        <div v-for="(item,idx) in setAccessories" :key="idx">
-          <div class="w-full aspect-square overflow-hidden  rounded-[10pt] flex items-center justify-center border bg-white">
-            <img :src="require(`~/assets/img${item.url}`)" alt="">
-          </div>
-          <!-- <card :price="Number(item.price)" :show-detail="true" /> -->
-          <div class="block product-count-button-position mt-2">
-            <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-full">
-              <button class="flex items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="item.count > 0 ? item.count-- : 0">
-                <span class="sr-only">button-minus</span>
-                <svg
-                  class="transition-all"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-              </button>
-              <span class="font-semibold text-brand-dark flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span>
-              <button class="group flex items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
-                <span class="sr-only">button-plus</span>
-                <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-              </button>
+      <section v-if="step === 3" class="step3 ">
+        <div class="px-[24pt]">
+          <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
+            <div class="text-[16pt] font-medium text-center mb-[10pt]">
+              สรุปรายการ
             </div>
-          </div>
-          <div class="text-[#142917] text-[10pt] text-center mt-2">
-            {{ item.price.toLocaleString() }} บาท
-          </div>
-          <div class="text-[#142917] text-[12pt] text-center mt-1">
-            {{ item.name }}
-          </div>
-        </div>
-      </div>
-      <the-footer-button>
-        <template #button>
-          <button type="button" class="button_base" @click="next">
-            ถัดไป
-          </button>
-          <button type="button" class="button_optional" @click="next">
-            ข้าม
-          </button>
-        </template>
-      </the-footer-button>
-    </section>
-
-    <section v-if="step === 3" class="step3 ">
-      <div class="px-[24pt]">
-        <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
-          <div class="text-[16pt] font-medium text-center mb-[10pt]">
-            สรุปรายการ
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="   ">
-              ชื่อ-นามสกุล
-            </p>
-            <p class="">
-              {{ $store.state.users.name }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="  ">
-              เบอร์โทร
-            </p>
-            <p class="">
-              {{ $store.state.users.phone }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="   ">
-              อีเมล์
-            </p>
-            <p class="">
-              {{ $store.state.users.email ? $store.state.users.email : '-' }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium w-1/2">
-              เเพ็กเกจหลัก
-            </p>
-            <p class="w-1/2  text-right">
-              {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium w-1/2 ">
-              {{ $route.query.morepackage ? 'เเพ็กเกจรอง' : 'เเพ็กเกจหลัก' }}
-            </p>
-            <p class="w-1/2  text-right">
-              {{ `บุฟเฟ่ ${setStyleBuffet.name}` }}
-            </p>
-          </div>
-          <!-- <div class="flex flex-row justify-between mb-2 label_base">
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="   ">
+                ชื่อ-นามสกุล
+              </p>
+              <p class="">
+                {{ $store.state.users.name }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="  ">
+                เบอร์โทร
+              </p>
+              <p class="">
+                {{ $store.state.users.phone }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="   ">
+                ชื่อ Facebook
+              </p>
+              <p class="">
+                {{ $store.state.users.email ? $store.state.users.email : '-' }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium w-1/2">
+                เเพ็กเกจหลัก
+              </p>
+              <p class="w-1/2  text-right">
+                {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium w-1/2 ">
+                {{ $route.query.morepackage ? 'เเพ็กเกจรอง' : 'เเพ็กเกจหลัก' }}
+              </p>
+              <p class="w-1/2  text-right">
+                {{ `บุฟเฟ่ ${setStyleBuffet.name}` }}
+              </p>
+            </div>
+            <!-- <div class="flex flex-row justify-between mb-2 label_base">
             <p class="font-medium    ">
               จัดเลี้ยงบุฟเฟ่ต์
             </p>
@@ -213,85 +218,86 @@
               {{ `บุฟเฟ่ ${setStyleBuffet.name}` }}
             </p>
           </div> -->
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium    ">
-              เซ็ทจัดเลี้ยง
-            </p>
-            <p class="text-right">
-              {{ `${setPriceBuffet.name}: ${setPriceBuffet.price} บาท` }}
-            </p>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium    ">
+                เซ็ทจัดเลี้ยง
+              </p>
+              <p class="text-right">
+                {{ `${setPriceBuffet.name}: ${setPriceBuffet.price} บาท` }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="">
+                จำนวนแขก
+              </p>
+              <p class="text-right">
+                {{ (Number(guests)).toString() }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="">
+                จำนวนพระสงฆ์
+              </p>
+              <p class="">
+                {{ isBuffetMonk ? Number(monk).toString() : 0 }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="w-1/2">
+                รูปแบบการจัดเลี้ยงพระสงฆ์
+              </p>
+              <p class="text-right w-1/2 text-right">
+                {{ isBuffetMonk ? setStyleMonk : 'ไม่มีจัดเลี้ยงพระสงฆ์' }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+              <p class="w-1/2">
+                บริการนิมนต์พระสงฆ์*
+              </p>
+              <p class="text-right w-1/2 text-right">
+                {{ $store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ', }}
+              </p>
+            </div>
+            <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
+              <p class="w-1/2">
+                บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
+              </p>
+              <p class="text-right w-1/2 text-right">
+                {{ $store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ', }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="w-1/2 ">
+                อุปกรณ์เพิ่มเติม
+              </p>
+              <p class="text-right w-1/2 text-right">
+                {{ listAccessories ? listAccessories : '-' }}
+              </p>
+            </div>
           </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="">
-              จำนวนแขก
-            </p>
-            <p class="text-right">
-              {{ (Number(guests)).toString() }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="">
-              จำนวนพระสงฆ์
-            </p>
-            <p class="">
-              {{ isBuffetMonk ? Number(monk).toString() : 0 }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="w-1/2">
-              รูปแบบการจัดเลี้ยงพระสงฆ์
-            </p>
-            <p class="text-right w-1/2 text-right">
-              {{ isBuffetMonk ? setStyleMonk : 'ไม่มีจัดเลี้ยงพระสงฆ์' }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="w-1/2">
-              บริการนิมนต์พระสงฆ์*
-            </p>
-            <p class="text-right w-1/2 text-right">
-              {{ $store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ', }}
-            </p>
-          </div>
-          <div v-if="$route.query.morepackage" class="flex flex-row justify-between mb-2 label_base">
-            <p class="w-1/2">
-              บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
-            </p>
-            <p class="text-right w-1/2 text-right">
-              {{ $store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ', }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="w-1/2 ">
-              อุปกรณ์เพิ่มเติม
-            </p>
-            <p class="text-right w-1/2 text-right">
-              {{ listAccessories ? listAccessories : '-' }}
-            </p>
+          <div class="mt-[50pt]">
+            <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
+            <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
           </div>
         </div>
-        <div class="mt-[50pt]">
-          <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
-          <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
-        </div>
-      </div>
 
-      <the-footer-button>
-        <template #button>
-          <button type="button" class="button_base" @click="handleSubmitNext">
-            ถัดไป
-          </button>
-        </template>
-      </the-footer-button>
-    </section>
+        <the-footer-button>
+          <template #button>
+            <button type="button" class="button_base" @click="handleSubmitNext">
+              ถัดไป
+            </button>
+          </template>
+        </the-footer-button>
+      </section>
 
-    <section v-if="step === 4" class="step4 ">
-      <the-quotation @handleSubmitInformation="submit" />
-    </section>
+      <section v-if="step === 4" class="step4 ">
+        <the-quotation @handleSubmitInformation="submit" />
+      </section>
 
-    <modalfinish v-if="isFinish" @close="handelfinish" />
-    <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
-    <modalerror v-if="isError" @close="handelfinish" />
+      <modalfinish v-if="isFinish" @close="handelfinish" />
+      <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
+      <modalerror v-if="isError" @close="handelfinish" />
+    </div>
   </div>
 </template>
 
@@ -372,7 +378,6 @@ export default {
 
   },
   mounted () {
-    this.countFirebase()
     this.setAccessories = this.accessories.map((x) => {
       return {
         name: x.name,
@@ -523,7 +528,7 @@ export default {
               { text: 'ชื่อลูกค้า: ' + this.$store.state.users.name, style: 'information' },
               { text: 'เบอร์ติดต่อ: ' + this.$store.state.users.phone, style: 'information' },
               { text: 'เบอร์ติดต่อ (สำรอง): ' + this.summary.backupPhone, style: 'information' },
-              { text: 'อีเมล์: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
+              { text: 'ชื่อ Facebook: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
               {
                 table: {
                   widths: ['*'],
@@ -566,14 +571,11 @@ export default {
                 }
               }, {
                 margin: 10,
-                columns: [{
-                  text: '(                                             )',
-                  alignment: 'center'
-                },
-                {
-                  text: 'ราคารวม ' + `${this.summary.totalprice ? this.summary.totalprice.toLocaleString() : this.summary.totalprice}` + ' บาท',
-                  alignment: 'center'
-                }]
+                columns: [
+                  {
+                    text: 'ราคารวม ' + `${this.summary.totalprice ? this.summary.totalprice.toLocaleString() : this.summary.totalprice}` + ' บาท',
+                    alignment: 'center'
+                  }]
               },
               {
                 text: 'หมายเหตุ: ราคาในใบสรุปรายการนี้เป็นราคาประเมินเบื้องต้นซึ่งยังไม่รวมค่าจัดส่งตามระยะทาง',
@@ -634,18 +636,23 @@ export default {
         })
       })
     },
-    countFirebase () {
-      let listRef = this.$storage.ref()
-
-      // Find all the prefixes and items.
-      listRef.listAll()
-        .then((res) => {
-          this.orderIdByfirebase = res.items.length + 1
-        }).catch(() => {
-          this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
-        })
+    async  countFirebase () {
+      let x = await this.$db.collection('cities').orderBy('timestamp', 'desc').limit(1).get()
+      if (x.size) {
+        const data = {
+          id: x.docs[x.size - 1].data().id + 1,
+          timestamp: this.$moment(new Date()).unix()
+        }
+        const res = await this.$db.collection('cities').add(data)
+        let runid = ('000000' + (x.docs[x.size - 1].data().id + 1))
+        let prefixtime = this.$moment(new Date()).format('YYYYMM')
+        this.orderIdByfirebase = prefixtime + runid
+      } else {
+        this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
+      }
     },
     async submit (data) {
+      await this.countFirebase()
       this.$store.dispatch('handleLoading', true)
       console.log(this.orderIdByfirebase, 'this.orderIdByfirebase')
       let setPrice = this.optionprice.find(x => x.value === this.setPrice)

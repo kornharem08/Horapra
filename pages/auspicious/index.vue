@@ -1,184 +1,365 @@
 <template>
-  <div class=" pb-10">
+  <div>
     <base-button-back title="ย้อนกลับ" @back="back" />
-    <section v-if="step === 0">
-      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
-        <div v-for="(item,idx) in auspiciouset" :key="idx" @click="selectMorePackage(item)">
-          <div class="w-full aspect-square overflow-hidden  rounded-[10pt] flex items-center justify-center border bg-white">
-            <img :src="require(`~/assets/img${item.url}`)" alt="">
-          </div>
-          <div class="text-center text-[15px]  mt-2">
-            {{ item.name }}
+    <div class="pt-10">
+      <section v-if="step === 0">
+        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
+          <div v-for="(item,idx) in auspiciouset" :key="idx" @click="selectMorePackage(item)">
+            <div class="w-full aspect-square overflow-hidden  rounded-[10pt] flex items-center justify-center border bg-white">
+              <img :src="require(`~/assets/img${item.url}`)" alt="">
+            </div>
+            <div class="text-center text-[15px]  mt-2">
+              {{ item.name }}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section v-if="step === 1" class="px-[24pt]">
-      <div v-if="!isSelectPackage">
-        <div>
-          <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
-          <div
-            v-swiper:pintoIamge="swiperOptionsimage"
-            class="swiper "
-          >
-            <div class="swiper-wrapper">
-              <div v-for="(image,idx) in imageCover" :key="idx" class="swiper-slide ">
-                <div v-if="image" class="mx-auto flex flex-col justify-center items-center rounded-[10pt]   w-full bg-white  aspect-video cursor-pointer mt-3 mb-4" @click="image ? showimage(image) : null">
+      <section v-if="step === 1" class="px-[24pt]">
+        <div v-if="!isSelectPackage">
+          <div>
+            <span v-if="setName" class="text-[14pt]"> {{ setName }}</span>
+            <div
+              v-swiper:pintoIamge="swiperOptionsimage"
+              class="swiper "
+            >
+              <div class="swiper-wrapper">
+                <div v-for="(image,idx) in imageCover" :key="idx" class="swiper-slide ">
+                  <div v-if="image" class="mx-auto flex flex-col justify-center items-center rounded-[10pt]   w-full bg-white  aspect-video cursor-pointer mt-3 mb-4" @click="image ? showimage(image) : null">
+                    <img
+
+                      class="rounded-[10pt] object-cover h-full w-full"
+                      :src="require(`~/assets/img${image}`)"
+                    >
+                  </div>
+                  <div v-else class="bg-white rounded-[10pt] aspect-video" />
+                </div>
+              </div>
+              <div class="swiper-pagination swiper-pagination-bullets" />
+            </div>
+          </div>
+          <div>
+            <div class="mt-2 ">
+              แพ็คเกจ
+            </div>
+
+            <div class="grid gap-6 mb-6 grid-cols-2 mt-[25pt]">
+              <div v-for="(item,idx) in pacakgex" :key="idx" class="text-center" @click="selectpackage(item.value)">
+                <div v-if="item.url" class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
                   <img
-
-                    class="rounded-[10pt] object-cover h-full w-full"
-                    :src="require(`~/assets/img${image}`)"
+                    class="rounded-[10pt] object-cover  h-full w-full"
+                    :src="require(`~/assets/img${item.url}`)"
                   >
                 </div>
-                <div v-else class="bg-white rounded-[10pt] aspect-video" />
+                <!-- <img
+                v-if="item.url"
+                class="rounded-[10pt] object-cover aspect-square "
+                :src="require(`~/assets/img${item.url}`)"
+              > -->
+                <div v-else class="rounded-[10pt] object-cover aspect-square bg-white" />
+                <!-- <card :name="item.name" :picture="item.url" /> -->
+                <div class="mt-2 text-[15px]">
+                  {{ item.name }}
+                </div>
               </div>
             </div>
-            <div class="swiper-pagination swiper-pagination-bullets" />
           </div>
         </div>
-        <div>
-          <div class="mt-2 ">
-            แพ็คเกจ
-          </div>
-
-          <div class="grid gap-6 mb-6 grid-cols-2 mt-[25pt]">
-            <div v-for="(item,idx) in pacakgex" :key="idx" class="text-center" @click="selectpackage(item.value)">
-              <div v-if="item.url" class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
+        <div v-else>
+          <div class="grid gap-6 mb-6 grid-cols-2 ">
+            <div v-for="(item,idx) in secoundPackage" :key="idx" class="text-center" @click="selectSecondpackage(item)">
+              <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
                 <img
                   class="rounded-[10pt] object-cover  h-full w-full"
                   :src="require(`~/assets/img${item.url}`)"
                 >
               </div>
               <!-- <img
-                v-if="item.url"
-                class="rounded-[10pt] object-cover aspect-square "
-                :src="require(`~/assets/img${item.url}`)"
-              > -->
-              <div v-else class="rounded-[10pt] object-cover aspect-square bg-white" />
-              <!-- <card :name="item.name" :picture="item.url" /> -->
+              class="rounded-[10pt] object-cover aspect-square "
+              :src="require(`~/assets/img${item.url}`)"
+            > -->
               <div class="mt-2 text-[15px]">
                 {{ item.name }}
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div v-else>
-        <div class="grid gap-6 mb-6 grid-cols-2 ">
-          <div v-for="(item,idx) in secoundPackage" :key="idx" class="text-center" @click="selectSecondpackage(item)">
-            <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
+      </section>
+
+      <ValidObs ref="validator4">
+        <section v-if="step === 2 && Number(setNumber) !== 2" class="pb-12">
+          <div class="px-[24pt]">
+            <span class="text-[14pt]"> {{ packages.name }}</span>
+            <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="showimage()">
               <img
-                class="rounded-[10pt] object-cover  h-full w-full"
+                class="rounded-[10pt] object-cover aspect-video"
+                :src="require(`~/assets/img${imagesSelected}`)"
+              >
+            </div>
+          </div>
+          <div class="px-[24pt]">
+            <!-- <p class="mt-4 text-[16pt]">
+            ชื่อแพ็คเกจ {{ packages.name }}
+          </p> -->
+            <p class="text-[12pt] mt-2">
+              รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
+            </p>
+          </div>
+          <div class="grid gap-0 mb-6 grid-cols-2 px-[24pt] mt-4">
+            <label for="จำนวนพระสงฆ์" class="text-[12pt] mt-2">ระบุจำนวนพระสงฆ์</label>
+            <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
+              <input
+                v-model="packages.monk"
+                style="box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px;"
+                class="shadow-main block py-[0.625rem] px-[1rem]  h-[44px] text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
+                type="number"
+                name="จำนวนพระสงฆ์"
+                placeholder="จำนวนพระสงฆ์"
+                @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
+                @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
+              >
+
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
+          <div class="mt-4 px-[24pt]">
+            <span class="text-[12pt]">บริการนิมนต์พระสงฆ์*</span>
+            <div class="flex">
+              <div class="flex items-center">
+                <input
+                  id="bordered-checkbox-1"
+                  v-model="packages.is_monk"
+                  type="radio"
+                  :value="true"
+                  name="bordered-checkbox"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
+              </div>
+              <div class="flex items-center pl-4 ">
+                <input
+                  id="bordered-checkbox-2"
+                  v-model="packages.is_monk"
+                  type="radio"
+                  :value="false"
+                  name="bordered-checkbox"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
+              </div>
+            </div>
+          </div>
+          <div class="text-[11px] text-left px-[24pt]">
+            *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
+          </div>
+          <div class="mt-6  px-[24pt]">
+            <span class="text-[12pt]">บริการมัคนายก/มัคนายิกา แบบมืออาชีพ</span>
+            <div class="flex  ">
+              <div class="flex items-center">
+                <input
+                  id="bordered-checkbox-4"
+                  v-model="packages.is_churchwarden"
+                  type="radio"
+                  :value="true"
+                  name="bordered-checkbox-4"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-4" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
+              </div>
+              <div class="flex items-center pl-4 ">
+                <input
+                  id="bordered-checkbox-3"
+                  v-model="packages.is_churchwarden"
+                  type="radio"
+                  :value="false"
+                  name="bordered-checkbox-3"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
+              </div>
+            </div>
+            <div class="text-[11px] text-left">
+              *หมายเหตุ: ลูกค้าจะได้รับส่วนลดในกรณีที่ไม่ต้องการบริการมัคนายก/มัคนายิกา
+            </div>
+          </div>
+          <the-footer-button>
+            <template #button>
+              <button type="button" class="button_base " @click="next(1)">
+                ถัดไป
+              </button>
+            </template>
+          </the-footer-button>
+        </section>
+      </ValidObs>
+      <ValidObs ref="validator3">
+        <section v-if="step === 2 && setNumber === 2" class=" pt-3 pb-6">
+          <div class="px-[24pt]">
+            <span class="text-[14pt]"> {{ packages.name }}</span>
+            <!-- <span v-if="packaged.name" class=""> {{ setName }}</span> -->
+            <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="showimage()">
+              <img
+                class="rounded-[10pt] object-cover aspect-video"
+                :src="require(`~/assets/img${imagesSelected}`)"
+              >
+            </div>
+          </div>
+          <div class="px-[24pt] mb-4">
+            <!-- <p class="mt-4 ">
+            ชื่อแพ็คเกจ
+          </p> -->
+            <p class="text-sm mt-2">
+              รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
+            </p>
+          </div>
+          <div class="grid gap-0 mb-6 grid-cols-2 px-[24pt] mt-4">
+            <label for="จำนวนพระสงฆ์" class="text-[12pt] mt-2">ระบุจำนวนพระสงฆ์</label>
+            <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
+              <input
+                v-model="packages.monk"
+                class="block py-2.5 px-4 w-1/2 text-[#142917] bg-gray-50 rounded-full border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
+                type="number"
+                name="จำนวนพระสงฆ์"
+                placeholder="จำนวนพระสงฆ์"
+                @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
+                @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
+              >
+
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
+          <div class="mt-4 px-[24pt]">
+            <span class="text-[12pt]">บริการนิมนต์พระสงฆ์*</span>
+            <div class="flex">
+              <div class="flex items-center">
+                <input
+                  id="bordered-checkbox-1"
+                  v-model="packages.is_monk"
+                  type="radio"
+                  :value="true"
+                  name="bordered-checkbox"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
+              </div>
+              <div class="flex items-center pl-4 ">
+                <input
+                  id="bordered-checkbox-2"
+                  v-model="packages.is_monk"
+                  type="radio"
+                  :value="false"
+                  name="bordered-checkbox"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
+              </div>
+            </div>
+            <div class="text-[11px]  text-left">
+              *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
+            </div>
+          </div>
+          <div class="mt-6  px-[24pt]">
+            <span class="text-[12pt]">บริการมัคนายก/มัคนายิกา แบบมืออาชีพ</span>
+            <div class="flex  ">
+              <div class="flex items-center">
+                <input
+                  id="bordered-checkbox-4"
+                  v-model="packages.is_churchwarden"
+                  type="radio"
+                  :value="true"
+                  name="bordered-checkbox-4"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-4" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
+              </div>
+              <div class="flex items-center pl-4 ">
+                <input
+                  id="bordered-checkbox-3"
+                  v-model="packages.is_churchwarden"
+                  type="radio"
+                  :value="false"
+                  name="bordered-checkbox-3"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                >
+                <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
+              </div>
+            </div>
+            <div class="text-[11px] text-left">
+              *หมายเหตุ: ลูกค้าจะได้รับส่วนลดในกรณีที่ไม่ต้องการบริการมัคนายก/มัคนายิกา
+            </div>
+          </div>
+          <div class="mt-4 px-[24pt]">
+            <label class="label_base">รูปแบบการจัดเลี้ยงพระสงฆ์</label>
+            <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
+              <select v-model="setStyle" class=" w-full input_base">
+                <option v-for="set in monkBuffet" :key="set.value" :value="set.value">
+                  {{ set.name }} ({{ set.price }} บาท/ชุด)
+                </option>
+              </select>
+              <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+            </ValidPro>
+          </div>
+          <the-footer-button>
+            <template #button>
+              <button type="button" class="button_base " @click="next(1)">
+                ถัดไป
+              </button>
+            </template>
+          </the-footer-button>
+        </section>
+      </ValidObs>
+
+      <section v-if="step === 3" class="px-[24pt]">
+        <div class="text-[16pt]">
+          เลือกแพ็คเกจอาหาร
+        </div>
+        <div class="grid gap-6 mb-6 grid-cols-2">
+          <div v-for="(item,idx) in handleMoreMenu(moreMenu)" :key="idx" class="text-center" @click="selectMenu(item.value)">
+            <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
+              <img
+                class="rounded-[10pt]"
                 :src="require(`~/assets/img${item.url}`)"
               >
             </div>
-            <!-- <img
-              class="rounded-[10pt] object-cover aspect-square "
-              :src="require(`~/assets/img${item.url}`)"
-            > -->
             <div class="mt-2 text-[15px]">
               {{ item.name }}
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <ValidObs ref="validator4">
-      <section v-if="step === 2 && Number(setNumber) !== 2" class="pb-12">
-        <div class="px-[24pt]">
-          <span class="text-[14pt]"> {{ packages.name }}</span>
-          <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="showimage()">
-            <img
-              class="rounded-[10pt] object-cover aspect-video"
-              :src="require(`~/assets/img${imagesSelected}`)"
-            >
-          </div>
-        </div>
-        <div class="px-[24pt]">
-          <!-- <p class="mt-4 text-[16pt]">
-            ชื่อแพ็คเกจ {{ packages.name }}
-          </p> -->
-          <p class="text-[12pt] mt-2">
-            รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
-          </p>
-        </div>
-        <div class="grid gap-0 mb-6 grid-cols-2 px-[24pt] mt-4">
-          <label for="จำนวนพระสงฆ์" class="text-[12pt] mt-2">ระบุจำนวนพระสงฆ์</label>
-          <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
-            <input
-              v-model="packages.monk"
-              style="box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px;"
-              class="shadow-main block py-[0.625rem] px-[1rem]  h-[44px] text-[#142917] bg-gray-50 rounded-full outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
-              type="number"
-              name="จำนวนพระสงฆ์"
-              placeholder="จำนวนพระสงฆ์"
-              @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
-              @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
-            >
-
-            <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-          </ValidPro>
-        </div>
-        <div class="mt-4 px-[24pt]">
-          <span class="text-[12pt]">บริการนิมนต์พระสงฆ์*</span>
-          <div class="flex">
-            <div class="flex items-center">
-              <input
-                id="bordered-checkbox-1"
-                v-model="packages.is_monk"
-                type="radio"
-                :value="true"
-                name="bordered-checkbox"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              >
-              <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
+      <section v-if="step === 4" class="step2 ">
+        <span class="text-[14pt] px-[24pt]"> {{ packages.name }}</span>
+        <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
+          <div v-for="(item,idx) in setAccessories" :key="idx" class="grid-cols-2">
+            <div class="w-full aspect-square overflow-hidden  rounded-[10pt] flex items-center justify-center border bg-white">
+              <img :src="require(`~/assets/img${item.url}`)" alt="">
             </div>
-            <div class="flex items-center pl-4 ">
-              <input
-                id="bordered-checkbox-2"
-                v-model="packages.is_monk"
-                type="radio"
-                :value="false"
-                name="bordered-checkbox"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              >
-              <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
+            <div class="block product-count-button-position mt-2">
+              <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-full">
+                <button class="flex items-center text=black justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="item.count > 0 ? item.count-- : 0">
+                  <span class="sr-only">button-minus</span>
+                  <svg
+                    class="transition-all"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                </button>
+                <span class="font-semibold text=black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span>
+                <button class="group flex items-center justify-center h-full shrink-0 transition-all text=black ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
+                  <span class="sr-only">button-plus</span>
+                  <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="text-[11px] text-left px-[24pt]">
-          *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
-        </div>
-        <div class="mt-6  px-[24pt]">
-          <span class="text-[12pt]">บริการมัคนายก/มัคนายิกา แบบมืออาชีพ</span>
-          <div class="flex  ">
-            <div class="flex items-center">
-              <input
-                id="bordered-checkbox-4"
-                v-model="packages.is_churchwarden"
-                type="radio"
-                :value="true"
-                name="bordered-checkbox-4"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              >
-              <label for="bordered-checkbox-4" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
+            <div class="text-[#142917] text-[10pt] text-center mt-2">
+              {{ item.price.toLocaleString() }} บาท
             </div>
-            <div class="flex items-center pl-4 ">
-              <input
-                id="bordered-checkbox-3"
-                v-model="packages.is_churchwarden"
-                type="radio"
-                :value="false"
-                name="bordered-checkbox-3"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              >
-              <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
+            <div class="text-[#142917] text-[12pt] text-center mt-1">
+              {{ item.name }}
             </div>
-          </div>
-          <div class="text-[11px] text-left">
-            *หมายเหตุ: ลูกค้าจะได้รับส่วนลดในกรณีที่ไม่ต้องการบริการมัคนายก/มัคนายิกา
           </div>
         </div>
         <the-footer-button>
@@ -188,304 +369,125 @@
             </button>
           </template>
         </the-footer-button>
-      </section>
-    </ValidObs>
-    <ValidObs ref="validator3">
-      <section v-if="step === 2 && setNumber === 2" class=" pt-3 pb-6">
-        <div class="px-[24pt]">
-          <span class="text-[14pt]"> {{ packages.name }}</span>
-          <!-- <span v-if="packaged.name" class=""> {{ setName }}</span> -->
-          <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="showimage()">
-            <img
-              class="rounded-[10pt] object-cover aspect-video"
-              :src="require(`~/assets/img${imagesSelected}`)"
-            >
-          </div>
-        </div>
-        <div class="px-[24pt] mb-4">
-          <!-- <p class="mt-4 ">
-            ชื่อแพ็คเกจ
-          </p> -->
-          <p class="text-sm mt-2">
-            รายละเอียดสิ่งที่จะได้ในแพ็คเกจนี้
-          </p>
-        </div>
-        <div class="grid gap-0 mb-6 grid-cols-2 px-[24pt] mt-4">
-          <label for="จำนวนพระสงฆ์" class="text-[12pt] mt-2">ระบุจำนวนพระสงฆ์</label>
-          <ValidPro v-slot="{ errors }" rules="required|minquantity:1" class="col-span-2" name="จำนวนพระสงฆ์">
-            <input
-              v-model="packages.monk"
-              class="block py-2.5 px-4 w-1/2 text-[#142917] bg-gray-50 rounded-full border-none  outline-none focus:ring-[#EEDAB9] mt-2  text-[12pt]  placeholder:text-[#EEDAB9]"
-              type="number"
-              name="จำนวนพระสงฆ์"
-              placeholder="จำนวนพระสงฆ์"
-              @blur="packages.monk === null ? packages.monk = 0 : packages.monk"
-              @focus="packages.monk === 0 ? packages.monk = null : packages.monk"
-            >
-
-            <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-          </ValidPro>
-        </div>
-        <div class="mt-4 px-[24pt]">
-          <span class="text-[12pt]">บริการนิมนต์พระสงฆ์*</span>
-          <div class="flex">
-            <div class="flex items-center">
-              <input
-                id="bordered-checkbox-1"
-                v-model="packages.is_monk"
-                type="radio"
-                :value="true"
-                name="bordered-checkbox"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              >
-              <label for="bordered-checkbox-1" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
-            </div>
-            <div class="flex items-center pl-4 ">
-              <input
-                id="bordered-checkbox-2"
-                v-model="packages.is_monk"
-                type="radio"
-                :value="false"
-                name="bordered-checkbox"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              >
-              <label for="bordered-checkbox-2" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
-            </div>
-          </div>
-          <div class="text-[11px]  text-left">
-            *หมายเหตุ: หากต้องการนิมนต์พระสงฆ์ ต้องแจ้งล่วงหน้าอย่างน้อย 15 วัน
-          </div>
-        </div>
-        <div class="mt-6  px-[24pt]">
-          <span class="text-[12pt]">บริการมัคนายก/มัคนายิกา แบบมืออาชีพ</span>
-          <div class="flex  ">
-            <div class="flex items-center">
-              <input
-                id="bordered-checkbox-4"
-                v-model="packages.is_churchwarden"
-                type="radio"
-                :value="true"
-                name="bordered-checkbox-4"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              >
-              <label for="bordered-checkbox-4" class="py-4 ml-2 w-full text-[15px] flex ">ต้องการ</label>
-            </div>
-            <div class="flex items-center pl-4 ">
-              <input
-                id="bordered-checkbox-3"
-                v-model="packages.is_churchwarden"
-                type="radio"
-                :value="false"
-                name="bordered-checkbox-3"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              >
-              <label for="bordered-checkbox-3" class="py-4 ml-2 w-full text-[15px] flex ">ไม่ต้องการ</label>
-            </div>
-          </div>
-          <div class="text-[11px] text-left">
-            *หมายเหตุ: ลูกค้าจะได้รับส่วนลดในกรณีที่ไม่ต้องการบริการมัคนายก/มัคนายิกา
-          </div>
-        </div>
-        <div class="mt-4 px-[24pt]">
-          <label class="label_base">รูปแบบการจัดเลี้ยงพระสงฆ์</label>
-          <ValidPro v-slot="{ errors }" rules="required" name="เลือกเซ็ทราคา">
-            <select v-model="setStyle" class=" w-full input_base">
-              <option v-for="set in monkBuffet" :key="set.value" :value="set.value">
-                {{ set.name }} ({{ set.price }} บาท/ชุด)
-              </option>
-            </select>
-            <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
-          </ValidPro>
-        </div>
-        <the-footer-button>
-          <template #button>
-            <button type="button" class="button_base " @click="next(1)">
-              ถัดไป
-            </button>
-          </template>
-        </the-footer-button>
-      </section>
-    </ValidObs>
-
-    <section v-if="step === 3" class="px-[24pt]">
-      <div class="text-[16pt]">
-        เลือกแพ็คเกจอาหาร
-      </div>
-      <div class="grid gap-6 mb-6 grid-cols-2">
-        <div v-for="(item,idx) in handleMoreMenu(moreMenu)" :key="idx" class="text-center" @click="selectMenu(item.value)">
-          <div class="w-full aspect-square   rounded-[10pt] flex items-center justify-center border overflow-hidden bg-white">
-            <img
-              class="rounded-[10pt]"
-              :src="require(`~/assets/img${item.url}`)"
-            >
-          </div>
-          <div class="mt-2 text-[15px]">
-            {{ item.name }}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section v-if="step === 4" class="step2 ">
-      <span class="text-[14pt] px-[24pt]"> {{ packages.name }}</span>
-      <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
-        <div v-for="(item,idx) in setAccessories" :key="idx" class="grid-cols-2">
-          <div class="w-full aspect-square overflow-hidden  rounded-[10pt] flex items-center justify-center border bg-white">
-            <img :src="require(`~/assets/img${item.url}`)" alt="">
-          </div>
-          <div class="block product-count-button-position mt-2">
-            <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-full">
-              <button class="flex items-center text=black justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="item.count > 0 ? item.count-- : 0">
-                <span class="sr-only">button-minus</span>
-                <svg
-                  class="transition-all"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-              </button>
-              <span class="font-semibold text=black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span>
-              <button class="group flex items-center justify-center h-full shrink-0 transition-all text=black ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
-                <span class="sr-only">button-plus</span>
-                <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-              </button>
-            </div>
-          </div>
-          <div class="text-[#142917] text-[10pt] text-center mt-2">
-            {{ item.price.toLocaleString() }} บาท
-          </div>
-          <div class="text-[#142917] text-[12pt] text-center mt-1">
-            {{ item.name }}
-          </div>
-        </div>
-      </div>
-      <the-footer-button>
-        <template #button>
-          <button type="button" class="button_base " @click="next(1)">
-            ถัดไป
-          </button>
-        </template>
-      </the-footer-button>
 
       <!-- <button type="button" class="button_base" @click="next">
         ถัดไป
       </button> -->
-    </section>
+      </section>
 
-    <section v-if="step === 5" class="">
-      <div class="px-[24pt]">
-        <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
-          <div class="text-[16pt] font-medium text-center mb-[10pt]">
-            สรุปรายการ
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   ">
-              ชื่อ-นามสกุล
-            </p>
-            <p class="">
-              {{ $store.state.users.name }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   ">
-              เบอร์โทร
-            </p>
-            <p class="">
-              {{ $store.state.users.phone }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   ">
-              อีเมล์
-            </p>
-            <p class="">
-              {{ $store.state.users.email ? $store.state.users.email : '-' }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium    w-1/2">
-              เเพ็กเกจหลัก
-            </p>
-            <p class="text-right w-1/2">
-              {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   ">
-              จำนวนพระสงฆ์
-            </p>
-            <p class="">
-              {{ Number(packages.monk).toString() }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   w-2/3">
-              บริการนิมนต์พระสงฆ์
-            </p>
-            <p class="w-1/3 text-right">
-              {{ packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ' }}
-            </p>
-          </div>
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   w-2/3">
-              บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
-            </p>
-            <p class="w-1/3 text-right">
-              {{ packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ' }}
-            </p>
-          </div>
-          <div v-if="setNumber === 2" class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   w-2/3">
-              รูปแบบการจัดเลี้ยงพระสงฆ์
-            </p>
-            <p class="w-1/3 text-right">
-              {{ `${$store.state.auspicious_packages.style_buffet.name}: ${$store.state.auspicious_packages.style_buffet.price} บาท` }}
-            </p>
-          </div>
+      <section v-if="step === 5" class="">
+        <div class="px-[24pt]">
+          <div class="mt-6  bg-white rounded-[10pt] p-[20px] text-[14pt]">
+            <div class="text-[16pt] font-medium text-center mb-[10pt]">
+              สรุปรายการ
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   ">
+                ชื่อ-นามสกุล
+              </p>
+              <p class="">
+                {{ $store.state.users.name }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   ">
+                เบอร์โทร
+              </p>
+              <p class="">
+                {{ $store.state.users.phone }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   ">
+                ชื่อ Facebook
+              </p>
+              <p class="">
+                {{ $store.state.users.email ? $store.state.users.email : '-' }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium    w-1/2">
+                เเพ็กเกจหลัก
+              </p>
+              <p class="text-right w-1/2">
+                {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   ">
+                จำนวนพระสงฆ์
+              </p>
+              <p class="">
+                {{ Number(packages.monk).toString() }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   w-2/3">
+                บริการนิมนต์พระสงฆ์
+              </p>
+              <p class="w-1/3 text-right">
+                {{ packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ' }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   w-2/3">
+                บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
+              </p>
+              <p class="w-1/3 text-right">
+                {{ packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ' }}
+              </p>
+            </div>
+            <div v-if="setNumber === 2" class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   w-2/3">
+                รูปแบบการจัดเลี้ยงพระสงฆ์
+              </p>
+              <p class="w-1/3 text-right">
+                {{ `${$store.state.auspicious_packages.style_buffet.name}: ${$store.state.auspicious_packages.style_buffet.price} บาท` }}
+              </p>
+            </div>
 
-          <div class="flex flex-row justify-between mb-2 label_base">
-            <p class="font-medium   w-1/2">
-              อุปกรณ์เพิ่มเติม
-            </p>
-            <p class="w-1/2 text-right">
-              {{ listAccessories }}
-            </p>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   w-1/2">
+                อุปกรณ์เพิ่มเติม
+              </p>
+              <p class="w-1/2 text-right">
+                {{ listAccessories }}
+              </p>
+            </div>
+          </div>
+          <div class="mt-[50pt]">
+            <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
+            <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
           </div>
         </div>
-        <div class="mt-[50pt]">
-          <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
-          <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
-        </div>
-      </div>
-      <the-footer-button>
-        <template #button>
-          <button type="button" class="button_base " @click="next(1)">
-            ถัดไป
-          </button>
-          <button type="button" class="button_optional mt-4" @click="next(2)">
-            เลือกแพ็คเกจอาหาร
-          </button>
-        </template>
-      </the-footer-button>
-    </section>
+        <the-footer-button>
+          <template #button>
+            <button type="button" class="button_base " @click="next(1)">
+              ถัดไป
+            </button>
+            <button type="button" class="button_optional mt-4" @click="next(2)">
+              เลือกแพ็คเกจอาหาร
+            </button>
+          </template>
+        </the-footer-button>
+      </section>
 
-    <section v-show="step === 6" class="step4 ">
-      <the-quotation @handleSubmitInformation="submit" />
-    </section>
+      <section v-show="step === 6" class="step4 ">
+        <the-quotation @handleSubmitInformation="submit" />
+      </section>
 
-    <!-- <button v-show=" step === 2" type="button" class="button_base " @click="next(1)">
+      <!-- <button v-show=" step === 2" type="button" class="button_base " @click="next(1)">
       ถัดไป
     </button>
     <button v-show=" step === 2" type="button" class="button_base mt-4" @click="next(2)">
       เลือกแพ็คเกจอาหาร
     </button> -->
 
-    <modalfinish v-if="isFinish" @close="handelfinish" />
-    <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
-    <modalerror v-if="isError" @close="handelfinish" />
-    <ModalImages v-if="isImages" :img="selectImage" @close="isImages = false,selectImage = ''" />
+      <modalfinish v-if="isFinish" @close="handelfinish" />
+      <modalguest-information v-if="isModalinfo" @submit="isModalinfo = false" />
+      <modalerror v-if="isError" @close="handelfinish" />
+      <ModalImages v-if="isImages" :img="selectImage" @close="isImages = false,selectImage = ''" />
+    </div>
   </div>
 </template>
 
@@ -617,7 +619,6 @@ export default {
     }
   },
   mounted () {
-    this.countFirebase()
     this.setAccessories = this.accessories.map((x) => {
       return {
         name: x.name,
@@ -785,7 +786,7 @@ export default {
               { text: 'ชื่อลูกค้า: ' + this.$store.state.users.name, style: 'information' },
               { text: 'เบอร์ติดต่อ: ' + this.$store.state.users.phone, style: 'information' },
               { text: 'เบอร์ติดต่อ (สำรอง): ' + this.summary.backupPhone, style: 'information' },
-              { text: 'อีเมล์: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
+              { text: 'ชื่อ Facebook: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
               {
                 table: {
                   widths: ['*'],
@@ -828,14 +829,11 @@ export default {
                 }
               }, {
                 margin: 10,
-                columns: [{
-                  text: '(                                             )',
-                  alignment: 'center'
-                },
-                {
-                  text: 'ราคารวม ' + `${this.summary.totalprice ? this.summary.totalprice.toLocaleString() : this.summary.totalprice}` + ' บาท',
-                  alignment: 'center'
-                }]
+                columns: [
+                  {
+                    text: 'ราคารวม ' + `${this.summary.totalprice ? this.summary.totalprice.toLocaleString() : this.summary.totalprice}` + ' บาท',
+                    alignment: 'center'
+                  }]
               },
               {
                 text: 'หมายเหตุ: ราคาในใบสรุปรายการนี้เป็นราคาประเมินเบื้องต้นซึ่งยังไม่รวมค่าจัดส่งตามระยะทาง',
@@ -946,18 +944,32 @@ export default {
       this.isError = false
       this.$router.push('/summary')
     },
-    countFirebase () {
-      let listRef = this.$storage.ref()
+    async countFirebase () {
+      let x = await this.$db.collection('cities').orderBy('timestamp', 'desc').limit(1).get()
+      if (x.size) {
+        const data = {
+          id: x.docs[x.size - 1].data().id + 1,
+          timestamp: this.$moment(new Date()).unix()
+        }
+        const res = await this.$db.collection('cities').add(data)
+        let runid = ('000000' + (x.docs[x.size - 1].data().id + 1))
+        let prefixtime = this.$moment(new Date()).format('YYYYMM')
+        this.orderIdByfirebase = prefixtime + runid
+      } else {
+        this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
+      }
+      // let listRef = this.$storage.ref()
 
-      // Find all the prefixes and items.
-      listRef.listAll()
-        .then((res) => {
-          this.orderIdByfirebase = res.items.length + 1
-        }).catch(() => {
-          this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
-        })
+      // // Find all the prefixes and items.
+      // listRef.listAll()
+      //   .then((res) => {
+      //     this.orderIdByfirebase = res.items.length + 1
+      //   }).catch(() => {
+      //     this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
+      //   })
     },
     async submit (data) {
+      await this.countFirebase()
       this.$store.dispatch('handleLoading', true)
       let x = this.setAccessories.filter(x => x.count > 0)
       let sum = x.map((el) => { return `${el.name} x ${el.count}\n` })
