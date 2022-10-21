@@ -1,7 +1,7 @@
 <template>
   <div>
     <base-button-back title="ย้อนกลับ" class="mb-2" @back="back" />
-    <div class="pt-10">
+    <div class="">
       <section v-if="step === 0">
         <div class="text-[14pt] w-fit px-[24pt]">
           SDGS
@@ -36,7 +36,7 @@
 <!-- @click="selectImage =`/sdg/${item}.jpg`,isImages = true" -->
 <script>
 import ModalImages from '../../components/Modal/images'
-const dataContent = [8, 7, 11, 8, 2, 1, 12, 4]
+const dataContent = [8, 7, 11, 8, 2, 5, 12, 4]
 export default {
   components: {
     ModalImages

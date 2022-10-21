@@ -1,7 +1,7 @@
 <template>
   <div>
     <base-button-back title="ย้อนกลับ" @back="back" />
-    <div class="pt-10">
+    <div class="">
       <section v-if="step === 0">
         <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
           <div v-for="(item,idx) in auspiciouset" :key="idx" @click="selectMorePackage(item)">
@@ -39,7 +39,7 @@
             </div>
           </div>
           <div>
-            <div class="mt-2 ">
+            <div v-if="setNumber !== 3" class="mt-2 ">
               แพ็คเกจ
             </div>
 
@@ -87,7 +87,7 @@
       </section>
 
       <ValidObs ref="validator4">
-        <section v-if="step === 2 && Number(setNumber) !== 2" class="pb-12">
+        <section v-if="step === 2 && Number(setNumber) === 1" class="pb-12">
           <div class="px-[24pt]">
             <span class="text-[14pt]"> {{ packages.name }}</span>
             <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="showimage()">
@@ -307,6 +307,75 @@
           </the-footer-button>
         </section>
       </ValidObs>
+      <ValidObs ref="validator5">
+        <section v-if="step === 2 && setNumber === 3" class=" pt-3 pb-6">
+          <!-- <div class=" w-fit  px-[24pt] ">
+          {{ setName }} >  {{ packselected.name }}  {{ packselected.price }}
+        </div>
+        <div class=" px-[24pt] ">
+          <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="selectImage =`${imageBanner}`,isImages = true">
+            <img
+              class="rounded-[10pt] object-cover aspect-video"
+              :src="require(`~/assets/img${imageBanner}`)"
+            >
+          </div>
+        </div> -->
+
+          <!-- <div v-if="setNumber === 1" class=" text-[14px]  px-[24pt]">
+          เงื่อนไข:<br>
+          1. ลูกค้าจะได้รับ ชา, กาแฟ, โอวัลติน คละแบบ <br>
+          2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)  <br>
+          3. จำนวนไม่ถึง 100 ชุด จะมีค่าจัดเบรค 400 บาท  <br>
+          4. ระยะเวลาให้บริการ 2 ชั่วโมง <br>
+          5. มีค่าขนส่งตามระยะทาง
+        </div>
+        <div v-if="setNumber === 2" class=" text-[14px]  px-[24pt] ">
+          เงื่อนไข:<br> 1. ลูกค้าจะได้รับน้ำผลไม้ 1 กล่อง (คละแบบ)<br> 2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)<br> 3. จำนวนขั้นต่ำ 50 ชุด<br> 4. มีค่าขนส่งตามระยะทาง
+        </div>
+        <div v-if="setNumber === 3 " class="text-[14px]  px-[24pt] ">
+          *หมายเหตุ:<br>
+          -รับจำนวนขั้นต่ำ 30 ท่านขึ้นไป <br> - ให้บริการ 2ชม.นับจากเวลาเริ่มทาน
+        </div> -->
+
+          <div class="px-[24pt]">
+            <div class="block product-count-button-position mt-4 flex justify-center">
+              <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-42">
+                <button class="flex items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="menu.count > 0 ? menu.count-- : 0">
+                  <span class="sr-only">button-minus</span>
+                  <svg
+                    class="transition-all"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                </button>
+                <input
+                  v-model.number="menu.count"
+                  type="number"
+                  class="font-semibold flex items-center justify-center h-full border-none text-center focus:ring-0 transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-20"
+                  min="0"
+                  @focus="menu.count === 0 ? menu.count = null : menu.count"
+                  @blur="menu.count === null ? menu.count = 0 : menu.count"
+                >
+                <!-- <span class="font-semibold text-brand-dark flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ menu.count }}</span> -->
+                <button class="group flex items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="menu.count++">
+                  <span class="sr-only">button-plus</span>
+                  <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <the-footer-button>
+            <template #button>
+              <button type="button" class="button_base" @click="nextMenu">
+                ถัดไป
+              </button>
+            </template>
+          </the-footer-button>
+        </section>
+      </ValidObs>
 
       <section v-if="step === 3" class="px-[24pt]">
         <div class="text-[16pt]">
@@ -410,7 +479,7 @@
                 เเพ็กเกจหลัก
               </p>
               <p class="text-right w-1/2">
-                {{ `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
+                {{ setNumber === 3 ? setName : `${$store.state.auspicious_packages.package}: ${$store.state.auspicious_packages.price}` }}
               </p>
             </div>
             <div class="flex flex-row justify-between mb-2 label_base">
@@ -454,6 +523,15 @@
                 {{ listAccessories }}
               </p>
             </div>
+
+            <div v-if="setNumber === 3" class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium  w-1/2">
+                สรุปรายการ
+              </p>
+              <p class="w-1/2 text-right">
+                {{ resultOrder.join(',') }}
+              </p>
+            </div>
           </div>
           <div class="mt-[50pt]">
             <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
@@ -465,7 +543,7 @@
             <button type="button" class="button_base " @click="next(1)">
               ถัดไป
             </button>
-            <button type="button" class="button_optional mt-4" @click="next(2)">
+            <button v-if="setNumber !== 3" type="button" class="button_optional mt-4" @click="next(2)">
               เลือกแพ็คเกจอาหาร
             </button>
           </template>
@@ -474,6 +552,64 @@
 
       <section v-show="step === 6" class="step4 ">
         <the-quotation @handleSubmitInformation="submit" />
+      </section>
+
+      <section v-if="step === 7" class="step1  ">
+        <div class="flex justify-between items-center px-[24pt] mb-3" @click.stop="">
+          <div class="text-[18px] w-fit" @click.stop="">
+            สรุปรายการอาหาร
+          </div>
+          <div v-if="orders.length < set3.length" class="text-[#5A7F52] text-[18px]" @click="addmore">
+            เพิ่มรายการ
+          </div>
+        </div>
+        <div class="px-[24pt]">
+          <div v-for="(item,index) in orders" :key="index" class="bg-white rounded mb-3">
+            <div class="flex justify-between items-center py-3">
+              <div class="p-2 flex flex-col  w-2/3">
+                <span class="text-[14px]">{{ index+1 }}. {{ item.name }} ({{ item.price }}บาท) </span>
+              </div>
+              <div class="block product-count-button-position mt-2 px-2   w-1/3">
+                <div class="flex items-center border-[#5A7F52] border float-right justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-full">
+                  <button class="flex text-[#5A7F52]  items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="minus(item,index)">
+                    <span class="sr-only">button-minus</span>
+                    <svg
+                      class="transition-all"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 22 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                  </button>
+                  <input v-model.number="item.count " type="number" class="border-none w-full  text-black text-center focus:outline-none focus:ring-0  text-sm ">
+
+                  <!-- <span class="font-semibold text-black flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ item.count }}</span> -->
+                  <button class="group flex text-[#5A7F52] items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8  h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="item.count++">
+                    <span class="sr-only">button-plus</span>
+                    <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-[50pt] px-[24pt]">
+          <label for="message" class="block mb-2 text-[12pt] font-medium ">โน้ตเพิ่มเติม</label>
+          <textarea id="message" v-model="note" rows="4" class="input_base_textarea" />
+        </div>
+        <div class="mt-[15pt] px-[24pt]">
+          <div class="flex justify-between text-[20pt]">
+            <span>รวมทั้งหมด</span>  <span>{{ totalMenu }} ชิ้น </span>
+          </div>
+        </div>
+        <the-footer-button>
+          <template #button>
+            <button type="button" class="button_base" @click="handleListOrder">
+              ถัดไป
+            </button>
+          </template>
+        </the-footer-button>
       </section>
 
       <!-- <button v-show=" step === 2" type="button" class="button_base " @click="next(1)">
@@ -524,6 +660,7 @@ export default {
       images1,
       images2,
       imageCover: [],
+      selectMenuSet3: {},
       auspiciouset,
       isSelectPackage: false,
       accessories,
@@ -540,6 +677,12 @@ export default {
         is_monk: true,
         is_churchwarden: false,
         name: '',
+        price: 0
+      },
+      menu: {
+        count: 0,
+        name: '',
+        value: null,
         price: 0
       },
       secoundPackage: [],
@@ -575,10 +718,15 @@ export default {
           url: '/button/Button/4/CoffeeBreak_Cover.jpg'
         }
       ],
-      summary: {}
+      summary: {},
+      orders: []
     }
   },
   computed: {
+    totalMenu () {
+      return Number(this.orders.reduce((sum, current) => Number(sum) + Number(current.count), 0))
+    },
+
     setName () {
       if (this.setNumber) {
         let x = this.auspiciouset.find(x => x.value === Number(this.setNumber))
@@ -598,7 +746,7 @@ export default {
           pricePackageBuffet += this.packages.price
         }
         return pricePackageBuffet
-      } else {
+      } else if (this.setNumber === 1) {
         let x = this.setAccessories.filter(x => x.count > 0)
         let sum = x.reduce((sum, current) => sum + current.count * current.price, 0)
         if (this.packages.price > 0) {
@@ -606,6 +754,10 @@ export default {
         }
 
         return sum
+      } else if (this.setNumber === 3) {
+        return Number(this.orders.reduce((sum, current) => sum + (current.price * current.count), 0))
+      } else {
+        return 0
       }
     },
     listAccessories () {
@@ -678,7 +830,16 @@ export default {
         this.imageCover = this.images2
       }
       if (item.value === 3) {
-        console.log('1')
+        this.pacakgex = this['set' + item.value].map((x) => {
+          return {
+            name: x.name,
+            price: x.price,
+            value: x.value,
+            url: x.url
+          }
+        })
+        this.step = 1
+        this.imageCover = []
       }
     },
     handleMoreMenu (menu) {
@@ -699,7 +860,6 @@ export default {
           bolditalics: 'https://cdn.jsdelivr.net/npm/font-th-sarabun-new@1.0.0/fonts/THSarabunNew_bold-webfont.ttf'
         }
       }
-
       let x = this.setAccessories.filter(x => x.count > 0)
       let sum = x.map((el) => { return `${el.name} x ${el.count}` })
       let sharelink = 'https://firebasestorage.googleapis.com/v0/b/botio-horapa.appspot.com/o/' + this.fields['Order ID'] + '?alt=media'
@@ -710,7 +870,7 @@ export default {
         backupPhone: this.fields['เบอร์โทร (สำรอง)'],
         lift: this.fields['ลิฟท์ขนของ'],
         totalprice: this.fields['ยอดเงิน'],
-        mainPackage: this.$store.state.auspicious_packages.package,
+        mainPackage: this.setNumber === 3 ? this.setName : this.$store.state.auspicious_packages.package,
         subPackage: '',
         monk: this.fields['จำนวนพระสงฆ์'],
         guest: 0,
@@ -724,6 +884,13 @@ export default {
         note: this.fields.Notes,
         date: this.fields['วันส่งสินค้า'],
         link: sharelink
+      }
+
+      if (this.setNumber === 3) {
+        let result = this.resultOrder.join('\r\n')
+        Object.assign(summary, {
+          result
+        })
       }
 
       if (this.setNumber === 2) {
@@ -944,6 +1111,29 @@ export default {
       this.isError = false
       this.$router.push('/summary')
     },
+    minus (item, index) {
+      if (item.count > 0) {
+        item.count--
+      } else {
+        this.orders.splice(index, 1)
+      }
+    },
+    addmore () {
+      this.selectMenuSet3 = {}
+      this.menu.value = null
+      this.menu.name = ''
+      this.menu.price = 0
+      this.menu.count = 0
+      this.step = 1
+    },
+    handleListOrder () {
+      if ((!this.$store.state.users.name || !this.$store.state.users.phone)) {
+        this.isModalinfo = true
+        return
+      }
+      this.resultOrder = this.orders.map((el) => { return `${el.name} ${el.price} บาท x ${el.count} ` })
+      this.step = 5
+    },
     async countFirebase () {
       let x = await this.$db.collection('cities').orderBy('timestamp', 'desc').limit(1).get()
       if (x.size) {
@@ -977,6 +1167,11 @@ export default {
       if (this.setNumber === 2) {
         Object.assign(this.fields, {
           สรุปรายการ: `${this.$store.state.auspicious_packages.style_buffet.name}: ${this.$store.state.auspicious_packages.style_buffet.price} บาท`
+        })
+      } else if (this.setNumber === 3) {
+        let result = this.resultOrder.join('\r\n')
+        Object.assign(this.fields, {
+          สรุปรายการ: result
         })
       } else {
         Object.assign(this.fields, {
@@ -1014,7 +1209,7 @@ export default {
         รหัสไปรษณีย์: Number(data.post_code),
         'Rich Menu': [
           'สิริมงคล'],
-        'Package หลัก': this.$store.state.auspicious_packages.package,
+        'Package หลัก': this.setNumber === 3 ? this.setName : this.$store.state.auspicious_packages.package,
         'Package รอง': '',
         'มัคนายก/มัคนายิกา': this.packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ',
         บริการนิมต์พระสงฆ์: this.packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ',
@@ -1108,7 +1303,7 @@ export default {
             console.log('Plase validate')
           }
         })
-      } else {
+      } else if (Number(this.setNumber) === 1) {
         this.$refs.validator4.validate().then((res) => {
           if (res) {
             let selectedPackage = ''
@@ -1153,6 +1348,8 @@ export default {
             }
           }
         })
+      } else if (Number(this.setNumber) === 3) {
+        this.step = 6
       }
     },
     back () {
@@ -1168,6 +1365,8 @@ export default {
         this.isSelectPackage = false
       } else if (this.step === 2 && this.isSelectPackage) {
         this.step = 1
+      } else if (this.step === 7) {
+        this.step = 2
       } else {
         this.step--
       }
@@ -1185,15 +1384,40 @@ export default {
       let packageMain = this.pacakgex.find(x => x.value === value)
       this.packages.name = packageMain.name
       this.packages.price = packageMain.price
-      if (this.setNumber !== 2) {
+      if (this.setNumber === 1) {
         this.step++
         this.imagesSelected = packageMain.banner
-      } else {
+      } else if (this.setNumber === 2) {
         if (packageMain.set) {
           this.secoundPackage.push(...packageMain.set)
         }
         this.isSelectPackage = true
+      } else if (this.setNumber === 3) {
+        let packageMain = this.pacakgex.find(x => x.value === value)
+        this.selectMenuSet3 = packageMain
+        this.menu.value = packageMain.value
+        this.menu.name = packageMain.name
+        this.menu.price = packageMain.price
+        this.menu.count = 0
+        this.step++
+        console.log(this.menu)
+        // this.imageBanner = `/coffeebreak/${this.setNumber}/banner${value.value}.jpg`
       }
+    },
+    nextMenu () {
+      let item = { ...this.menu }
+      if (this.orders.length) {
+        let found = this.orders.find(x => x.value === item.value)
+        if (found) {
+          found.count = Number(this.menu.count) + Number(found.count)
+        } else {
+          this.orders.push(item)
+        }
+      } else {
+        this.orders.push(item)
+      }
+
+      this.step = 7
     },
     selectMenu (value) {
       const page = {

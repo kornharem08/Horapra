@@ -1,7 +1,7 @@
 <template>
   <div>
     <base-button-back title="ย้อนกลับ" class="mb-2" @back="back" />
-    <div class="pt-10">
+    <div class="">
       <section v-if=" step === 0">
         <div class="grid gap-6 mb-6 grid-cols-2  px-[24pt]">
           <div v-for="(item,idx) in coffeebreak" :key="idx" @click="selectMorePackage(item)">

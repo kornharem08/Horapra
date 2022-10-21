@@ -1,5 +1,32 @@
 [
     {
-        "name" : 1
-    }
+        "name" : "สังฆทาน1",
+        "price" : 199,
+        "value" : 1,
+        "url" : "/coffeebreak/3/ข้าวต้มหมู.jpg"
+        },
+        {
+        "name" : "สังฆทาน2",
+        "price" : 299,
+        "value" : 2,
+        "url" : "/coffeebreak/3/ข้าวต้มทะเล.jpg"
+        },
+        {
+            "name" : "สังฆทาน3",
+            "price" : 399,
+            "value" : 3,
+            "url" : "/coffeebreak/3/ข้าวต้มทะเล.jpg"
+            },
+            {
+                "name" : "สังฆทาน4",
+                "price" : 499,
+                "value" : 4,
+                "url" : "/coffeebreak/3/ข้าวต้มทะเล.jpg"
+                },
+                {
+                    "name" : "สังฆทาน5",
+                    "price" : 599,
+                    "value" : 5,
+                    "url" : "/coffeebreak/3/ข้าวต้มทะเล.jpg"
+                    }
 ]

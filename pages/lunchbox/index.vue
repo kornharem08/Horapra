@@ -1,7 +1,7 @@
 <template>
   <div>
     <base-button-back title="ย้อนกลับ" @back="back" />
-    <div class="pt-10">
+    <div class="">
       <div v-if="step !== 1" class="text-14pt px-[24pt]">
         {{ setName }}
       </div>
@@ -569,9 +569,9 @@ export default {
       }
     },
     addmore () {
-      this.step = 1
-      this.selectBox = {}
-      this.selectListMenu = 0
+      this.step = 2
+      // this.selectBox = {}
+      // this.selectListMenu = 0
     },
     handleresulte () {
       let result = []

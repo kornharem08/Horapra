@@ -1,7 +1,7 @@
 <template>
   <div>
     <base-button-back :title="step === 0 ? $route.query.morepackage ? ' สิริมงคล' : 'กลับหน้าหลัก' : 'ย้อนกลับ'" class="mb-2" @back="back" />
-    <div class="pt-10">
+    <div class="">
       <section v-if="step === 0" class="step1">
         <div class="grid gap-6 mb-6 grid-cols-2 px-[24pt]">
           <div v-for="(menu,idx) in guestBuffet" :key="idx" class="flex items-center flex-col justify-start" @click="selectSet(menu)">
