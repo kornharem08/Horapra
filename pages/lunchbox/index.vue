@@ -115,6 +115,9 @@
             </div>
           </div>
         </div>
+        <div v-if="setNumber === 1 ? lists[selectListMenu].length > 7 : lists.length > 7" class="py-10">
+          <base-button-back title="ย้อนกลับ" @back="back" />
+        </div>
 
         <the-footer-button>
           <template #button>
@@ -474,6 +477,7 @@ export default {
         [...a, Number(this.setNumber) !== 2 ? `(${currentValue.name})${currentValue.menu} x ${currentValue.count}` : `${currentValue.menu} x ${currentValue.count}`], [])
     }
   },
+
   mounted () {
     if (this.$route.query.set) {
       this.setNumber = Number(this.$route.query.set)

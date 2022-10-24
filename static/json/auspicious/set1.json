@@ -26,5 +26,12 @@
     "value" : 4,
     "url" : "/button/Button/3/พิธีสงฆ์/สิริมงคล_พิธีสงฆ์-9มงคล.jpg",
     "banner" : "/auspicious/Menu/1/images4.jpg"
-    }
+    },
+    {
+        "name" : "99 มงคล",
+        "price" : 15999,
+        "value" : 5,
+        "url" : "/button/Button/3/พิธีสงฆ์/สิริมงคล_พิธีสงฆ์-9มงคล.jpg",
+        "banner" : "/auspicious/Menu/1/images4.jpg"
+        }
 ]

@@ -336,6 +336,11 @@
           *หมายเหตุ:<br>
           -รับจำนวนขั้นต่ำ 30 ท่านขึ้นไป <br> - ให้บริการ 2ชม.นับจากเวลาเริ่มทาน
         </div> -->
+          <div class=" text-[14px]  px-[24pt]">
+            เงื่อนไข:<br>
+            1. รับขั้นต่ำ 5 ชุดไป <br>
+            2. ขายร่วมกับแพคเกจพิธีสงฆ์เท่านั้น  <br>
+          </div>
 
           <div class="px-[24pt]">
             <div class="block product-count-button-position mt-4 flex justify-center">
@@ -430,6 +435,9 @@
               {{ item.name }}
             </div>
           </div>
+        </div>
+        <div class="py-10">
+          <base-button-back title="ย้อนกลับ" @back="back" />
         </div>
         <the-footer-button>
           <template #button>

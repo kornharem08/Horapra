@@ -55,5 +55,34 @@
             "banner" : "/auspicious/Menu/2/2/C.jpg"
         }
     ]
-        }
+        },
+        {
+            "name" : "มหามงคลสิริสุขพร้อมอาหาร",
+            "value" : 3,
+            "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_พิธีสงฆ์พร้อมอาหาร-สิริสุข.jpg",
+            "set" : [
+                {
+                    "name": "มหามงคลA",
+                    "value" : 1,
+                    "price" : 10499,
+                    "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สิริสุขA.jpg",
+                    "banner" : "/auspicious/Menu/2/1/A.jpg"
+                },
+                {
+                    "name": "มหามงคลB",
+                    "value" : 2,
+                    "price" : 11499,
+                    "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สิริสุขB.jpg",
+                    "banner" : "/auspicious/Menu/2/1/B.jpg"
+                    
+                },
+                {
+                    "name": "มหามงคลC",
+                    "value" : 3,
+                    "price" : 19999,
+                    "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สิริสุขC.jpg",
+                    "banner" : "/auspicious/Menu/2/1/C.jpg"
+                }
+            ]
+            }
 ]

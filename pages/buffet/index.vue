@@ -152,6 +152,9 @@
             </div>
           </div>
         </div>
+        <div class="py-10">
+          <base-button-back title="ย้อนกลับ" class="mb-2" @back="back" />
+        </div>
         <the-footer-button>
           <template #button>
             <button type="button" class="button_base" @click="next">
