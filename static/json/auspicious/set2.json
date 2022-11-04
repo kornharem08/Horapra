@@ -17,7 +17,7 @@
             "price" : 11499,
             "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สิริสุขB.jpg",
             "banner" : "/auspicious/Menu/2/1/B.jpg"
-            
+
         },
         {
             "name": "สิริสุขC",
@@ -57,31 +57,31 @@
     ]
         },
         {
-            "name" : "มหามงคลสิริสุขพร้อมอาหาร",
+            "name" : "สมบูรณ์ทรัพย์พร้อมอาหาร",
             "value" : 3,
-            "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_พิธีสงฆ์พร้อมอาหาร-สิริสุข.jpg",
+            "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_พิธีสงฆ์พร้อมอาหาร-สมบุรณ์ทรัพย์.jpg",
             "set" : [
                 {
-                    "name": "มหามงคลA",
+                    "name": "สมบูรณ์ทรัพย์A",
                     "value" : 1,
-                    "price" : 10499,
-                    "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สิริสุขA.jpg",
-                    "banner" : "/auspicious/Menu/2/1/A.jpg"
+                    "price" : 18399,
+                    "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สมบูรณ์ทรัพย์A.jpg",
+                    "banner" : "/auspicious/Menu/2/3/A.jpg"
                 },
                 {
-                    "name": "มหามงคลB",
+                    "name": "สมบูรณ์ทรัพย์B",
                     "value" : 2,
-                    "price" : 11499,
-                    "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สิริสุขB.jpg",
-                    "banner" : "/auspicious/Menu/2/1/B.jpg"
-                    
+                    "price" : 19699,
+                    "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สมบูรณ์ทรัพย์B.jpg",
+                    "banner" : "/auspicious/Menu/2/3/B.jpg"
+
                 },
                 {
-                    "name": "มหามงคลC",
+                    "name": "สมบูรณ์ทรัพย์C",
                     "value" : 3,
-                    "price" : 19999,
-                    "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สิริสุขC.jpg",
-                    "banner" : "/auspicious/Menu/2/1/C.jpg"
+                    "price" : 23999,
+                    "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สมบูรณ์ทรัพย์C.jpg",
+                    "banner" : "/auspicious/Menu/2/3/C.jpg"
                 }
             ]
             }

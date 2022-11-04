@@ -28,10 +28,10 @@
     "banner" : "/auspicious/Menu/1/images4.jpg"
     },
     {
-        "name" : "99 มงคล",
-        "price" : 15999,
+        "name" : "สมบูรณ์ทรัพย์",
+        "price" : 9999,
         "value" : 5,
-        "url" : "/button/Button/3/พิธีสงฆ์/สิริมงคล_พิธีสงฆ์-9มงคล.jpg",
-        "banner" : "/auspicious/Menu/1/images4.jpg"
+        "url" : "/button/Button/3/พิธีสงฆ์/สมบูรณ์ทรัพย์.jpg",
+        "banner" : "/auspicious/Menu/1/images5.jpg"
         }
 ]
