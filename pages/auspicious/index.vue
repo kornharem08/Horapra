@@ -59,7 +59,7 @@
                 <div v-else class="rounded-[10pt] object-cover aspect-square bg-white" />
                 <!-- <card :name="item.name" :picture="item.url" /> -->
                 <div class="mt-2 text-[15px]">
-                  {{ item.name }}
+                  {{ setNumber ===3 ? item.name + ' ' + item.price + ' บาท' : item.name }}
                 </div>
               </div>
             </div>
@@ -309,37 +309,23 @@
       </ValidObs>
       <ValidObs ref="validator5">
         <section v-if="step === 2 && setNumber === 3" class=" pt-3 pb-6">
-          <!-- <div class=" w-fit  px-[24pt] ">
-          {{ setName }} >  {{ packselected.name }}  {{ packselected.price }}
-        </div>
-        <div class=" px-[24pt] ">
-          <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="selectImage =`${imageBanner}`,isImages = true">
-            <img
-              class="rounded-[10pt] object-cover aspect-video"
-              :src="require(`~/assets/img${imageBanner}`)"
-            >
+          <div class=" w-fit  px-[24pt] ">
+            {{ setName }} >  {{ selectMenuSet3.name }}
           </div>
-        </div> -->
+          <div class=" px-[24pt] ">
+            <div class="mx-auto flex flex-col justify-center items-center  w-full  aspect-video cursor-pointer mt-3 mb-4" @click="selectImage =`${imageBanner}`,isImages = true">
+              <img
+                class="rounded-[10pt] object-cover aspect-video"
+                :src="require(`~/assets/img${imageBanner}`)"
+              >
+            </div>
+          </div>
 
-          <!-- <div v-if="setNumber === 1" class=" text-[14px]  px-[24pt]">
-          เงื่อนไข:<br>
-          1. ลูกค้าจะได้รับ ชา, กาแฟ, โอวัลติน คละแบบ <br>
-          2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)  <br>
-          3. จำนวนไม่ถึง 100 ชุด จะมีค่าจัดเบรค 400 บาท  <br>
-          4. ระยะเวลาให้บริการ 2 ชั่วโมง <br>
-          5. มีค่าขนส่งตามระยะทาง
-        </div>
-        <div v-if="setNumber === 2" class=" text-[14px]  px-[24pt] ">
-          เงื่อนไข:<br> 1. ลูกค้าจะได้รับน้ำผลไม้ 1 กล่อง (คละแบบ)<br> 2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)<br> 3. จำนวนขั้นต่ำ 50 ชุด<br> 4. มีค่าขนส่งตามระยะทาง
-        </div>
-        <div v-if="setNumber === 3 " class="text-[14px]  px-[24pt] ">
-          *หมายเหตุ:<br>
-          -รับจำนวนขั้นต่ำ 30 ท่านขึ้นไป <br> - ให้บริการ 2ชม.นับจากเวลาเริ่มทาน
-        </div> -->
           <div class=" text-[14px]  px-[24pt]">
             เงื่อนไข:<br>
             1. รับขั้นต่ำ 5 ชุดไป <br>
             2. ขายร่วมกับแพคเกจพิธีสงฆ์เท่านั้น  <br>
+            3. หากไม่รับสังฆทานในแพ็กเกจจะมีส่วนลดพิเศษสามารถแจ้งพนักงานขายได้
           </div>
 
           <div class="px-[24pt]">
@@ -1209,7 +1195,7 @@ export default {
         Name: this.$store.state.users.name,
         เบอร์โทร: this.$store.state.users.phone,
         'เบอร์โทร (สำรอง)': data.phone_backup,
-        อีเมล: this.$store.state.users.email,
+        'ชื่อ facebook': this.$store.state.users.email,
         ยอดเงิน: this.totalPrice,
         วันส่งสินค้า: this.$moment(data.date).format('L'),
         เวลาพร้อมทาน: data.time,
@@ -1236,7 +1222,7 @@ export default {
     },
     createAirtable () {
       let Airtable = require('airtable')
-      let base = new Airtable({ apiKey: 'keyt0HxfGGJGs7yGh' }).base('app8GE6tvKpt6fwj5')
+      let base = new Airtable({ apiKey: 'keyt0HxfGGJGs7yGh' }).base('appY634zk0TsIzkJ9')
 
       const createRecord = async () => {
         try {
@@ -1408,8 +1394,7 @@ export default {
         this.menu.price = packageMain.price
         this.menu.count = 0
         this.step++
-        console.log(this.menu)
-        // this.imageBanner = `/coffeebreak/${this.setNumber}/banner${value.value}.jpg`
+        this.imageBanner = `/auspicious/Menu/3/banner${packageMain.value}.jpg`
       }
     },
     nextMenu () {

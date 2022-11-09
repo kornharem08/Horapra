@@ -920,7 +920,7 @@ export default {
         Name: this.$store.state.users.name,
         เบอร์โทร: this.$store.state.users.phone,
         'เบอร์โทร (สำรอง)': data.phone_backup,
-        อีเมล: this.$store.state.users.email,
+        'ชื่อ facebook': this.$store.state.users.email,
         วันส่งสินค้า: this.$moment(data.date).format('L'),
         เวลาพร้อมทาน: data.time,
         ลิฟท์ขนของ: data.cargo_lift ? 'มี' : 'ไม่มี',
@@ -959,7 +959,7 @@ export default {
     },
     createAirtable () {
       let Airtable = require('airtable')
-      let base = new Airtable({ apiKey: 'keyt0HxfGGJGs7yGh' }).base('app8GE6tvKpt6fwj5')
+      let base = new Airtable({ apiKey: 'keyt0HxfGGJGs7yGh' }).base('appY634zk0TsIzkJ9')
 
       const createRecord = async () => {
         try {

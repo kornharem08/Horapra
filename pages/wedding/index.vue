@@ -273,7 +273,7 @@ export default {
         Name: this.$store.state.users.name,
         เบอร์โทร: this.$store.state.users.phone,
         'เบอร์โทร (สำรอง)': '-',
-        อีเมล: this.$store.state.users.email,
+        'ชื่อ facebook': this.$store.state.users.email,
         ยอดเงิน: this.packages.price,
         วันส่งสินค้า: this.$moment(new Date()).format('L'),
         เวลาพร้อมทาน: '-',
@@ -297,7 +297,7 @@ export default {
       })
 
       let Airtable = require('airtable')
-      let base = new Airtable({ apiKey: 'keyt0HxfGGJGs7yGh' }).base('app8GE6tvKpt6fwj5')
+      let base = new Airtable({ apiKey: 'keyt0HxfGGJGs7yGh' }).base('appY634zk0TsIzkJ9')
 
       const createRecord = async () => {
         try {

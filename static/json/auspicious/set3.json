@@ -1,32 +1,38 @@
 [
     {
-        "name" : "สังฆทาน1",
-        "price" : 199,
+        "name" : "บุญสุข",
+        "price" : 129,
         "value" : 1,
-        "url" : "/coffeebreak/3/ข้าวต้มหมู.jpg"
+        "url" : "/auspicious/Menu/3/1.jpg"
         },
         {
-        "name" : "สังฆทาน2",
-        "price" : 299,
+        "name" : "บุญรักษ์โลก",
+        "price" : 265,
         "value" : 2,
-        "url" : "/coffeebreak/3/ข้าวต้มทะเล.jpg"
+        "url" : "/auspicious/Menu/3/2.jpg"
         },
         {
-            "name" : "สังฆทาน3",
-            "price" : 399,
+            "name" : "บุญสุขใจ",
+            "price" : 380,
             "value" : 3,
-            "url" : "/coffeebreak/3/ข้าวต้มทะเล.jpg"
+            "url" : "/auspicious/Menu/3/3.jpg"
             },
-            {
-                "name" : "สังฆทาน4",
-                "price" : 499,
-                "value" : 4,
-                "url" : "/coffeebreak/3/ข้าวต้มทะเล.jpg"
-                },
-                {
-                    "name" : "สังฆทาน5",
-                    "price" : 599,
+        {
+            "name" : "บุญมงคล",
+            "price" : 389,
+            "value" : 4,
+            "url" : "/auspicious/Menu/3/4.jpg"
+        },
+        {
+                    "name" : "กล่องบุญ",
+                    "price" : 423,
                     "value" : 5,
-                    "url" : "/coffeebreak/3/ข้าวต้มทะเล.jpg"
-                    }
+                    "url" : "/auspicious/Menu/3/5.jpg"
+        },
+        {
+          "name" : "บุญหนุนนำ",
+          "price" : 450,
+          "value" : 6,
+          "url" : "/auspicious/Menu/3/6.jpg"
+}
 ]
