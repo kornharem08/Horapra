@@ -78,10 +78,10 @@
               class="overflow-hidden border border-gray-100 rounded-lg grid  group grid-cols-3"
               href=""
             >
-              <div class="relative flex items-center justify-center">
+              <div class="relative flex items-center aspect-square justify-center">
                 <img
                   v-if="list.url"
-                  class="absolute h-[69pt] w-full  object-cover"
+                  class="absolute h-[69pt] w-full aspect-square object-cover"
                   :src="require(`~/assets/img${list.url}`)"
                 >
               </div>
@@ -234,7 +234,7 @@
           <div v-for="(pinto,idx) in pintoset" :key="idx" class="flex items-center flex-col justify-start" @click="selectBoxSet(pinto)">
             <div class="w-full aspect-square  rounded-[10pt] flex items-center justify-center border bg-white">
               <img
-                class="rounded-[10pt] object-cover object-left h-full w-full"
+                class="rounded-[10pt] aspect-square object-cover object-left h-full w-full"
                 :src="require(`~/assets/img/Pinto/${pinto.value}x.jpg`)"
               >
             </div>
@@ -265,6 +265,14 @@
               </p>
               <p class="">
                 {{ $store.state.users.phone }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   ">
+                ชื่อ Line
+              </p>
+              <p class="">
+                {{ $store.state.users.line ? $store.state.users.line : '-' }}
               </p>
             </div>
             <div class="flex flex-row justify-between mb-2 label_base">
@@ -723,6 +731,7 @@ export default {
               { text: 'ชื่อลูกค้า: ' + this.$store.state.users.name, style: 'information' },
               { text: 'เบอร์ติดต่อ: ' + this.$store.state.users.phone, style: 'information' },
               { text: 'เบอร์ติดต่อ (สำรอง): ' + this.summary.backupPhone, style: 'information' },
+              { text: 'ชื่อ Line: ' + this.$store.state.users.line, style: 'information' },
               { text: 'ชื่อ Facebook: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
               {
                 table: {
@@ -811,6 +820,9 @@ export default {
           orderId: {
             fontSize: 10
           },
+          listmenu: {
+            fontSize: 7
+          },
           information: {
             alignment: 'left'
           }
@@ -832,14 +844,38 @@ export default {
       })
     },
     async  countFirebase () {
-      let x = await this.$db.collection('cities').orderBy('timestamp', 'desc').limit(1).get()
+      // let x = await this.$db.collection('cities').orderBy('timestamp', 'desc').limit(1).get()
+      // if (x.size) {
+      //   const data = {
+      //     id: x.docs[x.size - 1].data().id + 1,
+      //     timestamp: this.$moment(new Date()).unix()
+      //   }
+      //   const res = await this.$db.collection('cities').add(data)
+      //   let runid = ('000000' + (x.docs[x.size - 1].data().id + 1))
+      //   let prefixtime = this.$moment(new Date()).format('YYYYMM')
+      //   this.orderIdByfirebase = prefixtime + runid
+      // } else {
+      //   this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
+      // }
+      let x = await this.$db.collection('cities').orderBy('date', 'desc').limit(1).get()
+      let id = 0
+      let currentMonth = this.$moment(new Date()).format('M')
+      let pastMonth = x.docs[x.size - 1].data().month
+      if (+currentMonth === +pastMonth) {
+        id = x.docs[x.size - 1].data().id + 1
+      } else {
+        id = 1
+      }
+
       if (x.size) {
         const data = {
-          id: x.docs[x.size - 1].data().id + 1,
-          timestamp: this.$moment(new Date()).unix()
+          id,
+          timestamp: this.$moment(new Date()).unix(),
+          month: this.$moment(new Date()).format('M'),
+          date: this.$moment(new Date()).unix()
         }
         const res = await this.$db.collection('cities').add(data)
-        let runid = ('000000' + (x.docs[x.size - 1].data().id + 1))
+        let runid = ('000000' + id)
         let prefixtime = this.$moment(new Date()).format('YYYYMM')
         this.orderIdByfirebase = prefixtime + runid
       } else {
@@ -921,6 +957,7 @@ export default {
         เบอร์โทร: this.$store.state.users.phone,
         'เบอร์โทร (สำรอง)': data.phone_backup,
         'ชื่อ facebook': this.$store.state.users.email,
+        'ชื่อ Line': this.$store.state.users.line,
         วันส่งสินค้า: this.$moment(data.date).format('L'),
         เวลาพร้อมทาน: data.time,
         ลิฟท์ขนของ: data.cargo_lift ? 'มี' : 'ไม่มี',

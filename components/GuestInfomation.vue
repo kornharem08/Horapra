@@ -13,6 +13,10 @@
           <base-input v-model="users.phone" type="number" label="เบอร์โทรศัพท์ *" />
           <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
         </ValidPro>
+        <ValidPro v-slot="{ errors }" rules="required" name="ชื่อ Line">
+          <base-input v-model="users.line" type="text" label="ชื่อ Line *" />
+          <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
+        </ValidPro>
         <base-input v-model="users.email" type="email" label="ชื่อ Facebook" />
         <div class="flex items-center justify-center mt-10">
           <button type="button" class="button_base" @click="handleSubmit(submit)">
@@ -37,7 +41,8 @@ export default {
       users: {
         name: '',
         phone: '',
-        email: ''
+        email: '',
+        line: ''
       }
     }
   },

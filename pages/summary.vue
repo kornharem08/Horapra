@@ -23,6 +23,14 @@
         </div>
         <div class="flex flex-row justify-between mb-2 label_base">
           <p class="   ">
+            ชื่อ Line
+          </p>
+          <p class="">
+            {{ $store.state.users.line ? $store.state.users.line : '-' }}
+          </p>
+        </div>
+        <div class="flex flex-row justify-between mb-2 label_base">
+          <p class="   ">
             ชื่อ Facebook
           </p>
           <p class="">

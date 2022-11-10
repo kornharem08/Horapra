@@ -462,6 +462,14 @@
             </div>
             <div class="flex flex-row justify-between mb-2 label_base">
               <p class="font-medium   ">
+                ชื่อ Line
+              </p>
+              <p class="">
+                {{ $store.state.users.line ? $store.state.users.line : '-' }}
+              </p>
+            </div>
+            <div class="flex flex-row justify-between mb-2 label_base">
+              <p class="font-medium   ">
                 ชื่อ Facebook
               </p>
               <p class="">
@@ -551,7 +559,7 @@
       <section v-if="step === 7" class="step1  ">
         <div class="flex justify-between items-center px-[24pt] mb-3" @click.stop="">
           <div class="text-[18px] w-fit" @click.stop="">
-            สรุปรายการอาหาร
+            สรุปรายการสังฆทาน
           </div>
           <div v-if="orders.length < set3.length" class="text-[#5A7F52] text-[18px]" @click="addmore">
             เพิ่มรายการ
@@ -947,6 +955,7 @@ export default {
               { text: 'ชื่อลูกค้า: ' + this.$store.state.users.name, style: 'information' },
               { text: 'เบอร์ติดต่อ: ' + this.$store.state.users.phone, style: 'information' },
               { text: 'เบอร์ติดต่อ (สำรอง): ' + this.summary.backupPhone, style: 'information' },
+              { text: 'ชื่อ Line: ' + this.$store.state.users.line, style: 'information' },
               { text: 'ชื่อ Facebook: ' + this.$store.state.users.email, style: 'information', margin: [0, 0, 0, 35] },
               {
                 table: {
@@ -1129,20 +1138,45 @@ export default {
       this.step = 5
     },
     async countFirebase () {
-      let x = await this.$db.collection('cities').orderBy('timestamp', 'desc').limit(1).get()
+      let x = await this.$db.collection('cities').orderBy('date', 'desc').limit(1).get()
+      let id = 0
+      let currentMonth = this.$moment(new Date()).format('M')
+      let pastMonth = x.docs[x.size - 1].data().month
+      if (+currentMonth === +pastMonth) {
+        id = x.docs[x.size - 1].data().id + 1
+      } else {
+        id = 1
+      }
+
       if (x.size) {
         const data = {
-          id: x.docs[x.size - 1].data().id + 1,
-          timestamp: this.$moment(new Date()).unix()
+          id,
+          timestamp: this.$moment(new Date()).unix(),
+          month: this.$moment(new Date()).format('M'),
+          date: this.$moment(new Date()).unix()
         }
         const res = await this.$db.collection('cities').add(data)
-        let runid = ('000000' + (x.docs[x.size - 1].data().id + 1))
+        let runid = ('000000' + id)
         let prefixtime = this.$moment(new Date()).format('YYYYMM')
         this.orderIdByfirebase = prefixtime + runid
       } else {
         this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
       }
-      // let listRef = this.$storage.ref()
+
+      // let x = await this.$db.collection('cities').orderBy('timestamp', 'desc').limit(1).get()
+      // if (x.size) {
+      //   const data = {
+      //     id: x.docs[x.size - 1].data().id + 1,
+      //     timestamp: this.$moment(new Date()).unix()
+      //   }
+      //   const res = await this.$db.collection('cities').add(data)
+      //   let runid = ('000000' + (x.docs[x.size - 1].data().id + 1))
+      //   let prefixtime = this.$moment(new Date()).format('YYYYMM')
+      //   this.orderIdByfirebase = prefixtime + runid
+      // } else {
+      //   this.orderIdByfirebase = Math.floor(100000 + Math.random() * 900000)
+      // }
+      // // let listRef = this.$storage.ref()
 
       // // Find all the prefixes and items.
       // listRef.listAll()
@@ -1196,6 +1230,7 @@ export default {
         เบอร์โทร: this.$store.state.users.phone,
         'เบอร์โทร (สำรอง)': data.phone_backup,
         'ชื่อ facebook': this.$store.state.users.email,
+        'ชื่อ Line': this.$store.state.users.line,
         ยอดเงิน: this.totalPrice,
         วันส่งสินค้า: this.$moment(data.date).format('L'),
         เวลาพร้อมทาน: data.time,

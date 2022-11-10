@@ -2,7 +2,8 @@ export const state = () => ({
   users: {
     name: '',
     phone: '',
-    email: ''
+    email: '',
+    line: ''
   },
   auspicious_packages: {
     package: null,
