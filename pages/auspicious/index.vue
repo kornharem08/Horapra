@@ -948,7 +948,6 @@ export default {
         columns: [
           {
             stack: [
-              { text: 'ให้ทุกรสชาติอาหารของเรา อยู่ในทุกเรื่องราวของคุณ', style: 'slogan' },
               { text: 'ใบสรุปรายการ', style: 'anotherStyle' },
               { text: 'Order ID: ' + this.summary.orderid, style: 'textRight' },
               { text: 'วันที่รับออเดอร์: ' + this.$moment(new Date()).format('L'), style: 'textRight' },
