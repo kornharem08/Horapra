@@ -713,7 +713,7 @@ export default {
         })
       } else {
         let priceBuffetGuest = (Number(setPrice.price) * Number(this.guests))
-        let priceMonk = (Number(setMonk.price) * Number(this.monk))
+        let priceMonk = this.isBuffetMonk ? (Number(setMonk.price) * Number(this.monk)) : 0
         let priceAccess = x.reduce((sum, current) => sum + current.count * current.price, 0)
         Object.assign(this.fields, {
           'Rich Menu': [
