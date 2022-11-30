@@ -52,8 +52,8 @@
               </ValidPro>
             </div>
             <div class="mt-4">
-              <ValidPro v-slot="{ errors }" rules="required|minquantity" name="จำนวนแขก">
-                <base-input v-model="guests" type="number" placeholder="จำนวนแขก" label="จำนวนแขก (รวมพระสงฆ์)" />
+              <ValidPro v-slot="{ errors }" :rules="`required|digits_between:${min},${max}`" name="จำนวนแขก">
+                <base-input v-model.number="guests" type="number" placeholder="จำนวนแขก" label="จำนวนแขก (รวมพระสงฆ์)" />
                 <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
               </ValidPro>
             </div>
@@ -85,7 +85,7 @@
               </div>
             </div>
             <div v-if="isBuffetMonk" class="mt-2">
-              <ValidPro v-slot="{ errors }" rules="required|minquantity" name="จำนวนพระสงฆ์">
+              <ValidPro v-slot="{ errors }" rules="required|morethan:1" name="จำนวนพระสงฆ์">
                 <base-input v-model="monk" type="number" placeholder="จำนวนพระสงฆ์" label="จำนวนพระสงฆ์" />
                 <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
               </ValidPro>
@@ -257,7 +257,7 @@
               <p class="w-1/2">
                 รูปแบบการจัดเลี้ยงพระสงฆ์
               </p>
-              <p class="text-right w-1/2 text-right">
+              <p class="text-right w-1/2 ">
                 {{ isBuffetMonk ? setStyleMonk : 'ไม่มีจัดเลี้ยงพระสงฆ์' }}
               </p>
             </div>
@@ -265,7 +265,7 @@
               <p class="w-1/2">
                 บริการนิมนต์พระสงฆ์*
               </p>
-              <p class="text-right w-1/2 text-right">
+              <p class="text-right w-1/2 ">
                 {{ $store.state.auspicious_packages.is_monk ? 'ต้องการ' : 'ไม่ต้องการ', }}
               </p>
             </div>
@@ -273,7 +273,7 @@
               <p class="w-1/2">
                 บริการมัคนายก/มัคนายิกา แบบมืออาชีพ
               </p>
-              <p class="text-right w-1/2 text-right">
+              <p class="text-right w-1/2 ">
                 {{ $store.state.auspicious_packages.is_churchwarden ? 'ต้องการ' : 'ไม่ต้องการ', }}
               </p>
             </div>
@@ -281,7 +281,7 @@
               <p class="w-1/2 ">
                 อุปกรณ์เพิ่มเติม
               </p>
-              <p class="text-right w-1/2 text-right">
+              <p class="text-right w-1/2 ">
                 {{ listAccessories ? listAccessories : '-' }}
               </p>
             </div>
@@ -341,6 +341,8 @@ export default {
       isModalinfo: false,
       note: '',
       monk: 1,
+      min: 0,
+      max: 0,
       guests: 1,
       setPrice: 1,
       username: '',
@@ -415,7 +417,9 @@ export default {
     selectSet (value) {
       this.setbuffet = value.value
       this.step = 1
-      // console.log(value)
+      this.min = value.min
+      this.max = value.max
+      console.log(value, 'setbuffet')
     },
     handelfinish () {
       this.isFinish = false
@@ -759,7 +763,7 @@ export default {
         จำนวนพระสงฆ์: this.isBuffetMonk ? this.monk.toString() : '0',
         'Order ID': this.orderIdByfirebase,
         Notes: this.note,
-        'จำนวนแขก (รวมพระ)': this.isBuffetMonk ? (Number(this.monk) + Number(this.guests)).toString() : Number(this.guests).toString(),
+        'จำนวนแขก (รวมพระ)': Number(this.guests).toString(),
         // รูปแบบการจัดงานเลี้ยง: `${setMonk.name}: ${setMonk.price} บาท`,
         วันรับออเดอร์: this.$moment(new Date()).format('L'),
         'Last Contact': this.$moment(new Date()).format('L'),

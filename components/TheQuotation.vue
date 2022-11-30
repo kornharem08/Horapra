@@ -167,7 +167,7 @@
         </div>
 
         <div class="mt-[21px]">
-          <label for="last_name" class="label_base">เบอร์โทรสำรอง</label>
+          <label for="last_name" class="label_base">เบอร์โทรสำรอง * (กรอกโดยไม่ต้องใส่สัญลักษณ์)</label>
           <ValidPro v-slot="{ errors }" rules="required|phone_th" name="เบอร์โทรสำรอง">
             <input v-model="quotation.phone_backup" type="number" class="input_base shadow-main" style="box-shadow: rgba(19, 41, 104 , 0.1) 0px 4px 8px ;">
             <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>

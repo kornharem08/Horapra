@@ -1,5 +1,5 @@
 import vue from 'vue'
-import { extend, ValidationProvider, ValidationObserver, localize } from 'vee-validate'
+import { extend, ValidationProvider, ValidationObserver, localize, validate } from 'vee-validate'
 import {
   alpha,
   numeric,
@@ -49,6 +49,22 @@ extend('morethan', {
     return value >= target
   },
   message: 'กรุณากรอกจำนวนมากกว่าหรือเท่ากับ {target}'
+})
+
+extend('digits_between', {
+  params: ['min', 'max'],
+  validate (value, { min, max }) {
+    return (value >= min && value <= max)
+  },
+  message: 'จำนวนแขก {_field_} ต้องมากกว่า {min} และ น้อยกว่า {max} ท่าน'
+})
+
+extend('minguest', {
+  params: ['target'],
+  validate (value, { target }) {
+    return value <= target
+  },
+  message: 'กรุณากรอกจำนวนน้อยกว่าหรือเท่ากับ {target}'
 })
 
 extend('verify_password', {

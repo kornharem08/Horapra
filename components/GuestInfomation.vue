@@ -10,7 +10,7 @@
           <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
         </ValidPro>
         <ValidPro v-slot="{ errors }" rules="required|phone_th" name="เบอร์โทรศัพท์">
-          <base-input v-model="users.phone" type="number" label="เบอร์โทรศัพท์ *" />
+          <base-input v-model="users.phone" type="number" label="เบอร์โทรศัพท์ * (กรอกโดยไม่ต้องใส่สัญลักษณ์)" />
           <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
         </ValidPro>
         <ValidPro v-slot="{ errors }" rules="required" name="ชื่อ Line">
