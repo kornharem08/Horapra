@@ -56,7 +56,7 @@ extend('digits_between', {
   validate (value, { min, max }) {
     return (value >= min && value <= max)
   },
-  message: 'จำนวนแขก {_field_} ต้องมากกว่า {min} และ น้อยกว่า {max} ท่าน'
+  message: 'จำนวนแขกรวมพระสงฆ์ต้องมากกว่า {min}-{max} ท่าน'
 })
 
 extend('minguest', {

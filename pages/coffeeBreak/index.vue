@@ -57,6 +57,7 @@
           3. จำนวนไม่ถึง 100 ชุด จะมีค่าจัดเบรค 400 บาท  <br>
           4. ระยะเวลาให้บริการ 2 ชั่วโมง <br>
           5. มีค่าขนส่งตามระยะทาง
+          6.กรณีลูกค้าไม่มีจัดเลี้ยงบุฟเฟ่ต์กับทางร้านรับขั้นต่ำ 50  ท่านขึ้นไป
         </div>
         <div v-if="setNumber === 2" class=" text-[14px]  px-[24pt] ">
           เงื่อนไข:<br> 1. ลูกค้าจะได้รับน้ำผลไม้ 1 กล่อง (คละแบบ)<br> 2. ขนมเบเกอรี่ ทางร้านจัดให้คละแบบ (พาย/โรล/ครัวซอง)<br> 3. จำนวนขั้นต่ำ 50 ชุด<br> 4. มีค่าขนส่งตามระยะทาง
@@ -65,44 +66,51 @@
           *หมายเหตุ:<br>
           -รับจำนวนขั้นต่ำ 30 ท่านขึ้นไป <br> - ให้บริการ 2ชม.นับจากเวลาเริ่มทาน
         </div>
-
-        <div class="px-[24pt]">
-          <div class="block product-count-button-position mt-4 flex justify-center">
-            <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-42">
-              <button class="flex items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="menu.count > 0 ? menu.count-- : 0">
-                <span class="sr-only">button-minus</span>
-                <svg
-                  class="transition-all"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-              </button>
-              <input
-                v-model.number="menu.count"
-                type="number"
-                class="font-semibold flex items-center justify-center h-full border-none text-center focus:ring-0 transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-20"
-                min="0"
-                @focus="menu.count === 0 ? menu.count = null : menu.count"
-                @blur="menu.count === null ? menu.count = 0 : menu.count"
-              >
-              <!-- <span class="font-semibold text-brand-dark flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ menu.count }}</span> -->
-              <button class="group flex items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="menu.count++">
-                <span class="sr-only">button-plus</span>
-                <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
-              </button>
+        <ValidObs ref="form" v-slot="{ handleSubmit }">
+          <ValidPro v-slot="{ errors }" :rules="menu.min ? `morethan:${menu.min}` : 'morethan:0'" :name="packselected.name">
+            <div class="px-[24pt]">
+              <div class="block product-count-button-position mt-4 flex justify-center">
+                <div class="flex items-center justify-between rounded overflow-hidden shrink-0 h-9 md:h-10 bg-white shadow-counter rounded-3xl w-42">
+                  <button class="flex items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:ml-1 rtl:mr-1" @click="menu.count > 0 ? menu.count-- : 0">
+                    <span class="sr-only">button-minus</span>
+                    <svg
+                      class="transition-all"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 22 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    ><g opacity="1"><path d="M3.15109 11.8438L10.174 11.8439L11.8264 11.8438L18.8493 11.8439C19.0772 11.8439 19.284 11.7515 19.4335 11.602C19.5831 11.4524 19.6755 11.2455 19.6754 11.0177C19.6755 10.5608 19.3062 10.1915 18.8493 10.1916L11.8264 10.1915L10.1741 10.1915L3.15109 10.1915C2.69427 10.1915 2.32496 10.5608 2.32496 11.0177C2.32486 11.4746 2.69416 11.8439 3.15109 11.8438Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                  </button>
+                  <input
+                    v-model.number="menu.count"
+                    type="number"
+                    class="font-semibold flex items-center justify-center h-full border-none text-center focus:ring-0 transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-20"
+                    :min="menu.min"
+                    @focus="menu.count === 0 ? menu.count = null : menu.count"
+                    @blur="menu.count === null ? menu.count = 0 : menu.count"
+                  >
+                  <!-- <span class="font-semibold text-brand-dark flex items-center justify-center h-full transition-colors duration-250 ease-in-out cursor-default shrink-0 text-sm md:text-base w-6 md:w-8">{{ menu.count }}</span> -->
+                  <button class="group flex items-center justify-center h-full shrink-0 transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none w-8 md:w-12 h-8 rounded-2xl text-heading hover:bg-fill-four ltr:mr-1 rtl:ml-1" title="" @click="menu.count++">
+                    <span class="sr-only">button-plus</span>
+                    <svg width="14" height="14" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="1"><path d="M10.174 11.8439L3.15109 11.8438C2.69416 11.8439 2.32486 11.4746 2.32496 11.0177C2.32496 10.5608 2.69427 10.1915 3.15109 10.1915L10.1741 10.1915L10.174 3.16858C10.1741 2.71165 10.5433 2.34245 11.0002 2.34245C11.4571 2.34234 11.8264 2.71165 11.8263 3.16858L11.8264 10.1915L18.8493 10.1916C19.3062 10.1915 19.6755 10.5608 19.6754 11.0177C19.6755 11.2455 19.5831 11.4524 19.4335 11.602C19.284 11.7515 19.0772 11.8439 18.8493 11.8439L11.8264 11.8438L11.8264 18.8668C11.8264 19.0947 11.734 19.3015 11.5845 19.451C11.4349 19.6006 11.2281 19.6929 11.0002 19.6929C10.5433 19.693 10.174 19.3237 10.1741 18.8668L10.174 11.8439Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" /></g></svg>
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <the-footer-button>
-          <template #button>
-            <button type="button" class="button_base" @click="next">
-              ถัดไป
-            </button>
-          </template>
-        </the-footer-button>
+
+            <div v-if="errors[0]" class="label_error text-center mt-2">
+              {{ errors[0] }}
+            </div>
+          </ValidPro>
+          <the-footer-button>
+            <template #button>
+              <button type="button" class="button_base" @click="handleSubmit(next)">
+                ถัดไป
+              </button>
+            </template>
+          </the-footer-button>
+        </ValidObs>
       </section>
 
       <section v-if="step === 3" class="step1  ">
@@ -287,12 +295,14 @@ const coffeeSet = [
   {
     name: 'ขนม 1 ชิ้น',
     value: 1,
+    min: 0,
     price: 40,
     url: '/coffeebreak/1/1-40.jpg'
   },
   {
     name: 'ขนม 2 ชิ้น',
     value: 2,
+    min: 0,
     price: 55,
     url: '/coffeebreak/1/2-55.jpg'
   }
@@ -302,12 +312,14 @@ const snackSet = [
   {
     name: 'ขนม 1 ชิ้น',
     value: 1,
+    min: 50,
     price: 45,
     url: '/coffeebreak/2/1-45.jpg'
   },
   {
     name: 'ขนม 2 ชิ้น',
     value: 2,
+    min: 50,
     price: 55,
     url: '/coffeebreak/2/2-55.jpg'
   }
@@ -318,12 +330,14 @@ const boiledRice = [
     name: 'ข้าวต้มทรงเครื่องหมู',
     value: 1,
     price: 59,
+    min: 30,
     url: '/coffeebreak/3/ข้าวต้มหมู.jpg'
   },
   {
     name: 'ข้าวต้มทรงเครื่องทะเล',
     value: 2,
     price: 62,
+    min: 30,
     url: '/coffeebreak/3/ข้าวต้มทะเล.jpg'
   }
 ]
@@ -350,6 +364,7 @@ export default {
       menu: {
         count: 0,
         name: '',
+        min: 0,
         value: null,
         price: 0
       },
@@ -445,13 +460,17 @@ export default {
       // this.step = 1
     },
     selectPacakge (item) {
-      console.log(item)
+      console.log(item, 'min')
       console.log(this.setNumber)
       this.selectMenu = item.value
       this.menu.value = item.value
       this.menu.name = item.name
+      this.menu.min = item.min
       this.menu.price = item.price
-      this.menu.count = 0
+      if (item.min > 0) {
+        this.menu.count = item.min
+      }
+      // this.menu.count = 0
       this.imageBanner = `/coffeebreak/${this.setNumber}/banner${item.value}.jpg`
 
       this.step++

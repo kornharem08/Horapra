@@ -578,7 +578,12 @@ export default {
 
       if ((result.length < 5 && (this.menu.length + result.length) < 5) || found) {
         item.count++
+      } else {
+        this.$notify({ group: 'auth', text: '1 ออเดอร์  เลือกเมนูได้ 5 Set เมนูเท่านั้นหากต้องการมากกว่านี้สามารถปรึกษาเจ้าหน้าที่ได้ค่ะ', type: 'warning' })
       }
+      // if (result.length === 5) {
+      //   this.$notify({ group: 'auth', text: '1 ออเดอร์  เลือกเมนูได้ 5 Set เมนูเท่านั้นหากต้องการมากกว่านี้สามารถปรึกษาเจ้าหน้าที่ได้ค่ะ', type: 'warning' })
+      // }
     },
     addmore () {
       this.step = 2
