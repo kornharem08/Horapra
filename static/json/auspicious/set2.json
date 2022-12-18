@@ -64,14 +64,14 @@
                 {
                     "name": "สมบูรณ์ทรัพย์A",
                     "value" : 1,
-                    "price" : 18399,
+                    "price" : 18199,
                     "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สมบูรณ์ทรัพย์A.jpg",
                     "banner" : "/auspicious/Menu/2/3/A.jpg"
                 },
                 {
                     "name": "สมบูรณ์ทรัพย์B",
                     "value" : 2,
-                    "price" : 19699,
+                    "price" : 19999,
                     "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สมบูรณ์ทรัพย์B.jpg",
                     "banner" : "/auspicious/Menu/2/3/B.jpg"
 
@@ -79,7 +79,7 @@
                 {
                     "name": "สมบูรณ์ทรัพย์C",
                     "value" : 3,
-                    "price" : 23999,
+                    "price" : 24499,
                     "url" : "/button/Button/3/พิธีสงฆ์พร้อมอาหาร/สิริมงคล_สมบูรณ์ทรัพย์C.jpg",
                     "banner" : "/auspicious/Menu/2/3/C.jpg"
                 }

@@ -52,7 +52,7 @@
               </ValidPro>
             </div>
             <div class="mt-4">
-              <ValidPro v-slot="{ errors }" :rules="`required|digits_between:${min},${max}`" name="จำนวนแขก">
+              <ValidPro v-slot="{ errors }" :rules="`required|digits_between:${minGuest},${maxGuest}`" name="จำนวนแขก">
                 <base-input v-model.number="guests" type="number" placeholder="จำนวนแขก" label="จำนวนแขก (รวมพระสงฆ์)" />
                 <span v-if="errors[0]" class="label_error">{{ errors[0] }}</span>
               </ValidPro>
@@ -359,6 +359,14 @@ export default {
     optionprice () {
       return this.priceBuffet[this.setbuffet]
     },
+    minGuest () {
+      let setBuffet = this.guestBuffet.find(x => x.value === this.setbuffet)
+      return setBuffet.min
+    },
+    maxGuest () {
+      let setBuffet = this.guestBuffet.find(x => x.value === this.setbuffet)
+      return setBuffet.max
+    },
     setPriceBuffet () {
       let x = this.optionprice.find(x => x.value === this.setPrice)
       if (x) {
@@ -419,7 +427,6 @@ export default {
       this.step = 1
       this.min = value.min
       this.max = value.max
-      console.log(value, 'setbuffet')
     },
     handelfinish () {
       this.isFinish = false
